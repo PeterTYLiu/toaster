@@ -1,0 +1,14 @@
+self.__RSC_CSS_MANIFEST={
+  "cssImports": {
+    "/Users/peter/toaster/src/app/page.tsx": [
+      "/Users/peter/toaster/src/app/page.module.scss"
+    ],
+    "/Users/peter/toaster/src/app/layout.tsx": [
+      "/Users/peter/toaster/node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}",
+      "/Users/peter/toaster/src/app/globals.css"
+    ]
+  },
+  "cssModules": {
+    "/Users/peter/toaster/src/app/page": []
+  }
+}

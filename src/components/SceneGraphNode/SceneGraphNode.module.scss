@@ -1,0 +1,12 @@
+.children {
+  padding-left: 12px;
+}
+
+.active {
+  > .parent {
+    background-color: red;
+  }
+  .children {
+    background-color: pink;
+  }
+}

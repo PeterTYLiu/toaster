@@ -1,0 +1,34 @@
+.plane {
+  transform-style: preserve-3d;
+  position: absolute;
+  border-radius: 50%;
+  width: var(--width);
+  height: var(--width);
+  transform: rotateY(90deg)
+    rotateX(calc(var(--plane) * (180deg / var(--planes))));
+}
+
+.spoke {
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 2px;
+  left: calc(50% - 1px);
+  transform: rotateZ(calc(var(--spoke) * (360deg / var(--spokes))));
+}
+
+.face {
+  --this-height: calc(var(--width) / var(--planes) * 1.57);
+  --this-width: calc(var(--width) / var(--spokes) * 3.14);
+
+  transform-style: preserve-3d;
+  position: absolute;
+  width: var(--this-width);
+  height: var(--this-height);
+
+  left: calc(-1 * (var(--this-width) / 2) + 1px);
+  border: 1px solid black;
+  background-color: var(--bg);
+  transform: rotateX(90deg);
+}

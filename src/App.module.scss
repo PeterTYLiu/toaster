@@ -1,0 +1,30 @@
+.main {
+  border: 1px solid red;
+  background-color: aliceblue;
+  overflow: hidden;
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
+  perspective: 800px;
+
+  * {
+    transform-style: preserve-3d;
+    position: absolute;
+  }
+}
+
+.lower {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+}
+
+.world {
+  width: 100%;
+  height: 900px;
+  text-align: center;
+  color: black;
+  background-color: #6f38ba55;
+  transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z))
+    scale3d(var(--zoom), var(--zoom), var(--zoom));
+}

@@ -1,0 +1,48 @@
+.face {
+  transform-style: preserve-3d;
+  position: absolute;
+  border: 1px solid black;
+  box-sizing: border-box;
+  background-color: var(--bg);
+
+  &.front {
+    translate: 0 0 calc(var(--depth) / 2);
+    width: var(--width);
+    height: var(--height);
+  }
+
+  &.back {
+    translate: 0 0 calc(var(--depth) / -2);
+    transform: rotateY(180deg);
+    width: var(--width);
+    height: var(--height);
+  }
+
+  &.right {
+    translate: calc(var(--width) - var(--depth) / 2) 0 0;
+    transform: rotateY(-90deg);
+    width: var(--depth);
+    height: var(--height);
+  }
+
+  &.left {
+    translate: calc(var(--depth) / -2) 0 0;
+    transform: rotateY(90deg);
+    width: var(--depth);
+    height: var(--height);
+  }
+
+  &.top {
+    translate: 0 calc(var(--depth) / -2) 0;
+    transform: rotateX(90deg);
+    width: var(--width);
+    height: var(--depth);
+  }
+
+  &.bottom {
+    translate: 0 calc(var(--height) - var(--depth) / 2) 0;
+    transform: rotateX(-90deg);
+    width: var(--width);
+    height: var(--depth);
+  }
+}

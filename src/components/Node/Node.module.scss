@@ -1,0 +1,23 @@
+.node {
+  transform-style: preserve-3d;
+  position: absolute;
+  &.active {
+    * {
+      border-color: lawngreen !important;
+      border-width: 2px !important;
+    }
+  }
+}
+
+.polygon {
+  transform-style: preserve-3d;
+  position: absolute;
+  &:hover {
+    * {
+      border-color: lawngreen;
+    }
+    ~ * * {
+      border-color: lawngreen !important;
+    }
+  }
+}
