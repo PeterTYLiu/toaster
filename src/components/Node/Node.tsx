@@ -11,6 +11,7 @@ export function Node({ node }: { node: NodeClass }) {
     "--width": node.width + "px",
     "--height": node.height + "px",
     "--depth": node.depth + "px",
+    "--radius": node.radius + "px",
   };
 
   // These variables are inherited from its parent and/or passed on to its children

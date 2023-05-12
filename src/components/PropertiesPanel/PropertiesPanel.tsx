@@ -162,16 +162,16 @@ export default function PropertiesPanel() {
         </summary>
         <section>
           <label>
-            <span>Width</span>
+            <span>Radius</span>
             <input
               type="number"
-              value={activeNode.width}
+              value={activeNode.radius}
               onChange={(e) =>
                 dispatch({
                   type: "updateNodeById",
                   payload: {
                     id: activeNodeId,
-                    properties: { width: e.target.valueAsNumber },
+                    properties: { radius: e.target.valueAsNumber },
                   },
                 })
               }
@@ -179,6 +179,22 @@ export default function PropertiesPanel() {
           </label>
           {activeNode.type !== "sphere" && (
             <>
+              <label>
+                <span>Width</span>
+                <input
+                  type="number"
+                  value={activeNode.width}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { width: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
               <label>
                 <span>Height</span>
                 <input

@@ -1,9 +1,22 @@
 import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./SceneGraphNode.module.scss";
+import { IconFolder, IconBox, IconWorld } from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
+
+  let icon = <IconFolder />;
+
+  switch (node.type) {
+    case "rectPrism":
+      icon = <IconBox />;
+      break;
+    case "sphere":
+      icon = <IconWorld />;
+      break;
+  }
+
   return (
     <div
       className={`${styles.node} ${
@@ -11,7 +24,7 @@ export default function SceneGraphNode({ node }: { node: Node }) {
       }`}
     >
       <div className={styles.parent}>
-        <button
+        <span
           onClick={() => {
             dispatch({
               type: "setActiveNodeId",
@@ -19,8 +32,9 @@ export default function SceneGraphNode({ node }: { node: Node }) {
             });
           }}
         >
+          {icon}
           {node.name || `unnamed ${node.type}`}
-        </button>
+        </span>
       </div>
       <div className={styles.children}>
         {node.children.map((child) => (

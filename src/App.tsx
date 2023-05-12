@@ -1,4 +1,4 @@
-import { type CSSProperties, useReducer } from "react";
+import { type CSSProperties, useReducer, useState } from "react";
 import styles from "./App.module.scss";
 import SceneGraph from "./components/SceneGraph/SceneGraph";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
@@ -33,6 +33,7 @@ export class Node {
   width: number;
   height: number;
   depth: number;
+  radius: number;
 
   constructor(type: NodeType, color?: string, borderColor?: string) {
     this.id = crypto.randomUUID();
@@ -51,6 +52,7 @@ export class Node {
     this.depth = 400;
     this.width = 400;
     this.height = 400;
+    this.radius = 200;
     this.opacity = 1;
     this.color = color;
     this.borderColor = borderColor;
@@ -70,6 +72,7 @@ const defaultCamera: Camera = {
 };
 
 function App() {
+  const [isDragging, setIsDragging] = useState(false);
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
@@ -78,33 +81,7 @@ function App() {
 
   return (
     <SceneContext.Provider value={{ ...scene, dispatch }}>
-      <nav>
-        <input
-          type="range"
-          min="0"
-          max="90"
-          value={scene.camera.rotateX}
-          onChange={(e) =>
-            dispatch({
-              type: "updateCamera",
-              payload: { rotateX: parseInt(e.target.value) },
-            })
-          }
-        />
-
-        <input
-          type="range"
-          min="0"
-          max="360"
-          value={scene.camera.rotateZ}
-          onChange={(e) =>
-            dispatch({
-              type: "updateCamera",
-              payload: { rotateZ: parseInt(e.target.value) },
-            })
-          }
-        />
-      </nav>
+      <nav></nav>
       <div className={styles.lower}>
         <SceneGraph />
         <main
@@ -115,9 +92,21 @@ function App() {
             const newZoom = scene.camera.zoom + e.deltaY / 100;
             dispatch({
               type: "updateCamera",
+              payload: { zoom: Math.max(Math.min(newZoom, 30), 0.05) },
+            });
+          }}
+          onPointerDown={() => setIsDragging(true)}
+          onPointerUp={() => setIsDragging(false)}
+          onPointerMove={(e) => {
+            if (!isDragging) return;
+
+            console.log(e.movementX, e.movementY);
+
+            dispatch({
+              type: "updateCamera",
               payload: {
-                ...scene.camera,
-                zoom: Math.max(Math.min(newZoom, 30), 0.05),
+                rotateZ: scene.camera.rotateZ - e.movementX,
+                rotateX: scene.camera.rotateX + e.movementY,
               },
             });
           }}

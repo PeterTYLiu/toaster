@@ -2,6 +2,14 @@
   padding-left: 12px;
 }
 
+.parent {
+  position: relative;
+  cursor: default;
+  &:hover {
+    background-color: pink;
+  }
+}
+
 .active {
   > .parent {
     background-color: red;

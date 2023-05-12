@@ -1,9 +1,10 @@
 .plane {
+  --diameter: calc(var(--radius) * 2);
   transform-style: preserve-3d;
   position: absolute;
   border-radius: 50%;
-  width: var(--width);
-  height: var(--width);
+  width: var(--diameter);
+  height: var(--diameter);
   transform: rotateY(90deg)
     rotateX(calc(var(--plane) * (180deg / var(--planes))));
 }
@@ -19,8 +20,8 @@
 }
 
 .face {
-  --this-height: calc(var(--width) / var(--planes) * 1.57);
-  --this-width: calc(var(--width) / var(--spokes) * 3.14);
+  --this-height: calc(var(--diameter) / var(--planes) * 1.57);
+  --this-width: calc(var(--diameter) / var(--spokes) * 3.14);
 
   transform-style: preserve-3d;
   position: absolute;
