@@ -5,6 +5,9 @@
 .parent {
   position: relative;
   cursor: default;
+  span {
+    
+  }
   &:hover {
     background-color: pink;
   }

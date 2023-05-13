@@ -5,43 +5,50 @@
   box-sizing: border-box;
   background-color: var(--bg);
 
+  --half-w: calc(var(--width) / 2);
+  --half-h: calc(var(--height) / 2);
+  --half-d: calc(var(--depth) / 2);
+
   &.front {
-    translate: 0 0 calc(var(--depth) / 2);
+    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h)) var(--half-d);
     width: var(--width);
     height: var(--height);
   }
 
   &.back {
-    translate: 0 0 calc(var(--depth) / -2);
     transform: rotateY(180deg);
+    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h))
+      calc(var(--depth) / -2);
     width: var(--width);
     height: var(--height);
   }
 
   &.right {
-    translate: calc(var(--width) - var(--depth) / 2) 0 0;
     transform: rotateY(-90deg);
+    translate: calc(-1 * var(--half-w) - var(--half-d)) calc(-1 * var(--half-h))
+      0;
     width: var(--depth);
     height: var(--height);
   }
 
   &.left {
-    translate: calc(var(--depth) / -2) 0 0;
     transform: rotateY(90deg);
+    translate: calc(var(--half-w) - var(--half-d)) calc(-1 * var(--half-h)) 0;
     width: var(--depth);
     height: var(--height);
   }
 
   &.top {
-    translate: 0 calc(var(--depth) / -2) 0;
     transform: rotateX(90deg);
+    translate: calc(-1 * var(--half-w)) calc(var(--half-h) - var(--half-d)) 0;
     width: var(--width);
     height: var(--depth);
   }
 
   &.bottom {
-    translate: 0 calc(var(--height) - var(--depth) / 2) 0;
     transform: rotateX(-90deg);
+    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h) - var(--half-d))
+      0;
     width: var(--width);
     height: var(--depth);
   }

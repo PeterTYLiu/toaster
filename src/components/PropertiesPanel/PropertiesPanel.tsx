@@ -154,6 +154,63 @@ export default function PropertiesPanel() {
               }
             />
           </label>
+
+          <label>
+            <span>Rotate X</span>
+            <input
+              type="number"
+              min="-360"
+              max="360"
+              value={activeNode.rotateX}
+              onChange={(e) =>
+                dispatch({
+                  type: "updateNodeById",
+                  payload: {
+                    id: activeNodeId,
+                    properties: { rotateX: e.target.valueAsNumber },
+                  },
+                })
+              }
+            />
+          </label>
+
+          <label>
+            <span>Rotate Y</span>
+            <input
+              type="number"
+              min="-360"
+              max="360"
+              value={activeNode.rotateY}
+              onChange={(e) =>
+                dispatch({
+                  type: "updateNodeById",
+                  payload: {
+                    id: activeNodeId,
+                    properties: { rotateY: e.target.valueAsNumber },
+                  },
+                })
+              }
+            />
+          </label>
+
+          <label>
+            <span>Rotate Z</span>
+            <input
+              type="number"
+              min="-360"
+              max="360"
+              value={activeNode.rotateZ}
+              onChange={(e) =>
+                dispatch({
+                  type: "updateNodeById",
+                  payload: {
+                    id: activeNodeId,
+                    properties: { rotateZ: e.target.valueAsNumber },
+                  },
+                })
+              }
+            />
+          </label>
         </section>
       </details>
       <details open>
@@ -161,22 +218,24 @@ export default function PropertiesPanel() {
           <h2>Dimensions</h2>
         </summary>
         <section>
-          <label>
-            <span>Radius</span>
-            <input
-              type="number"
-              value={activeNode.radius}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { radius: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
+          {activeNode.type === "sphere" && (
+            <label>
+              <span>Radius</span>
+              <input
+                type="number"
+                value={activeNode.radius}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { radius: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
           {activeNode.type !== "sphere" && (
             <>
               <label>
@@ -275,7 +334,10 @@ export default function PropertiesPanel() {
             payload: {
               id: activeNodeId,
               properties: {
-                children: [...activeNode.children, new Node("sphere")],
+                children: [
+                  ...activeNode.children,
+                  new Node({ type: "sphere", translateX: 100 }),
+                ],
               },
             },
           });
@@ -290,7 +352,10 @@ export default function PropertiesPanel() {
             payload: {
               id: activeNodeId,
               properties: {
-                children: [...activeNode.children, new Node("rectPrism")],
+                children: [
+                  ...activeNode.children,
+                  new Node({ type: "rectPrism", translateX: 100 }),
+                ],
               },
             },
           });

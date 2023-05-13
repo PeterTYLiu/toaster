@@ -5,6 +5,7 @@ import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
+import { defaultModel } from "./defaultModel";
 
 type NodeType = "group" | "rectPrism" | "cylinder" | "sphere" | "cone";
 
@@ -35,27 +36,27 @@ export class Node {
   depth: number;
   radius: number;
 
-  constructor(type: NodeType, color?: string, borderColor?: string) {
+  constructor(input: Partial<Node>) {
     this.id = crypto.randomUUID();
-    this.name = `New ${type}`;
-    this.type = type;
-    this.translateX = 0;
-    this.translateY = 0;
-    this.translateZ = 0;
-    this.scaleX = 1;
-    this.scaleY = 1;
-    this.scaleZ = 1;
-    this.rotateX = 0;
-    this.rotateY = 0;
-    this.rotateZ = 0;
+    this.name = `New ${input.type ?? "rectPrism"}`;
+    this.type = input.type ?? "rectPrism";
+    this.translateX = input.translateX ?? 0;
+    this.translateY = input.translateY ?? 0;
+    this.translateZ = input.translateZ ?? 0;
+    this.scaleX = input.scaleX ?? 1;
+    this.scaleY = input.scaleY ?? 1;
+    this.scaleZ = input.scaleZ ?? 1;
+    this.rotateX = input.rotateX ?? 0;
+    this.rotateY = input.rotateY ?? 0;
+    this.rotateZ = input.rotateZ ?? 0;
     this.children = [];
-    this.depth = 400;
-    this.width = 400;
-    this.height = 400;
-    this.radius = 200;
-    this.opacity = 1;
-    this.color = color;
-    this.borderColor = borderColor;
+    this.depth = input.depth ?? 200;
+    this.width = input.width ?? 200;
+    this.height = input.height ?? 200;
+    this.radius = input.radius ?? 200;
+    this.opacity = input.opacity ?? 1;
+    this.color = input.color;
+    this.borderColor = input.borderColor;
   }
 }
 
@@ -66,8 +67,8 @@ export interface Camera {
 }
 
 const defaultCamera: Camera = {
-  zoom: 1,
-  rotateX: 100,
+  zoom: 0.5,
+  rotateX: 40,
   rotateZ: 60,
 };
 
@@ -76,12 +77,14 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: [new Node("sphere", "#bbbbbb", "black")],
+    nodes: defaultModel,
   });
 
   return (
     <SceneContext.Provider value={{ ...scene, dispatch }}>
-      <nav></nav>
+      <nav>
+        <button onClick={() => console.log(scene.nodes)}>log nodes</button>
+      </nav>
       <div className={styles.lower}>
         <SceneGraph />
         <main
@@ -106,7 +109,11 @@ function App() {
               type: "updateCamera",
               payload: {
                 rotateZ: scene.camera.rotateZ - e.movementX,
-                rotateX: scene.camera.rotateX + e.movementY,
+
+                rotateX: Math.min(
+                  Math.max(scene.camera.rotateX - e.movementY, 0),
+                  87
+                ),
               },
             });
           }}

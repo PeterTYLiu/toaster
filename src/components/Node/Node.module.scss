@@ -4,12 +4,12 @@
   &.active {
     * {
       border-color: lawngreen !important;
-      border-width: 2px !important;
+      border-width: 3px !important;
     }
   }
 }
 
-.polygon {
+.solid {
   transform-style: preserve-3d;
   position: absolute;
   &:hover {

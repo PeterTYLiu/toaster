@@ -7,7 +7,7 @@ import useSceneContext from "../../hooks/UseSceneContext";
 export function Node({ node }: { node: NodeClass }) {
   const { dispatch, activeNodeId } = useSceneContext();
 
-  const polygonVariables: Record<string, string> = {
+  const solidVariables: Record<string, string> = {
     "--width": node.width + "px",
     "--height": node.height + "px",
     "--depth": node.depth + "px",
@@ -33,11 +33,11 @@ export function Node({ node }: { node: NodeClass }) {
       style={{
         ...inheitedVariables,
         translate: `${node.translateX}px ${node.translateY}px ${node.translateZ}px`,
-        transform: `scale3d(${node.scaleX}, ${node.scaleY}, ${node.scaleZ})`,
+        transform: `scale3d(${node.scaleX}, ${node.scaleY}, ${node.scaleZ}) rotateX(${node.rotateX}deg) rotateY(${node.rotateY}deg) rotateZ(${node.rotateZ}deg)`,
       }}
     >
       {node.type !== "group" && (
-        <div className={styles.polygon} style={polygonVariables}>
+        <div className={styles.solid} style={solidVariables}>
           {node.type === "rectPrism" && <RectPrism />}
           {node.type === "sphere" && <Sphere id={node.id} />}
         </div>
