@@ -11,7 +11,15 @@ export default function SceneGraph() {
         onClick={() =>
           dispatch({
             type: "newNode",
-            payload: { properties: { type: "sphere" } },
+            payload: {
+              properties: {
+                type: "sphere",
+                translateX: 500,
+                translateY: 500,
+                translateZ: 130,
+                radius: 150,
+              },
+            },
           })
         }
       >
@@ -21,7 +29,14 @@ export default function SceneGraph() {
         onClick={() =>
           dispatch({
             type: "newNode",
-            payload: { properties: { type: "rectPrism" } },
+            payload: {
+              properties: {
+                type: "rectPrism",
+                translateX: 500,
+                translateY: 500,
+                translateZ: 100,
+              },
+            },
           })
         }
       >
@@ -31,14 +46,20 @@ export default function SceneGraph() {
         onClick={() =>
           dispatch({
             type: "newNode",
-            payload: { properties: { type: "pyramid" } },
+            payload: {
+              properties: {
+                type: "pyramid",
+                translateX: 500,
+                translateY: 500,
+                translateZ: 100,
+              },
+            },
           })
         }
       >
         Add Pyramid
       </button>
 
-      <hr />
       {nodes.map((node) => (
         <SceneGraphNode node={node} key={node.id} />
       ))}

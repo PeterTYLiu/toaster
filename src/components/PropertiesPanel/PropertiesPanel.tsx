@@ -1,6 +1,18 @@
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./PropertiesPanel.module.scss";
-import { Node } from "../../App";
+import type { Node } from "../../App";
+import { IconBox, IconWorld, IconBrandPrisma } from "@tabler/icons-react";
+
+const propertiesMap: Record<
+  Node["type"],
+  Partial<Record<keyof Node, boolean>>
+> = {
+  group: {},
+  rectPrism: { width: true, height: true, depth: true },
+  pyramid: { radius: true, baseSides: true, height: true },
+  sphere: { radius: true },
+  cylinder: {},
+};
 
 function findNodeById(nodes: Node[], id: string | null): Node | undefined {
   // Loop through nodes
@@ -18,11 +30,72 @@ export default function PropertiesPanel() {
 
   const activeNode = findNodeById(nodes, activeNodeId);
 
-  if (!activeNode) return <div className={styles.properties} />;
+  if (!activeNode)
+    return (
+      <div className={styles.properties}>
+        <div>
+          <h1>Toaster</h1>
+          <h2>
+            Pure CSS 3D Editor
+            <br />
+            (work in progress!)
+          </h2>
+          <br />
+          <p>
+            A 3D editor entirely using CSS 3D functions. Inspired by{" "}
+            <a href="http://tridiv.com/" target="_blank">
+              tridiv.com
+            </a>{" "}
+            with some important improvements:
+          </p>
+          <ul>
+            <li>
+              A node tree with parenting, grouping, and property inheritence
+            </li>
+            <li>Spheres and n-sided pyramids</li>
+            <li>X/Y/Z scaling for all nodes/solids</li>
+          </ul>
+          <a href="https://github.com/PeterTYLiu/toaster">Github</a>
+        </div>
+        <div>
+          <button
+            style={{ display: "block" }}
+            onClick={() => {
+              const type = "text/plain";
+              const blob = new Blob([JSON.stringify(nodes)], { type });
+              const data = [new ClipboardItem({ [type]: blob })];
+
+              navigator.clipboard.write(data).then(
+                () =>
+                  alert(
+                    "Model copied to clipboard as JSON! Paste it somewhere for safekeeping or share with someone"
+                  ),
+                () => alert("Copy failed")
+              );
+            }}
+          >
+            Save model as JSON
+          </button>
+          <br />
+          <label>To load a model, paste your JSON here:</label>
+          <textarea
+            autoCorrect="off"
+            spellCheck="false"
+            rows={8}
+            value={JSON.stringify(nodes)}
+            onChange={(e) =>
+              dispatch({
+                type: "setNodes",
+                payload: JSON.parse(e.target.value),
+              })
+            }
+          />
+        </div>
+      </div>
+    );
 
   return (
     <div className={styles.properties}>
-      <p>{activeNode.id}</p>
       <details open>
         <summary>
           <h2>Node name</h2>
@@ -41,6 +114,58 @@ export default function PropertiesPanel() {
               })
             }
           />
+          <p>Node type: {activeNode.type}</p>
+        </section>
+      </details>
+      <details open>
+        <summary>
+          <h2>Add child nodes</h2>
+        </summary>
+        <section>
+          <div className={styles.inline}>
+            <button
+              onClick={() => {
+                if (!activeNodeId) return;
+                dispatch({
+                  type: "newNode",
+                  payload: {
+                    parentId: activeNodeId,
+                    properties: { type: "sphere", translateX: 100 },
+                  },
+                });
+              }}
+            >
+              <IconWorld />
+            </button>
+            <button
+              onClick={() => {
+                if (!activeNodeId) return;
+                dispatch({
+                  type: "newNode",
+                  payload: {
+                    parentId: activeNodeId,
+                    properties: { type: "rectPrism", translateX: 100 },
+                  },
+                });
+              }}
+            >
+              <IconBox />
+            </button>
+            <button
+              onClick={() => {
+                if (!activeNodeId) return;
+                dispatch({
+                  type: "newNode",
+                  payload: {
+                    parentId: activeNodeId,
+                    properties: { type: "pyramid", translateX: 100 },
+                  },
+                });
+              }}
+            >
+              <IconBrandPrisma />
+            </button>
+          </div>
         </section>
       </details>
       <details open>
@@ -219,7 +344,7 @@ export default function PropertiesPanel() {
           <h2>Dimensions</h2>
         </summary>
         <section>
-          {(activeNode.type === "sphere" || activeNode.type === "pyramid") && (
+          {propertiesMap[activeNode.type].radius && (
             <label>
               <span>Radius</span>
               <input
@@ -237,7 +362,7 @@ export default function PropertiesPanel() {
               />
             </label>
           )}
-          {activeNode.type === "pyramid" && (
+          {propertiesMap[activeNode.type].baseSides && (
             <label>
               <span>Base sides</span>
               <input
@@ -256,57 +381,59 @@ export default function PropertiesPanel() {
               />
             </label>
           )}
-          {activeNode.type !== "sphere" && (
-            <>
-              <label>
-                <span>Width</span>
-                <input
-                  type="number"
-                  value={activeNode.width}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { width: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-              <label>
-                <span>Height</span>
-                <input
-                  type="number"
-                  value={activeNode.height}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { height: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-              <label>
-                <span>Depth</span>
-                <input
-                  type="number"
-                  value={activeNode.depth}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { depth: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-            </>
+          {propertiesMap[activeNode.type].width && (
+            <label>
+              <span>Width</span>
+              <input
+                type="number"
+                value={activeNode.width}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { width: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {propertiesMap[activeNode.type].height && (
+            <label>
+              <span>Height</span>
+              <input
+                type="number"
+                value={activeNode.height}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { height: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {propertiesMap[activeNode.type].depth && (
+            <label>
+              <span>Depth</span>
+              <input
+                type="number"
+                value={activeNode.depth}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { depth: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
           )}
         </section>
       </details>
@@ -346,59 +473,18 @@ export default function PropertiesPanel() {
           </label>
         </section>
       </details>
-
-      <button
-        onClick={() => {
-          if (!activeNodeId) return;
-          dispatch({
-            type: "newNode",
-            payload: {
-              parentId: activeNodeId,
-              properties: { type: "sphere", translateX: 100 },
-            },
-          });
-        }}
-      >
-        Add child sphere
-      </button>
-      <button
-        onClick={() => {
-          if (!activeNodeId) return;
-          dispatch({
-            type: "newNode",
-            payload: {
-              parentId: activeNodeId,
-              properties: { type: "rectPrism", translateX: 100 },
-            },
-          });
-        }}
-      >
-        Add child cube
-      </button>
-      <button
-        onClick={() => {
-          if (!activeNodeId) return;
-          dispatch({
-            type: "newNode",
-            payload: {
-              parentId: activeNodeId,
-              properties: { type: "pyramid", translateX: 100 },
-            },
-          });
-        }}
-      >
-        Add child pyramid
-      </button>
-      <button
-        onClick={() => {
-          dispatch({
-            type: "deleteNodeById",
-            payload: activeNode.id,
-          });
-        }}
-      >
-        Delete
-      </button>
+      <div className={styles.inline}>
+        <button
+          onClick={() => {
+            dispatch({
+              type: "deleteNodeById",
+              payload: activeNode.id,
+            });
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }

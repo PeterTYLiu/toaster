@@ -1,18 +1,33 @@
 $summary-text: 14px;
 
+.inline {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  > * {
+    flex-grow: 1;
+  }
+}
+
 .properties {
+  overflow: auto;
   width: 230px;
   flex-grow: 0;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  ul {
+    padding-inline-start: 20px;
+  }
   summary {
     line-height: $summary-text;
     h2 {
       display: inline;
-      line-height: $summary-text;
-      font-size: $summary-text;
     }
+  }
+  h2 {
+    line-height: $summary-text;
+    font-size: $summary-text;
   }
   section {
     padding-top: 12px;
@@ -20,15 +35,16 @@ $summary-text: 14px;
     gap: 8px;
     display: flex;
   }
-  details {
+  > * {
     padding: 12px 16px;
+    border-bottom: 1px solid gray;
   }
   label {
     display: flex;
     justify-content: space-between;
     align-items: center;
     input {
-      width: 35%;
+      width: 33.3%;
     }
   }
 }

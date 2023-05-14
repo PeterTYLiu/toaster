@@ -1,7 +1,12 @@
 import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./SceneGraphNode.module.scss";
-import { IconFolder, IconBox, IconWorld } from "@tabler/icons-react";
+import {
+  IconFolder,
+  IconBox,
+  IconWorld,
+  IconBrandPrisma,
+} from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
@@ -14,6 +19,9 @@ export default function SceneGraphNode({ node }: { node: Node }) {
       break;
     case "sphere":
       icon = <IconWorld size={20} />;
+      break;
+    case "pyramid":
+      icon = <IconBrandPrisma size={20} />;
       break;
   }
 

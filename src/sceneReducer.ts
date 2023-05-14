@@ -51,6 +51,11 @@ interface BaseAction {
   payload: unknown;
 }
 
+interface setNodesAction extends BaseAction {
+  type: "setNodes";
+  payload: Node[];
+}
+
 interface UpdateNodeByIdAction extends BaseAction {
   type: "updateNodeById";
   payload: { id: string | null; properties: Partial<Node> };
@@ -82,6 +87,7 @@ interface SetHoverNodeIdAction extends BaseAction {
 }
 
 export type Action =
+  | setNodesAction
   | UpdateNodeByIdAction
   | SetActiveNodeIdAction
   | UpdateCameraAction
@@ -94,6 +100,8 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { activeNodeId: oldActiveNodeId, nodes: oldNodes } = oldScene;
 
   switch (type) {
+    case "setNodes":
+      return { ...oldScene, nodes: payload };
     case "updateCamera":
       return { ...oldScene, camera: { ...oldScene.camera, ...payload } };
     case "setActiveNodeId":

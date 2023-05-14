@@ -58,8 +58,8 @@ export class Node {
     this.height = input.height ?? 200;
     this.radius = input.radius ?? 200;
     this.opacity = input.opacity ?? 1;
-    this.color = input.color;
-    this.borderColor = input.borderColor;
+    this.color = input.color ?? undefined;
+    this.borderColor = input.borderColor ?? undefined;
     this.baseSides = 4;
   }
 }
@@ -129,7 +129,6 @@ function App() {
               } as CSSProperties
             }
           >
-            This is the world
             {scene.nodes.map((node) => (
               <NodeComponent node={node} key={node.id} />
             ))}

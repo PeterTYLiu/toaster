@@ -12,6 +12,11 @@
   --bg: #eeeeee;
 }
 
+html,
+body {
+  margin: 0;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -30,4 +35,8 @@ h5,
 h6,
 p {
   margin: 0;
+}
+
+li:not(:last-child) {
+  padding-bottom: 0.5rem;
 }
