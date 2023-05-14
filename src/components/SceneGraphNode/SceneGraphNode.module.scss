@@ -1,22 +1,26 @@
 .children {
-  padding-left: 20px;
+  margin-left: 17px;
+  border-left: 1px solid #ffffff55;
 }
 
 .parent {
-  position: relative;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+  gap: 6px;
   cursor: default;
-  span {
-  }
+
   &:hover {
-    background-color: pink;
+    background-color: #ffffff22;
   }
 }
 
 .active {
   > .parent {
-    background-color: red;
+    background-color: #ffffff44;
   }
   .children {
-    background-color: pink;
+    background-color: #ffffff22;
   }
 }

@@ -1,4 +1,4 @@
-import type { ReactNode, CSSProperties } from "react";
+import type { ReactNode } from "react";
 import styles from "./Pyramid.module.scss";
 
 export default function Pyramid({

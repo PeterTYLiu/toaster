@@ -6,14 +6,14 @@ import { IconFolder, IconBox, IconWorld } from "@tabler/icons-react";
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
 
-  let icon = <IconFolder />;
+  let icon = <IconFolder size={20} />;
 
   switch (node.type) {
     case "rectPrism":
-      icon = <IconBox />;
+      icon = <IconBox size={20} />;
       break;
     case "sphere":
-      icon = <IconWorld />;
+      icon = <IconWorld size={20} />;
       break;
   }
 
@@ -23,18 +23,29 @@ export default function SceneGraphNode({ node }: { node: Node }) {
         activeNodeId === node.id ? styles.active : ""
       }`}
     >
-      <div className={styles.parent}>
-        <span
-          onClick={() => {
-            dispatch({
-              type: "setActiveNodeId",
-              payload: activeNodeId === node.id ? null : node.id,
-            });
-          }}
-        >
-          {icon}
-          {node.name || `unnamed ${node.type}`}
-        </span>
+      <div
+        className={styles.parent}
+        onClick={() => {
+          dispatch({
+            type: "setActiveNodeId",
+            payload: activeNodeId === node.id ? null : node.id,
+          });
+        }}
+        onPointerEnter={() => {
+          dispatch({
+            type: "setHoverNodeId",
+            payload: node.id,
+          });
+        }}
+        onPointerLeave={() => {
+          dispatch({
+            type: "setHoverNodeId",
+            payload: null,
+          });
+        }}
+      >
+        {icon}
+        <span>{node.name || `unnamed ${node.type}`}</span>
       </div>
       <div className={styles.children}>
         {node.children.map((child) => (

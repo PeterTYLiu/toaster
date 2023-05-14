@@ -6,7 +6,7 @@ import Pyramid from "../Pryamid/Pyramid";
 import useSceneContext from "../../hooks/UseSceneContext";
 
 export function Node({ node }: { node: NodeClass }) {
-  const { dispatch, activeNodeId } = useSceneContext();
+  const { dispatch, activeNodeId, hoverNodeId } = useSceneContext();
 
   const solidVariables: Record<string, string> = {
     "--width": node.width + "px",
@@ -30,7 +30,7 @@ export function Node({ node }: { node: NodeClass }) {
       }}
       className={`${styles.node} ${
         activeNodeId === node.id ? styles.active : ""
-      }`}
+      } ${hoverNodeId === node.id ? styles.hovered : ""}`}
       style={{
         ...inheitedVariables,
         translate: `${node.translateX}px ${node.translateY}px ${node.translateZ}px`,

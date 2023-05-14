@@ -9,6 +9,12 @@
       stroke-width: 3 !important;
     }
   }
+  &.hovered {
+    * {
+      border-color: lawngreen;
+      stroke: lawngreen !important;
+    }
+  }
 }
 
 .solid {
