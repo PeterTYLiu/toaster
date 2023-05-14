@@ -1,0 +1,27 @@
+.face {
+  position: absolute;
+  transform-style: preserve-3d;
+  fill: var(--bg);
+  stroke: black;
+  stroke-width: 1;
+  overflow: visible;
+}
+
+.base {
+  width: calc(var(--radius) * 2);
+  height: calc(var(--radius) * 2);
+  top: calc(50% - var(--radius));
+  left: calc(50% - var(--radius));
+  translate: 0 0 calc(var(--height) / -2);
+}
+
+.joint {
+  position: absolute;
+  top: 1px;
+}
+
+.spoke {
+  height: 2px;
+  top: -1px;
+  translate: 0 0 calc(var(--height) / -2);
+}

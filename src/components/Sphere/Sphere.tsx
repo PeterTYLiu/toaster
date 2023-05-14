@@ -1,9 +1,9 @@
-import { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import styles from "./Sphere.module.scss";
 
 export default function Sphere({
   numPlanes = 12,
-  numSpokes = 24,
+  numSpokes = 16,
   id,
 }: {
   id: string;

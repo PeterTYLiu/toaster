@@ -2,6 +2,7 @@ import { Node as NodeClass } from "../../App";
 import styles from "./Node.module.scss";
 import Sphere from "../Sphere/Sphere";
 import RectPrism from "../RectPrism/RectPrism";
+import Pyramid from "../Pryamid/Pyramid";
 import useSceneContext from "../../hooks/UseSceneContext";
 
 export function Node({ node }: { node: NodeClass }) {
@@ -33,13 +34,21 @@ export function Node({ node }: { node: NodeClass }) {
       style={{
         ...inheitedVariables,
         translate: `${node.translateX}px ${node.translateY}px ${node.translateZ}px`,
-        transform: `scale3d(${node.scaleX}, ${node.scaleY}, ${node.scaleZ}) rotateX(${node.rotateX}deg) rotateY(${node.rotateY}deg) rotateZ(${node.rotateZ}deg)`,
+        transform: `rotateX(${node.rotateX}deg) rotateY(${node.rotateY}deg) rotateZ(${node.rotateZ}deg) scale3d(${node.scaleX}, ${node.scaleY}, ${node.scaleZ}) `,
       }}
     >
       {node.type !== "group" && (
         <div className={styles.solid} style={solidVariables}>
           {node.type === "rectPrism" && <RectPrism />}
           {node.type === "sphere" && <Sphere id={node.id} />}
+          {node.type === "pyramid" && (
+            <Pyramid
+              baseSides={node.baseSides}
+              radius={node.radius}
+              height={node.height}
+              id={node.id}
+            />
+          )}
         </div>
       )}
 

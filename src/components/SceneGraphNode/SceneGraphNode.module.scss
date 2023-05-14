@@ -1,12 +1,11 @@
 .children {
-  padding-left: 12px;
+  padding-left: 20px;
 }
 
 .parent {
   position: relative;
   cursor: default;
   span {
-    
   }
   &:hover {
     background-color: pink;

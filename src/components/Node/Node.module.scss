@@ -5,6 +5,8 @@
     * {
       border-color: lawngreen !important;
       border-width: 3px !important;
+      stroke: lawngreen !important;
+      stroke-width: 3 !important;
     }
   }
 }
@@ -15,9 +17,11 @@
   &:hover {
     * {
       border-color: lawngreen;
+      stroke: lawngreen !important;
     }
     ~ * * {
       border-color: lawngreen !important;
+      stroke: lawngreen !important;
     }
   }
 }

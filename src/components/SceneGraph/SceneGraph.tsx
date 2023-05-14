@@ -8,16 +8,34 @@ export default function SceneGraph() {
   return (
     <div className={styles.graph}>
       <button
-        onClick={() => dispatch({ type: "newTopLevelNode", payload: "sphere" })}
+        onClick={() =>
+          dispatch({
+            type: "newNode",
+            payload: { properties: { type: "sphere" } },
+          })
+        }
       >
         Add Sphere
       </button>
       <button
         onClick={() =>
-          dispatch({ type: "newTopLevelNode", payload: "rectPrism" })
+          dispatch({
+            type: "newNode",
+            payload: { properties: { type: "rectPrism" } },
+          })
         }
       >
         Add Cube
+      </button>
+      <button
+        onClick={() =>
+          dispatch({
+            type: "newNode",
+            payload: { properties: { type: "pyramid" } },
+          })
+        }
+      >
+        Add Pyramid
       </button>
 
       <hr />

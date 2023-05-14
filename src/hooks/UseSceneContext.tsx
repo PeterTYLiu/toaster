@@ -6,6 +6,7 @@ export interface SceneType {
   camera: Camera;
   nodes: Node[];
   activeNodeId: string | null;
+  hoverNodeId: string | null;
 }
 
 export interface SceneContextType extends SceneType {
@@ -16,6 +17,7 @@ const defaultSceneContext: SceneContextType = {
   camera: { zoom: 1, rotateX: 0, rotateZ: 0 },
   nodes: [],
   activeNodeId: null,
+  hoverNodeId: null,
   dispatch: () => {},
 };
 

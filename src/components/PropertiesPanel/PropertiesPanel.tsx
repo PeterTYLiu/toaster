@@ -22,6 +22,7 @@ export default function PropertiesPanel() {
 
   return (
     <div className={styles.properties}>
+      <p>{activeNode.id}</p>
       <details open>
         <summary>
           <h2>Node name</h2>
@@ -218,7 +219,7 @@ export default function PropertiesPanel() {
           <h2>Dimensions</h2>
         </summary>
         <section>
-          {activeNode.type === "sphere" && (
+          {(activeNode.type === "sphere" || activeNode.type === "pyramid") && (
             <label>
               <span>Radius</span>
               <input
@@ -230,6 +231,25 @@ export default function PropertiesPanel() {
                     payload: {
                       id: activeNodeId,
                       properties: { radius: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {activeNode.type === "pyramid" && (
+            <label>
+              <span>Base sides</span>
+              <input
+                min="3"
+                type="number"
+                value={activeNode.baseSides}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { baseSides: e.target.valueAsNumber },
                     },
                   })
                 }
@@ -329,16 +349,12 @@ export default function PropertiesPanel() {
 
       <button
         onClick={() => {
+          if (!activeNodeId) return;
           dispatch({
-            type: "updateNodeById",
+            type: "newNode",
             payload: {
-              id: activeNodeId,
-              properties: {
-                children: [
-                  ...activeNode.children,
-                  new Node({ type: "sphere", translateX: 100 }),
-                ],
-              },
+              parentId: activeNodeId,
+              properties: { type: "sphere", translateX: 100 },
             },
           });
         }}
@@ -347,21 +363,31 @@ export default function PropertiesPanel() {
       </button>
       <button
         onClick={() => {
+          if (!activeNodeId) return;
           dispatch({
-            type: "updateNodeById",
+            type: "newNode",
             payload: {
-              id: activeNodeId,
-              properties: {
-                children: [
-                  ...activeNode.children,
-                  new Node({ type: "rectPrism", translateX: 100 }),
-                ],
-              },
+              parentId: activeNodeId,
+              properties: { type: "rectPrism", translateX: 100 },
             },
           });
         }}
       >
         Add child cube
+      </button>
+      <button
+        onClick={() => {
+          if (!activeNodeId) return;
+          dispatch({
+            type: "newNode",
+            payload: {
+              parentId: activeNodeId,
+              properties: { type: "pyramid", translateX: 100 },
+            },
+          });
+        }}
+      >
+        Add child pyramid
       </button>
       <button
         onClick={() => {

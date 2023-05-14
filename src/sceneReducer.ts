@@ -8,7 +8,7 @@ function editPropertiesOnNodeById(
 ): Node[] {
   // Loop through nodes
   const thisNode = nodes.find((node) => node.id === id);
-  const nodesToReturn = [...nodes];
+  const nodesToReturn = structuredClone(nodes) as Node[];
   if (thisNode) {
     const index = nodes.indexOf(thisNode);
     nodesToReturn[index] = { ...thisNode, ...properties };
@@ -35,6 +35,17 @@ function deleteNodeById(nodes: Node[], id: string): Node[] {
   return nodesToReturn;
 }
 
+function findNodeById(nodes: Node[], id: string | null): Node | undefined {
+  // Loop through nodes
+  const thisNode = nodes.find((node) => node.id === id);
+  if (thisNode) return thisNode;
+  // Loop through nested nodes
+  for (const node of nodes) {
+    const foundChildNode = findNodeById(node.children, id);
+    if (foundChildNode) return foundChildNode;
+  }
+}
+
 interface BaseAction {
   type: string;
   payload: unknown;
@@ -55,9 +66,9 @@ interface UpdateCameraAction extends BaseAction {
   payload: Partial<Camera>;
 }
 
-interface NewTopLevelNodeAction extends BaseAction {
-  type: "newTopLevelNode";
-  payload: Node["type"];
+interface NewNodeAction extends BaseAction {
+  type: "newNode";
+  payload: { properties: Partial<Node>; parentId?: string }; // Undefined parent ID means a top-level node
 }
 
 interface DeleteNodeByIdAction extends BaseAction {
@@ -65,12 +76,18 @@ interface DeleteNodeByIdAction extends BaseAction {
   payload: string; // This is the node ID
 }
 
+interface SetHoverNodeIdAction extends BaseAction {
+  type: "setHoverNodeId";
+  payload: string | null; // String denotes a node ID
+}
+
 export type Action =
   | UpdateNodeByIdAction
   | SetActiveNodeIdAction
   | UpdateCameraAction
-  | NewTopLevelNodeAction
-  | DeleteNodeByIdAction;
+  | NewNodeAction
+  | DeleteNodeByIdAction
+  | SetHoverNodeIdAction;
 
 export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { type, payload } = action;
@@ -81,6 +98,8 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       return { ...oldScene, camera: { ...oldScene.camera, ...payload } };
     case "setActiveNodeId":
       return { ...oldScene, activeNodeId: payload };
+    case "setHoverNodeId":
+      return { ...oldScene, hoverNodeId: payload };
     case "updateNodeById":
       if (!payload.id) return oldScene;
       const nodesToReturn = editPropertiesOnNodeById(
@@ -89,11 +108,22 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         payload.properties
       );
       return { ...oldScene, nodes: nodesToReturn };
-    case "newTopLevelNode":
-      const newNode = new Node(payload);
+    case "newNode":
+      const newNode = new Node(payload.properties);
+
+      const parentNode = findNodeById(oldNodes, payload.parentId ?? null);
+
+      if (!payload.parentId || !parentNode)
+        return {
+          ...oldScene,
+          nodes: [...oldNodes, newNode],
+          activeNodeId: newNode.id,
+        };
       return {
         ...oldScene,
-        nodes: [...oldNodes, newNode],
+        nodes: editPropertiesOnNodeById(oldNodes, payload.parentId, {
+          children: [...parentNode.children, newNode],
+        }),
         activeNodeId: newNode.id,
       };
     case "deleteNodeById":

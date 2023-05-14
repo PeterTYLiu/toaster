@@ -7,7 +7,7 @@ import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import { defaultModel } from "./defaultModel";
 
-type NodeType = "group" | "rectPrism" | "cylinder" | "sphere" | "cone";
+type NodeType = "group" | "rectPrism" | "cylinder" | "sphere" | "pyramid";
 
 export class Node {
   // Identity
@@ -36,6 +36,9 @@ export class Node {
   depth: number;
   radius: number;
 
+  // Geometry
+  baseSides: number;
+
   constructor(input: Partial<Node>) {
     this.id = crypto.randomUUID();
     this.name = `New ${input.type ?? "rectPrism"}`;
@@ -57,6 +60,7 @@ export class Node {
     this.opacity = input.opacity ?? 1;
     this.color = input.color;
     this.borderColor = input.borderColor;
+    this.baseSides = 4;
   }
 }
 
@@ -68,8 +72,8 @@ export interface Camera {
 
 const defaultCamera: Camera = {
   zoom: 0.5,
-  rotateX: 40,
-  rotateZ: 60,
+  rotateX: 80,
+  rotateZ: 10,
 };
 
 function App() {
@@ -78,13 +82,12 @@ function App() {
     camera: defaultCamera,
     activeNodeId: null,
     nodes: defaultModel,
+    hoverNodeId: null,
   });
 
   return (
     <SceneContext.Provider value={{ ...scene, dispatch }}>
-      <nav>
-        <button onClick={() => console.log(scene.nodes)}>log nodes</button>
-      </nav>
+      <nav></nav>
       <div className={styles.lower}>
         <SceneGraph />
         <main
@@ -102,8 +105,6 @@ function App() {
           onPointerUp={() => setIsDragging(false)}
           onPointerMove={(e) => {
             if (!isDragging) return;
-
-            console.log(e.movementX, e.movementY);
 
             dispatch({
               type: "updateCamera",
