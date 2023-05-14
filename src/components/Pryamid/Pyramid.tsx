@@ -18,17 +18,17 @@ export default function Pyramid({
   const sideHeight = Math.sqrt(apothem ** 2 + height ** 2);
   const sideInclination = (Math.atan(height / apothem) * 180) / Math.PI;
 
-  const basePoints = [];
-  for (let i = 0; i < baseSides; i++) {
-    const angle = theta * i;
+  const basePoints: string[] = [];
+  const sides: ReactNode[] = [];
 
+  for (let i = 0; i < baseSides; i++) {
+    // Add a point on the base
+    const angle = theta * i;
     const x = radius * Math.cos(angle) + radius;
     const y = radius * Math.sin(angle) + radius;
     basePoints.push(`${x},${y}`);
-  }
 
-  const sides: ReactNode[] = [];
-  for (let i = 0; i < baseSides; i++) {
+    // Add a side of the pyramid
     let spokeRotationDegrees = (i * 360) / baseSides;
     if (baseSides % 2 === 0) spokeRotationDegrees += 180 / baseSides;
 

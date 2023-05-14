@@ -271,7 +271,7 @@ export const defaultModel: Node[] = [
         children: [
           {
             id: "8cccfd28-974a-4345-aeb2-1f9dce6a562b",
-            name: "New sphere",
+            name: "poof",
             type: "sphere",
             children: [],
             color: "#e5cc2a",
