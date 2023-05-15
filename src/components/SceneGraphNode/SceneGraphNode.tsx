@@ -33,6 +33,7 @@ export default function SceneGraphNode({ node }: { node: Node }) {
     >
       <div
         className={styles.parent}
+        title={node.name}
         onClick={() => {
           dispatch({
             type: "setActiveNodeId",
@@ -53,7 +54,9 @@ export default function SceneGraphNode({ node }: { node: Node }) {
         }}
       >
         {icon}
-        <span>{node.name || `unnamed ${node.type}`}</span>
+        <span className={styles.name}>
+          {node.name || `unnamed ${node.type}`}
+        </span>
       </div>
       <div className={styles.children}>
         {node.children.map((child) => (

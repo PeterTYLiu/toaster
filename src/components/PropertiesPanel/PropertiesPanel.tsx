@@ -1,7 +1,13 @@
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./PropertiesPanel.module.scss";
 import type { Node } from "../../App";
-import { IconBox, IconWorld, IconBrandPrisma } from "@tabler/icons-react";
+import {
+  IconBox,
+  IconWorld,
+  IconBrandPrisma,
+  IconTrash,
+  IconCopy,
+} from "@tabler/icons-react";
 
 const propertiesMap: Record<
   Node["type"],
@@ -114,9 +120,33 @@ export default function PropertiesPanel() {
               })
             }
           />
-          <p>Node type: {activeNode.type}</p>
+          <p className={styles.hint}>Node type: {activeNode.type}</p>
         </section>
       </details>
+      <div className={styles.inline}>
+        <button
+          onClick={() => {
+            dispatch({
+              type: "cloneNode",
+              payload: activeNode.id,
+            });
+          }}
+        >
+          <IconCopy size={20} />
+          Clone
+        </button>
+        <button
+          onClick={() => {
+            dispatch({
+              type: "deleteNodeById",
+              payload: activeNode.id,
+            });
+          }}
+        >
+          <IconTrash size={20} />
+          Delete
+        </button>
+      </div>
       <details open>
         <summary>
           <h2>Add child nodes</h2>
@@ -135,7 +165,7 @@ export default function PropertiesPanel() {
                 });
               }}
             >
-              <IconWorld />
+              <IconWorld size={20} />
             </button>
             <button
               onClick={() => {
@@ -149,7 +179,7 @@ export default function PropertiesPanel() {
                 });
               }}
             >
-              <IconBox />
+              <IconBox size={20} />
             </button>
             <button
               onClick={() => {
@@ -163,16 +193,153 @@ export default function PropertiesPanel() {
                 });
               }}
             >
-              <IconBrandPrisma />
+              <IconBrandPrisma size={20} />
             </button>
           </div>
         </section>
       </details>
       <details open>
         <summary>
+          <h2>Dimensions</h2>
+        </summary>
+        <section>
+          {propertiesMap[activeNode.type].radius && (
+            <label>
+              <span>Radius</span>
+              <input
+                type="number"
+                value={activeNode.radius}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { radius: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {propertiesMap[activeNode.type].baseSides && (
+            <label>
+              <span>Base sides</span>
+              <input
+                min="3"
+                type="number"
+                value={activeNode.baseSides}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { baseSides: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {propertiesMap[activeNode.type].width && (
+            <label>
+              <span>Width</span>
+              <input
+                type="number"
+                value={activeNode.width}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { width: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {propertiesMap[activeNode.type].height && (
+            <label>
+              <span>Height</span>
+              <input
+                type="number"
+                value={activeNode.height}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { height: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+          {propertiesMap[activeNode.type].depth && (
+            <label>
+              <span>Depth</span>
+              <input
+                type="number"
+                value={activeNode.depth}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { depth: e.target.valueAsNumber },
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+        </section>
+      </details>
+      <details open>
+        <summary>
+          <h2>Styling</h2>
+        </summary>
+        <section>
+          <label>
+            <span>Color</span>
+            <input
+              type="color"
+              value={activeNode.color}
+              onChange={(e) =>
+                dispatch({
+                  type: "updateNodeById",
+                  payload: {
+                    id: activeNodeId,
+                    properties: { color: e.target.value },
+                  },
+                })
+              }
+            />
+            <button
+              onClick={() =>
+                dispatch({
+                  type: "updateNodeById",
+                  payload: {
+                    id: activeNodeId,
+                    properties: { color: undefined },
+                  },
+                })
+              }
+            >
+              inherit
+            </button>
+          </label>
+        </section>
+      </details>{" "}
+      <details open>
+        <summary>
           <h2>Transforms</h2>
         </summary>
         <section>
+          <p className={styles.hint}>
+            Transforms apply to the node and its children
+          </p>
           <label>
             <span>Translate X</span>
             <input
@@ -339,152 +506,6 @@ export default function PropertiesPanel() {
           </label>
         </section>
       </details>
-      <details open>
-        <summary>
-          <h2>Dimensions</h2>
-        </summary>
-        <section>
-          {propertiesMap[activeNode.type].radius && (
-            <label>
-              <span>Radius</span>
-              <input
-                type="number"
-                value={activeNode.radius}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { radius: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].baseSides && (
-            <label>
-              <span>Base sides</span>
-              <input
-                min="3"
-                type="number"
-                value={activeNode.baseSides}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { baseSides: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].width && (
-            <label>
-              <span>Width</span>
-              <input
-                type="number"
-                value={activeNode.width}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { width: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].height && (
-            <label>
-              <span>Height</span>
-              <input
-                type="number"
-                value={activeNode.height}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { height: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].depth && (
-            <label>
-              <span>Depth</span>
-              <input
-                type="number"
-                value={activeNode.depth}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { depth: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-        </section>
-      </details>
-      <details open>
-        <summary>
-          <h2>Styling</h2>
-        </summary>
-        <section>
-          <label>
-            <span>Color</span>
-            <input
-              type="color"
-              value={activeNode.color}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { color: e.target.value },
-                  },
-                })
-              }
-            />
-            <button
-              onClick={() =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { color: undefined },
-                  },
-                })
-              }
-            >
-              inherit
-            </button>
-          </label>
-        </section>
-      </details>
-      <div className={styles.inline}>
-        <button
-          onClick={() => {
-            dispatch({
-              type: "deleteNodeById",
-              payload: activeNode.id,
-            });
-          }}
-        >
-          Delete
-        </button>
-      </div>
     </div>
   );
 }

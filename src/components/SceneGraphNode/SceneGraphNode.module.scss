@@ -10,10 +10,19 @@
   margin-bottom: 3px;
   gap: 6px;
   cursor: default;
-
+  svg {
+    flex-shrink: 0;
+  }
   &:hover {
     background-color: #444;
   }
+}
+
+.name {
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .active {

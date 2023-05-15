@@ -27,6 +27,14 @@ input {
   padding: 0 7px;
 }
 
+button {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 h1,
 h2,
 h3,

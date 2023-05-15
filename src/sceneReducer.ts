@@ -46,6 +46,25 @@ function findNodeById(nodes: Node[], id: string | null): Node | undefined {
   }
 }
 
+function findParentNodeByChildId(
+  node: Node,
+  id: string | null
+): Node | undefined {
+  // Loop through children
+  const foundChild = node.children.find((child) => child.id === id);
+  if (foundChild) return node;
+  // Loop through children
+  for (const child of node.children) {
+    const foundGrandChild = findParentNodeByChildId(child, id);
+    if (foundGrandChild) return child;
+  }
+}
+
+function renewIdsOfBranchNodes(node: Node) {
+  node.id = crypto.randomUUID();
+  node.children.forEach((child) => renewIdsOfBranchNodes(child));
+}
+
 interface BaseAction {
   type: string;
   payload: unknown;
@@ -86,6 +105,11 @@ interface SetHoverNodeIdAction extends BaseAction {
   payload: string | null; // String denotes a node ID
 }
 
+interface CloneNodeAction extends BaseAction {
+  type: "cloneNode";
+  payload: string; // The ID of the node you're cloning
+}
+
 export type Action =
   | setNodesAction
   | UpdateNodeByIdAction
@@ -93,7 +117,8 @@ export type Action =
   | UpdateCameraAction
   | NewNodeAction
   | DeleteNodeByIdAction
-  | SetHoverNodeIdAction;
+  | SetHoverNodeIdAction
+  | CloneNodeAction;
 
 export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { type, payload } = action;
@@ -139,6 +164,36 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         ...oldScene,
         nodes: deleteNodeById(oldNodes, payload),
         activeNodeId: oldActiveNodeId === payload ? null : oldActiveNodeId,
+      };
+    case "cloneNode":
+      const clonedNode = structuredClone(findNodeById(oldNodes, payload)) as
+        | Node
+        | undefined;
+      if (!clonedNode) return oldScene;
+
+      // Recursively go through tree to find the parent node of the cloned node
+      let parent: Node | undefined = undefined; // If this is undefined by the end, it is a top-level node
+      for (const topLevelNode of oldNodes) {
+        parent = findParentNodeByChildId(topLevelNode, payload) ?? parent;
+      }
+
+      clonedNode.name += " clone";
+      renewIdsOfBranchNodes(clonedNode);
+
+      if (parent) {
+        return {
+          ...oldScene,
+          nodes: editPropertiesOnNodeById(oldNodes, parent.id, {
+            children: [...parent.children, clonedNode],
+          }),
+          activeNodeId: clonedNode.id,
+        };
+      }
+
+      return {
+        ...oldScene,
+        nodes: [...oldNodes, clonedNode],
+        activeNodeId: clonedNode.id,
       };
   }
 }
