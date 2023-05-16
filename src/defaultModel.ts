@@ -11,7 +11,7 @@ export const defaultModel: Node[] = [
       {
         id: "946da4b3-c089-4890-bb9b-e767e93bacf4",
         name: "ears",
-        type: "rectPrism",
+        type: "cuboid",
         children: [],
         opacity: 1,
         translateX: 0,
@@ -62,7 +62,7 @@ export const defaultModel: Node[] = [
           {
             id: "ad2425a4-90b1-48f3-9843-05dd9ef3ae7a",
             name: "eyebrow",
-            type: "rectPrism",
+            type: "cuboid",
             children: [],
             color: hairColor,
             opacity: 1,
@@ -132,7 +132,7 @@ export const defaultModel: Node[] = [
           {
             id: "8e849e44-0394-4429-9816-adf07a3ee479",
             name: "eyebrow",
-            type: "rectPrism",
+            type: "cuboid",
             children: [],
             color: hairColor,
             opacity: 1,
@@ -220,12 +220,12 @@ export const defaultModel: Node[] = [
       {
         id: "546c2cc9-1232-4bdc-850c-f53d464d1fae",
         name: "mouth",
-        type: "rectPrism",
+        type: "cuboid",
         children: [
           {
             id: "9b61265d-77f8-4b47-9a72-6f87fc6e35e8",
             name: "teeth",
-            type: "rectPrism",
+            type: "cuboid",
             children: [],
             color: "#ffffff",
             opacity: 1,

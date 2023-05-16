@@ -1,6 +1,6 @@
-import styles from "./RectPrism.module.scss";
+import styles from "./Cuboid.module.scss";
 
-export default function RectPrism() {
+export default function Cuboid() {
   return (
     <>
       <div className={`${styles["face"]} ${styles.front}`} />

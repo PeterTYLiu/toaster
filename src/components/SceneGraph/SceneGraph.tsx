@@ -31,7 +31,7 @@ export default function SceneGraph() {
             type: "newNode",
             payload: {
               properties: {
-                type: "rectPrism",
+                type: "cuboid",
                 translateX: 500,
                 translateY: 500,
                 translateZ: 100,

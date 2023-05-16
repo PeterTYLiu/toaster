@@ -1,7 +1,7 @@
 import { Node as NodeClass } from "../../App";
 import styles from "./Node.module.scss";
 import Sphere from "../Sphere/Sphere";
-import RectPrism from "../RectPrism/RectPrism";
+import Cuboid from "../Cuboid/Cuboid";
 import Pyramid from "../Pryamid/Pyramid";
 import useSceneContext from "../../hooks/UseSceneContext";
 
@@ -39,7 +39,7 @@ export function Node({ node }: { node: NodeClass }) {
     >
       {node.type !== "group" && (
         <div className={styles.solid} style={solidVariables}>
-          {node.type === "rectPrism" && <RectPrism />}
+          {node.type === "cuboid" && <Cuboid />}
           {node.type === "sphere" && <Sphere id={node.id} />}
           {node.type === "pyramid" && (
             <Pyramid

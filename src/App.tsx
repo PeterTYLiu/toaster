@@ -7,7 +7,7 @@ import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import { defaultModel } from "./defaultModel";
 
-type NodeType = "group" | "rectPrism" | "cylinder" | "sphere" | "pyramid";
+type NodeType = "group" | "cuboid" | "cylinder" | "sphere" | "pyramid";
 
 export class Node {
   // Identity
@@ -41,8 +41,8 @@ export class Node {
 
   constructor(input: Partial<Node>) {
     this.id = crypto.randomUUID();
-    this.name = `New ${input.type ?? "rectPrism"}`;
-    this.type = input.type ?? "rectPrism";
+    this.name = `New ${input.type ?? "cuboid"}`;
+    this.type = input.type ?? "cuboid";
     this.translateX = input.translateX ?? 0;
     this.translateY = input.translateY ?? 0;
     this.translateZ = input.translateZ ?? 0;

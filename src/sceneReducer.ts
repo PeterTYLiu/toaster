@@ -141,7 +141,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         payload.properties
       );
       return { ...oldScene, nodes: nodesToReturn };
-    case "newNode":
+    case "newNode": {
       const newNode = new Node(payload.properties);
 
       const parentNode = findNodeById(oldNodes, payload.parentId ?? null);
@@ -159,32 +159,34 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         }),
         activeNodeId: newNode.id,
       };
+    }
     case "deleteNodeById":
       return {
         ...oldScene,
         nodes: deleteNodeById(oldNodes, payload),
         activeNodeId: oldActiveNodeId === payload ? null : oldActiveNodeId,
       };
-    case "cloneNode":
+    case "cloneNode": {
       const clonedNode = structuredClone(findNodeById(oldNodes, payload)) as
         | Node
         | undefined;
       if (!clonedNode) return oldScene;
 
       // Recursively go through tree to find the parent node of the cloned node
-      let parent: Node | undefined = undefined; // If this is undefined by the end, it is a top-level node
+      let parentNode: Node | undefined = undefined; // If this is undefined by the end, it is a top-level node
       for (const topLevelNode of oldNodes) {
-        parent = findParentNodeByChildId(topLevelNode, payload) ?? parent;
+        parentNode =
+          findParentNodeByChildId(topLevelNode, payload) ?? parentNode;
       }
 
       clonedNode.name += " clone";
       renewIdsOfBranchNodes(clonedNode);
 
-      if (parent) {
+      if (parentNode) {
         return {
           ...oldScene,
-          nodes: editPropertiesOnNodeById(oldNodes, parent.id, {
-            children: [...parent.children, clonedNode],
+          nodes: editPropertiesOnNodeById(oldNodes, parentNode.id, {
+            children: [...parentNode.children, clonedNode],
           }),
           activeNodeId: clonedNode.id,
         };
@@ -195,5 +197,6 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         nodes: [...oldNodes, clonedNode],
         activeNodeId: clonedNode.id,
       };
+    }
   }
 }

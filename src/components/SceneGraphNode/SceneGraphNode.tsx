@@ -4,8 +4,8 @@ import styles from "./SceneGraphNode.module.scss";
 import {
   IconFolder,
   IconBox,
-  IconWorld,
-  IconBrandPrisma,
+  IconInnerShadowTopRight,
+  IconPyramid,
 } from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
@@ -14,14 +14,14 @@ export default function SceneGraphNode({ node }: { node: Node }) {
   let icon = <IconFolder size={20} />;
 
   switch (node.type) {
-    case "rectPrism":
+    case "cuboid":
       icon = <IconBox size={20} />;
       break;
     case "sphere":
-      icon = <IconWorld size={20} />;
+      icon = <IconInnerShadowTopRight size={20} />;
       break;
     case "pyramid":
-      icon = <IconBrandPrisma size={20} />;
+      icon = <IconPyramid size={20} />;
       break;
   }
 

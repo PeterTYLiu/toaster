@@ -3,8 +3,8 @@ import styles from "./PropertiesPanel.module.scss";
 import type { Node } from "../../App";
 import {
   IconBox,
-  IconWorld,
-  IconBrandPrisma,
+  IconInnerShadowTopRight,
+  IconPyramid,
   IconTrash,
   IconCopy,
 } from "@tabler/icons-react";
@@ -14,7 +14,7 @@ const propertiesMap: Record<
   Partial<Record<keyof Node, boolean>>
 > = {
   group: {},
-  rectPrism: { width: true, height: true, depth: true },
+  cuboid: { width: true, height: true, depth: true },
   pyramid: { radius: true, baseSides: true, height: true },
   sphere: { radius: true },
   cylinder: {},
@@ -165,7 +165,7 @@ export default function PropertiesPanel() {
                 });
               }}
             >
-              <IconWorld size={20} />
+              <IconInnerShadowTopRight size={20} />
             </button>
             <button
               onClick={() => {
@@ -174,7 +174,7 @@ export default function PropertiesPanel() {
                   type: "newNode",
                   payload: {
                     parentId: activeNodeId,
-                    properties: { type: "rectPrism", translateX: 100 },
+                    properties: { type: "cuboid", translateX: 100 },
                   },
                 });
               }}
@@ -193,7 +193,7 @@ export default function PropertiesPanel() {
                 });
               }}
             >
-              <IconBrandPrisma size={20} />
+              <IconPyramid size={20} />
             </button>
           </div>
         </section>
