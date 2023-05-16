@@ -76,6 +76,23 @@ export default function SceneGraph() {
       >
         Add Prism
       </button>
+      <button
+        onClick={() =>
+          dispatch({
+            type: "newNode",
+            payload: {
+              properties: {
+                type: "group",
+                translateX: 500,
+                translateY: 500,
+                translateZ: 100,
+              },
+            },
+          })
+        }
+      >
+        Add Group
+      </button>
 
       {nodes.map((node) => (
         <SceneGraphNode node={node} key={node.id} />

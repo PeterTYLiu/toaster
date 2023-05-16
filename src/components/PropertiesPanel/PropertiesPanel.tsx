@@ -213,105 +213,107 @@ export default function PropertiesPanel() {
           </div>
         </section>
       </details>
-      <details open>
-        <summary>
-          <h2>Dimensions</h2>
-        </summary>
-        <section>
-          {propertiesMap[activeNode.type].radius && (
-            <label>
-              <span>Radius</span>
-              <input
-                type="number"
-                value={activeNode.radius}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { radius: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].baseSides && (
-            <label>
-              <span>Sides</span>
-              <input
-                min="3"
-                max="16"
-                type="number"
-                value={activeNode.baseSides}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { baseSides: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].width && (
-            <label>
-              <span>Width</span>
-              <input
-                type="number"
-                value={activeNode.width}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { width: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].height && (
-            <label>
-              <span>Height</span>
-              <input
-                type="number"
-                value={activeNode.height}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { height: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-          {propertiesMap[activeNode.type].depth && (
-            <label>
-              <span>Depth</span>
-              <input
-                type="number"
-                value={activeNode.depth}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { depth: e.target.valueAsNumber },
-                    },
-                  })
-                }
-              />
-            </label>
-          )}
-        </section>
-      </details>
+      {activeNode.type !== "group" && (
+        <details open>
+          <summary>
+            <h2>Dimensions</h2>
+          </summary>
+          <section>
+            {propertiesMap[activeNode.type].radius && (
+              <label>
+                <span>Radius</span>
+                <input
+                  type="number"
+                  value={activeNode.radius}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { radius: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
+            )}
+            {propertiesMap[activeNode.type].baseSides && (
+              <label>
+                <span>Sides</span>
+                <input
+                  min="3"
+                  max="16"
+                  type="number"
+                  value={activeNode.baseSides}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { baseSides: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
+            )}
+            {propertiesMap[activeNode.type].width && (
+              <label>
+                <span>Width</span>
+                <input
+                  type="number"
+                  value={activeNode.width}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { width: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
+            )}
+            {propertiesMap[activeNode.type].height && (
+              <label>
+                <span>Height</span>
+                <input
+                  type="number"
+                  value={activeNode.height}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { height: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
+            )}
+            {propertiesMap[activeNode.type].depth && (
+              <label>
+                <span>Depth</span>
+                <input
+                  type="number"
+                  value={activeNode.depth}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { depth: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
+            )}
+          </section>
+        </details>
+      )}
       <details open>
         <summary>
           <h2>Styling</h2>

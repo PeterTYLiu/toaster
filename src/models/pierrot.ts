@@ -1,8 +1,8 @@
-import type { Node } from "./App";
+import type { Node } from "../App";
 
 const hairColor = "#4400FF";
 
-export const defaultModel: Node[] = [
+export const pierrot: Node[] = [
   {
     id: "257498b0-cb4d-4cb7-896c-e55b1c19c643",
     name: "head",
