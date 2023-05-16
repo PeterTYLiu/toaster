@@ -6,6 +6,7 @@ import {
   IconBox,
   IconInnerShadowTopRight,
   IconPyramid,
+  IconCylinder,
 } from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
@@ -22,6 +23,9 @@ export default function SceneGraphNode({ node }: { node: Node }) {
       break;
     case "pyramid":
       icon = <IconPyramid size={20} />;
+      break;
+    case "prism":
+      icon = <IconCylinder size={20} />;
       break;
   }
 
@@ -58,11 +62,13 @@ export default function SceneGraphNode({ node }: { node: Node }) {
           {node.name || `unnamed ${node.type}`}
         </span>
       </div>
-      <div className={styles.children}>
-        {node.children.map((child) => (
-          <SceneGraphNode node={child} key={child.id} />
-        ))}
-      </div>
+      {!!node.children.length && (
+        <div className={styles.children}>
+          {node.children.map((child) => (
+            <SceneGraphNode node={child} key={child.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import { defaultModel } from "./defaultModel";
 
-type NodeType = "group" | "cuboid" | "cylinder" | "sphere" | "pyramid";
+type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
 export class Node {
   // Identity
@@ -60,7 +60,7 @@ export class Node {
     this.opacity = input.opacity ?? 1;
     this.color = input.color ?? undefined;
     this.borderColor = input.borderColor ?? undefined;
-    this.baseSides = 4;
+    this.baseSides = 3;
   }
 }
 

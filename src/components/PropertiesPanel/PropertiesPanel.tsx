@@ -7,6 +7,7 @@ import {
   IconPyramid,
   IconTrash,
   IconCopy,
+  IconCylinder,
 } from "@tabler/icons-react";
 
 const propertiesMap: Record<
@@ -16,8 +17,8 @@ const propertiesMap: Record<
   group: {},
   cuboid: { width: true, height: true, depth: true },
   pyramid: { radius: true, baseSides: true, height: true },
+  prism: { radius: true, baseSides: true, height: true },
   sphere: { radius: true },
-  cylinder: {},
 };
 
 function findNodeById(nodes: Node[], id: string | null): Node | undefined {
@@ -195,6 +196,20 @@ export default function PropertiesPanel() {
             >
               <IconPyramid size={20} />
             </button>
+            <button
+              onClick={() => {
+                if (!activeNodeId) return;
+                dispatch({
+                  type: "newNode",
+                  payload: {
+                    parentId: activeNodeId,
+                    properties: { type: "prism", translateX: 100 },
+                  },
+                });
+              }}
+            >
+              <IconCylinder size={20} />
+            </button>
           </div>
         </section>
       </details>
@@ -223,9 +238,10 @@ export default function PropertiesPanel() {
           )}
           {propertiesMap[activeNode.type].baseSides && (
             <label>
-              <span>Base sides</span>
+              <span>Sides</span>
               <input
                 min="3"
+                max="16"
                 type="number"
                 value={activeNode.baseSides}
                 onChange={(e) =>
@@ -395,7 +411,6 @@ export default function PropertiesPanel() {
             <span>Scale X</span>
             <input
               type="number"
-              min="0"
               step="0.01"
               value={activeNode.scaleX}
               onChange={(e) =>
@@ -414,7 +429,6 @@ export default function PropertiesPanel() {
             <span>Scale Y</span>
             <input
               type="number"
-              min="0"
               step="0.01"
               value={activeNode.scaleY}
               onChange={(e) =>
@@ -433,7 +447,6 @@ export default function PropertiesPanel() {
             <span>Scale Z</span>
             <input
               type="number"
-              min="0"
               step="0.01"
               value={activeNode.scaleZ}
               onChange={(e) =>

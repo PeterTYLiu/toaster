@@ -3,6 +3,7 @@ import styles from "./Node.module.scss";
 import Sphere from "../Sphere/Sphere";
 import Cuboid from "../Cuboid/Cuboid";
 import Pyramid from "../Pryamid/Pyramid";
+import Prism from "../Prism/Prism";
 import useSceneContext from "../../hooks/UseSceneContext";
 
 export function Node({ node }: { node: NodeClass }) {
@@ -43,6 +44,14 @@ export function Node({ node }: { node: NodeClass }) {
           {node.type === "sphere" && <Sphere id={node.id} />}
           {node.type === "pyramid" && (
             <Pyramid
+              baseSides={node.baseSides}
+              radius={node.radius}
+              height={node.height}
+              id={node.id}
+            />
+          )}
+          {node.type === "prism" && (
+            <Prism
               baseSides={node.baseSides}
               radius={node.radius}
               height={node.height}
