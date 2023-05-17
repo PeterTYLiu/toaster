@@ -4,6 +4,7 @@ import Sphere from "../Sphere/Sphere";
 import Cuboid from "../Cuboid/Cuboid";
 import Pyramid from "../Pryamid/Pyramid";
 import Prism from "../Prism/Prism";
+import Null from "../Null/Null";
 import useSceneContext from "../../hooks/UseSceneContext";
 
 export function Node({ node }: { node: NodeClass }) {
@@ -60,6 +61,8 @@ export function Node({ node }: { node: NodeClass }) {
           )}
         </div>
       )}
+
+      {activeNodeId === node.id && node.type === "group" && <Null />}
 
       {node.children.map((child) => (
         <Node node={child} key={child.id} />

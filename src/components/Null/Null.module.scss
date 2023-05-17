@@ -1,0 +1,19 @@
+.x * {
+  background-color: red;
+  border-width: 0px !important;
+}
+.y {
+  transform: rotateX(90deg);
+
+  * {
+    background-color: blue;
+    border-width: 0px !important;
+  }
+}
+.z {
+  transform: rotateZ(90deg);
+  * {
+    background-color: green;
+    border-width: 0px !important;
+  }
+}

@@ -4,9 +4,9 @@
   &.active {
     * {
       border-color: lawngreen !important;
-      border-width: 3px !important;
+      border-width: 3px;
       stroke: lawngreen !important;
-      stroke-width: 3 !important;
+      stroke-width: 3;
     }
   }
   &.hovered {

@@ -21,7 +21,6 @@ body {
   box-sizing: border-box;
 }
 
-button,
 input {
   height: 28px;
   padding: 0 7px;
@@ -29,10 +28,18 @@ input {
 
 button {
   user-select: none;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+}
+
+button.icon {
+  padding: 0;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
 }
 
 h1,

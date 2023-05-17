@@ -5,7 +5,8 @@ import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
-import { defaultModel } from "./defaultModel";
+import { pierrot } from "./models/pierrot";
+import { starDestroyer } from "./models/starDestroyer";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
@@ -81,7 +82,7 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: defaultModel,
+    nodes: [starDestroyer],
     hoverNodeId: null,
   });
 
