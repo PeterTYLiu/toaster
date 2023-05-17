@@ -5,7 +5,6 @@ import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
-import { pierrot } from "./models/pierrot";
 import { starDestroyer } from "./models/starDestroyer";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
