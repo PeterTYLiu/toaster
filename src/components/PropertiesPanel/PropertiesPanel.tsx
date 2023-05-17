@@ -8,6 +8,7 @@ import {
   IconTrash,
   IconCopy,
   IconCylinder,
+  IconFolder,
 } from "@tabler/icons-react";
 
 const propertiesMap: Record<
@@ -155,6 +156,7 @@ export default function PropertiesPanel() {
         <section>
           <div className={styles.inline}>
             <button
+              className="icon"
               onClick={() => {
                 if (!activeNodeId) return;
                 dispatch({
@@ -169,6 +171,7 @@ export default function PropertiesPanel() {
               <IconInnerShadowTopRight size={20} />
             </button>
             <button
+              className="icon"
               onClick={() => {
                 if (!activeNodeId) return;
                 dispatch({
@@ -183,6 +186,7 @@ export default function PropertiesPanel() {
               <IconBox size={20} />
             </button>
             <button
+              className="icon"
               onClick={() => {
                 if (!activeNodeId) return;
                 dispatch({
@@ -197,6 +201,7 @@ export default function PropertiesPanel() {
               <IconPyramid size={20} />
             </button>
             <button
+              className="icon"
               onClick={() => {
                 if (!activeNodeId) return;
                 dispatch({
@@ -209,6 +214,21 @@ export default function PropertiesPanel() {
               }}
             >
               <IconCylinder size={20} />
+            </button>
+            <button
+              className="icon"
+              onClick={() => {
+                if (!activeNodeId) return;
+                dispatch({
+                  type: "newNode",
+                  payload: {
+                    parentId: activeNodeId,
+                    properties: { type: "group", translateX: 100 },
+                  },
+                });
+              }}
+            >
+              <IconFolder size={20} />
             </button>
           </div>
         </section>

@@ -46,17 +46,20 @@ function findNodeById(nodes: Node[], id: string | null): Node | undefined {
   }
 }
 
-function findParentNodeByChildId(
+function findParentNodeAndIndexByChildId(
   node: Node,
   id: string | null
-): Node | undefined {
+): [Node, number] | undefined {
   // Loop through children
   const foundChild = node.children.find((child) => child.id === id);
-  if (foundChild) return node;
+  if (foundChild) {
+    const index = node.children.indexOf(foundChild);
+    return [node, index];
+  }
   // Loop through children
   for (const child of node.children) {
-    const foundGrandChild = findParentNodeByChildId(child, id);
-    if (foundGrandChild) return child;
+    const foundGrandChildAndIndex = findParentNodeAndIndexByChildId(child, id);
+    if (foundGrandChildAndIndex) return foundGrandChildAndIndex;
   }
 }
 
@@ -167,34 +170,44 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         activeNodeId: oldActiveNodeId === payload ? null : oldActiveNodeId,
       };
     case "cloneNode": {
-      const clonedNode = structuredClone(findNodeById(oldNodes, payload)) as
-        | Node
-        | undefined;
-      if (!clonedNode) return oldScene;
+      const nodeToClone = findNodeById(oldNodes, payload);
+      if (!nodeToClone) return oldScene;
 
-      // Recursively go through tree to find the parent node of the cloned node
-      let parentNode: Node | undefined = undefined; // If this is undefined by the end, it is a top-level node
-      for (const topLevelNode of oldNodes) {
-        parentNode =
-          findParentNodeByChildId(topLevelNode, payload) ?? parentNode;
-      }
-
+      const clonedNode = structuredClone(nodeToClone) as Node;
       clonedNode.name += " clone";
       renewIdsOfBranchNodes(clonedNode);
 
-      if (parentNode) {
+      const topLevelIndex = oldNodes.indexOf(nodeToClone) + 1;
+
+      // If it is a top level node
+      if (topLevelIndex > 0) {
+        const newNodes = [...oldNodes];
+        newNodes.splice(topLevelIndex, 0, clonedNode);
         return {
           ...oldScene,
-          nodes: editPropertiesOnNodeById(oldNodes, parentNode.id, {
-            children: [...parentNode.children, clonedNode],
-          }),
+          nodes: newNodes,
           activeNodeId: clonedNode.id,
         };
       }
 
+      let parentNode: Node | undefined = undefined;
+      let index: number | undefined = undefined;
+      for (const topLevelNode of oldNodes) {
+        [parentNode, index] = findParentNodeAndIndexByChildId(
+          topLevelNode,
+          payload
+        ) ?? [parentNode, index];
+      }
+
+      if (!parentNode || typeof index !== "number") return oldScene;
+
+      const newChildNodes = [...parentNode.children];
+      newChildNodes.splice(index + 1, 0, clonedNode);
       return {
         ...oldScene,
-        nodes: [...oldNodes, clonedNode],
+        nodes: editPropertiesOnNodeById(oldNodes, parentNode.id, {
+          children: newChildNodes,
+        }),
         activeNodeId: clonedNode.id,
       };
     }

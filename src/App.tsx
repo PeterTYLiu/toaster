@@ -82,7 +82,7 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: starDestroyer,
+    nodes: [starDestroyer],
     hoverNodeId: null,
   });
 
