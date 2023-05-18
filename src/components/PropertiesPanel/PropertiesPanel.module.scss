@@ -31,6 +31,9 @@ $summary-text: 14px;
 }
 
 .properties {
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
   overflow: auto;
   width: 230px;
   flex-grow: 0;

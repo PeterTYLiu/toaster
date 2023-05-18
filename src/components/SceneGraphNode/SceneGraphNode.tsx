@@ -77,9 +77,9 @@ export default function SceneGraphNode({ node }: { node: Node }) {
             }}
           >
             {node.collapsed ? (
-              <IconChevronRight size={16} />
+              <IconChevronRight size={14} />
             ) : (
-              <IconChevronDown size={16} />
+              <IconChevronDown size={14} />
             )}
           </button>
         ) : (

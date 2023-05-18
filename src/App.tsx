@@ -6,6 +6,7 @@ import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import { snowman } from "./models/snowman";
+import Links from "./components/Links/Links";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
@@ -14,8 +15,6 @@ export class Node {
   id: string;
   name: string;
   type: NodeType;
-  // Children
-  children: Node[];
   // Styling
   color?: string | undefined;
   borderColor?: string | undefined;
@@ -30,16 +29,17 @@ export class Node {
   rotateX: number;
   rotateY: number;
   rotateZ: number;
-
+  // Dimensions
   width: number;
   height: number;
   depth: number;
   radius: number;
-
   // Geometry
   baseSides: number;
-
+  // Collapsed node in scene tree
   collapsed?: boolean;
+  // Children
+  children: Node[];
 
   constructor(input: Partial<Node>) {
     this.id = crypto.randomUUID();
@@ -54,7 +54,6 @@ export class Node {
     this.rotateX = input.rotateX ?? 0;
     this.rotateY = input.rotateY ?? 0;
     this.rotateZ = input.rotateZ ?? 0;
-    this.children = [];
     this.depth = input.depth ?? 200;
     this.width = input.width ?? 200;
     this.height = input.height ?? 200;
@@ -63,6 +62,7 @@ export class Node {
     this.color = input.color ?? undefined;
     this.borderColor = input.borderColor ?? undefined;
     this.baseSides = 3;
+    this.children = [];
   }
 }
 
@@ -79,6 +79,7 @@ const defaultCamera: Camera = {
 };
 
 function App() {
+  const [bannerVisible, setBannerVisible] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
@@ -89,7 +90,22 @@ function App() {
 
   return (
     <SceneContext.Provider value={{ ...scene, dispatch }}>
-      <nav></nav>
+      <nav className={styles.nav}>
+        <div>
+          <h1>Toaster</h1>
+          <h2>Pure CSS 3D editor by Peter Liu</h2>
+        </div>
+        <Links />
+      </nav>
+      {bannerVisible && (
+        <div className={styles.banner}>
+          <span>🛠️ View on a larger screen for editing tools!</span>
+          <button className="icon" onClick={() => setBannerVisible(false)}>
+            x
+          </button>
+        </div>
+      )}
+
       <div className={styles.lower}>
         <SceneGraph />
         <main
