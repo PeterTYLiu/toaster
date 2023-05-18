@@ -7,6 +7,7 @@ import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import { snowman } from "./models/snowman";
 import Links from "./components/Links/Links";
+import { IconX } from "@tabler/icons-react";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
@@ -101,7 +102,7 @@ function App() {
         <div className={styles.banner}>
           <span>🛠️ View on a larger screen for editing tools!</span>
           <button className="icon" onClick={() => setBannerVisible(false)}>
-            x
+            <IconX size={18} />
           </button>
         </div>
       )}

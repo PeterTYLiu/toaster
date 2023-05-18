@@ -34,10 +34,11 @@ input {
   border-radius: 2px;
   border: 1px solid #777;
   background-color: #555;
+  color: white;
 }
 
 a.button:visited {
-  color: inherit;
+  color: white;
 }
 
 a.button:hover,
