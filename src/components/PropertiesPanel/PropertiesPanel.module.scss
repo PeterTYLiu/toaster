@@ -1,5 +1,22 @@
 $summary-text: 14px;
 
+.color-picker {
+  display: flex;
+  > *:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 28px;
+  }
+  > *:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 28px;
+  }
+  .active {
+    border-color: white;
+  }
+}
+
 .hint {
   font-size: 12px;
 }
@@ -52,7 +69,7 @@ $summary-text: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    input {
+    > input {
       width: 33.3%;
     }
   }

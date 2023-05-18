@@ -341,35 +341,39 @@ export default function PropertiesPanel() {
         <section>
           <label>
             <span>Color</span>
-            <input
-              type="color"
-              value={activeNode.color}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { color: e.target.value },
-                  },
-                })
-              }
-            />
-            <button
-              onClick={() =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { color: undefined },
-                  },
-                })
-              }
-            >
-              inherit
-            </button>
+            <div className={styles["color-picker"]}>
+              <input
+                type="color"
+                className={!!activeNode.color ? styles.active : ""}
+                value={activeNode.color}
+                onChange={(e) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { color: e.target.value },
+                    },
+                  })
+                }
+              />
+              <button
+                className={!activeNode.color ? styles.active : ""}
+                onClick={() =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { color: undefined },
+                    },
+                  })
+                }
+              >
+                inherit
+              </button>
+            </div>
           </label>
         </section>
-      </details>{" "}
+      </details>
       <details open>
         <summary>
           <h2>Transforms</h2>

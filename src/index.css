@@ -21,8 +21,21 @@ body {
   box-sizing: border-box;
 }
 
+button,
 input {
   height: 28px;
+  border-radius: 2px;
+  border: 1px solid #777;
+  background-color: #555;
+}
+
+button:hover,
+input:hover {
+  border-color: #888;
+  background-color: #666;
+}
+
+input {
   padding: 0 7px;
 }
 
