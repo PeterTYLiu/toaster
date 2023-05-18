@@ -10,6 +10,7 @@ import {
   IconCylinder,
   IconFolder,
 } from "@tabler/icons-react";
+import Links from "../Links/Links";
 
 const propertiesMap: Record<
   Node["type"],
@@ -49,6 +50,8 @@ export default function PropertiesPanel() {
             (work in progress!)
           </h2>
           <br />
+          <Links />
+          <br />
           <p>
             A 3D editor entirely using CSS 3D functions. Inspired by{" "}
             <a href="http://tridiv.com/" target="_blank">
@@ -63,7 +66,6 @@ export default function PropertiesPanel() {
             <li>Spheres and n-sided pyramids</li>
             <li>X/Y/Z scaling for all nodes/solids</li>
           </ul>
-          <a href="https://github.com/PeterTYLiu/toaster">Github</a>
         </div>
         <div>
           <button
@@ -244,6 +246,7 @@ export default function PropertiesPanel() {
                 <span>Radius</span>
                 <input
                   type="number"
+                  min="0"
                   value={activeNode.radius}
                   onChange={(e) =>
                     dispatch({
@@ -282,6 +285,7 @@ export default function PropertiesPanel() {
                 <span>Width</span>
                 <input
                   type="number"
+                  min="0"
                   value={activeNode.width}
                   onChange={(e) =>
                     dispatch({
@@ -300,6 +304,7 @@ export default function PropertiesPanel() {
                 <span>Height</span>
                 <input
                   type="number"
+                  min="0"
                   value={activeNode.height}
                   onChange={(e) =>
                     dispatch({
@@ -318,6 +323,7 @@ export default function PropertiesPanel() {
                 <span>Depth</span>
                 <input
                   type="number"
+                  min="0"
                   value={activeNode.depth}
                   onChange={(e) =>
                     dispatch({

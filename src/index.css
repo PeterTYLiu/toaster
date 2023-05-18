@@ -12,6 +12,12 @@
   --bg: #eeeeee;
 }
 
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 html,
 body {
   margin: 0;
@@ -21,6 +27,7 @@ body {
   box-sizing: border-box;
 }
 
+a.button,
 button,
 input {
   height: 28px;
@@ -29,6 +36,11 @@ input {
   background-color: #555;
 }
 
+a.button:visited {
+  color: inherit;
+}
+
+a.button:hover,
 button:hover,
 input:hover {
   border-color: #888;
@@ -39,6 +51,7 @@ input {
   padding: 0 7px;
 }
 
+a.button,
 button {
   user-select: none;
   height: 28px;
@@ -48,6 +61,7 @@ button {
   gap: 6px;
 }
 
+a.button.icon,
 button.icon {
   padding: 0;
   display: grid;
