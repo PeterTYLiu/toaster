@@ -7,30 +7,35 @@ import {
   IconInnerShadowTopRight,
   IconPyramid,
   IconCylinder,
+  IconChevronDown,
+  IconChevronRight,
 } from "@tabler/icons-react";
+
+const iconSize = 18;
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
 
-  let icon = <IconFolder size={20} />;
+  let icon = <IconFolder size={iconSize} />;
 
   switch (node.type) {
     case "cuboid":
-      icon = <IconBox size={20} />;
+      icon = <IconBox size={iconSize} />;
       break;
     case "sphere":
-      icon = <IconInnerShadowTopRight size={20} />;
+      icon = <IconInnerShadowTopRight size={iconSize} />;
       break;
     case "pyramid":
-      icon = <IconPyramid size={20} />;
+      icon = <IconPyramid size={iconSize} />;
       break;
     case "prism":
-      icon = <IconCylinder size={20} />;
+      icon = <IconCylinder size={iconSize} />;
       break;
   }
 
   return (
     <div
+      id={node.id + "graph"}
       className={`${styles.node} ${
         activeNodeId === node.id ? styles.active : ""
       }`}
@@ -57,12 +62,35 @@ export default function SceneGraphNode({ node }: { node: Node }) {
           });
         }}
       >
+        {node.children.length ? (
+          <button
+            className={styles.collapser}
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch({
+                type: "updateNodeById",
+                payload: {
+                  id: node.id,
+                  properties: { collapsed: !node.collapsed },
+                },
+              });
+            }}
+          >
+            {node.collapsed ? (
+              <IconChevronRight size={16} />
+            ) : (
+              <IconChevronDown size={16} />
+            )}
+          </button>
+        ) : (
+          <div className={styles["collapser-placeholder"]} />
+        )}
         {icon}
         <span className={styles.name}>
           {node.name || `unnamed ${node.type}`}
         </span>
       </div>
-      {!!node.children.length && (
+      {!!node.children.length && !node.collapsed && (
         <div className={styles.children}>
           {node.children.map((child) => (
             <SceneGraphNode node={child} key={child.id} />

@@ -10,6 +10,7 @@ export const snowman: Node[] = [
         id: "3831c9c5-36c1-4c9c-b1a9-06b6551c01a8",
         name: "bottom",
         type: "sphere",
+        collapsed: true,
         children: [
           {
             id: "3016ad39-7f98-4f13-a7d6-96d91b22ac9d",
@@ -35,7 +36,7 @@ export const snowman: Node[] = [
           },
           {
             id: "4eab67f4-8917-433d-9eac-7476a215327c",
-            name: "button clone",
+            name: "button ",
             type: "cuboid",
             children: [],
             color: "#000000",
@@ -76,6 +77,7 @@ export const snowman: Node[] = [
         id: "35fc2efa-d8fc-485d-b5a4-e463e8cc229c",
         name: "middle",
         type: "sphere",
+        collapsed: true,
         children: [
           {
             id: "8513301b-802c-4474-a41c-509ba944fac7",
@@ -101,7 +103,7 @@ export const snowman: Node[] = [
           },
           {
             id: "0cf27d2b-88c0-4aea-b799-f3cc05587486",
-            name: "button clone",
+            name: "button ",
             type: "cuboid",
             children: [],
             color: "#000000",
@@ -141,6 +143,7 @@ export const snowman: Node[] = [
       {
         id: "8ab8ce0f-23fe-423a-9bf4-b3e66b3c74f6",
         name: "head",
+        collapsed: true,
         type: "group",
         children: [
           {
@@ -171,8 +174,30 @@ export const snowman: Node[] = [
                 baseSides: 3,
               },
               {
+                id: "5845b2aa-aebb-48cd-8fcd-48df9d7f27d9",
+                name: "eye",
+                type: "cuboid",
+                children: [],
+                color: "#000000",
+                opacity: 1,
+                translateX: 75,
+                translateY: -47,
+                translateZ: 17,
+                scaleX: 1,
+                scaleY: 1,
+                scaleZ: 1,
+                rotateX: -104,
+                rotateY: 4,
+                rotateZ: 0,
+                width: 23,
+                height: 15,
+                depth: 12,
+                radius: 200,
+                baseSides: 3,
+              },
+              {
                 id: "0d974475-8d4d-49c5-87ab-4f25cf43ae79",
-                name: "mouth piece",
+                name: "mouth coal",
                 type: "cuboid",
                 children: [],
                 color: "#000000",
@@ -194,7 +219,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "5b622092-f08a-496d-802f-d4519f363775",
-                name: "mouth piece",
+                name: "mouth coal",
                 type: "cuboid",
                 children: [],
                 color: "#000000",
@@ -216,7 +241,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "93e0a4d5-75ed-4fc4-9274-5513bcd10ed7",
-                name: "mouth piece center",
+                name: "mouth coal",
                 type: "cuboid",
                 children: [],
                 color: "#000000",
@@ -238,7 +263,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "011e644c-e3d4-4886-b7a6-3017af756884",
-                name: "mouth piece center clone",
+                name: "mouth coal",
                 type: "cuboid",
                 children: [],
                 color: "#000000",
@@ -260,7 +285,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "7acceff8-8de7-48a7-98e1-bbf2261235a2",
-                name: "mouth piece center clone clone",
+                name: "mouth coal",
                 type: "cuboid",
                 children: [],
                 color: "#000000",
@@ -277,28 +302,6 @@ export const snowman: Node[] = [
                 width: 10,
                 height: 13,
                 depth: 13,
-                radius: 200,
-                baseSides: 3,
-              },
-              {
-                id: "5845b2aa-aebb-48cd-8fcd-48df9d7f27d9",
-                name: "eye",
-                type: "cuboid",
-                children: [],
-                color: "#000000",
-                opacity: 1,
-                translateX: 77,
-                translateY: -47,
-                translateZ: 17,
-                scaleX: 1,
-                scaleY: 1,
-                scaleZ: 1,
-                rotateX: -13,
-                rotateY: 24,
-                rotateZ: 0,
-                width: 23,
-                height: 15,
-                depth: 12,
                 radius: 200,
                 baseSides: 3,
               },
@@ -389,12 +392,33 @@ export const snowman: Node[] = [
                 radius: 75,
                 baseSides: 14,
               },
+              {
+                id: "bfc32ad8-67a8-4fe1-acc3-1cbf8c2be6f1",
+                name: "hat flare",
+                type: "pyramid",
+                children: [],
+                opacity: 1,
+                translateX: 0,
+                translateY: 0,
+                translateZ: 57,
+                scaleX: 1,
+                scaleY: 1,
+                scaleZ: 1,
+                rotateX: 0,
+                rotateY: 180,
+                rotateZ: 0,
+                width: 200,
+                height: 200,
+                depth: 200,
+                radius: 80,
+                baseSides: 14,
+              },
             ],
-            color: "#2a1a04",
+            color: "#2c2926",
             opacity: 1,
             translateX: -6,
             translateY: 6,
-            translateZ: 51,
+            translateZ: 53,
             scaleX: 1,
             scaleY: 1,
             scaleZ: 1,
@@ -402,9 +426,9 @@ export const snowman: Node[] = [
             rotateY: -7,
             rotateZ: 0,
             width: 200,
-            height: 10,
+            height: 7,
             depth: 200,
-            radius: 109,
+            radius: 115,
             baseSides: 14,
           },
         ],
@@ -427,6 +451,7 @@ export const snowman: Node[] = [
       {
         id: "a4413d31-d007-45f8-9343-d756d7d98d58",
         name: "scarf",
+        collapsed: true,
         type: "prism",
         children: [
           {
@@ -474,7 +499,7 @@ export const snowman: Node[] = [
           },
           {
             id: "1ab4eb5b-d1cc-4c35-860f-f4923b06906c",
-            name: "scarf segement clone",
+            name: "scarf segement ",
             type: "cuboid",
             children: [
               {
@@ -537,6 +562,7 @@ export const snowman: Node[] = [
         id: "0a0e4047-ee26-411e-a304-9c1c2d0549ab",
         name: "left arm",
         type: "cuboid",
+        collapsed: true,
         children: [
           {
             id: "ad0b566b-5151-4eb7-90f4-829ef95a794a",
@@ -566,7 +592,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "2dee4ee1-7dcb-4c8d-bb48-be48c529e5b7",
-                name: "finger clone",
+                name: "finger",
                 type: "cuboid",
                 children: [],
                 opacity: 1,
@@ -623,6 +649,7 @@ export const snowman: Node[] = [
       {
         id: "7911bc5a-15a7-4318-8e46-abc9297d204c",
         name: "right arm",
+        collapsed: true,
         type: "cuboid",
         children: [
           {
@@ -653,7 +680,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "c78888b4-4142-4215-ba84-92db5c668a74",
-                name: "finger clone",
+                name: "finger",
                 type: "cuboid",
                 children: [],
                 opacity: 1,
@@ -674,7 +701,7 @@ export const snowman: Node[] = [
               },
               {
                 id: "3e86031f-1334-441f-a051-27982d426c41",
-                name: "finger clone",
+                name: "finger ",
                 type: "cuboid",
                 children: [],
                 opacity: 1,
@@ -749,11 +776,12 @@ export const snowman: Node[] = [
   {
     id: "9516dc21-2897-466d-b922-468ad92c82e7",
     name: "snowflake",
+    collapsed: true,
     type: "cuboid",
     children: [
       {
         id: "9d9a93f2-9e59-4777-bc99-cd4ced89bdb4",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -774,7 +802,7 @@ export const snowman: Node[] = [
       },
       {
         id: "e336820e-33b7-4aec-adc8-a4480bf05497",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -813,12 +841,13 @@ export const snowman: Node[] = [
   },
   {
     id: "5b391bd1-6170-4b50-9427-48df6d943e09",
-    name: "snowflake clone",
+    name: "snowflake",
     type: "cuboid",
+    collapsed: true,
     children: [
       {
         id: "0861830a-901e-4230-8001-6c5c4a2e0d89",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -839,7 +868,7 @@ export const snowman: Node[] = [
       },
       {
         id: "ec8f7db0-2bda-419f-a82a-504625222535",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -880,10 +909,11 @@ export const snowman: Node[] = [
     id: "373f55d6-ef22-4428-87f6-42617bf18152",
     name: "snowflake",
     type: "cuboid",
+    collapsed: true,
     children: [
       {
         id: "53e6bd3f-a2e8-48fa-a09b-3b4cc82ad108",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -904,7 +934,7 @@ export const snowman: Node[] = [
       },
       {
         id: "16decbf3-01a1-4148-b408-4081fcded69f",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -943,12 +973,13 @@ export const snowman: Node[] = [
   },
   {
     id: "d0f16324-7e01-4cb0-838d-53f9b94f455b",
-    name: "snowflake clone clone",
+    name: "snowflake",
     type: "cuboid",
+    collapsed: true,
     children: [
       {
         id: "79ebb713-fbf7-43d4-8c15-e4296a73b291",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -969,7 +1000,7 @@ export const snowman: Node[] = [
       },
       {
         id: "231af62f-3eb3-420b-a00a-0ab3e68ddfbe",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1009,11 +1040,12 @@ export const snowman: Node[] = [
   {
     id: "e8a56abf-5a6d-471e-a16c-338655191c43",
     name: "snowflake",
+    collapsed: true,
     type: "cuboid",
     children: [
       {
         id: "f57eb77f-688e-4f61-88f4-1cec28720141",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1034,7 +1066,7 @@ export const snowman: Node[] = [
       },
       {
         id: "05c1de7a-4732-424c-9ea3-97adb657619b",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1074,11 +1106,13 @@ export const snowman: Node[] = [
   {
     id: "ab9f08aa-2736-4eb2-a882-39c02c51744d",
     name: "snowflake",
+    collapsed: true,
+
     type: "cuboid",
     children: [
       {
         id: "ba861346-cd49-4601-9928-fd6d5cbc04fd",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1099,7 +1133,7 @@ export const snowman: Node[] = [
       },
       {
         id: "a3715653-389e-441d-9ad1-fd4b9d6f6fb6",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1138,12 +1172,14 @@ export const snowman: Node[] = [
   },
   {
     id: "cf2a0b46-8e6f-4144-b4e6-2575585170f4",
-    name: "snowflake clone",
+    name: "snowflake",
+    collapsed: true,
+
     type: "cuboid",
     children: [
       {
         id: "a8c4ae1d-00bb-49b4-9dd7-5b61ddccbec0",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1164,7 +1200,7 @@ export const snowman: Node[] = [
       },
       {
         id: "908f6390-87fe-44ee-b59a-dd575f523984",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1203,12 +1239,14 @@ export const snowman: Node[] = [
   },
   {
     id: "92488363-77fc-40ea-9c87-2e8a8fb3bf7a",
-    name: "snowflake ",
+    name: "snowflake",
+    collapsed: true,
+
     type: "cuboid",
     children: [
       {
         id: "5b7ccd2d-e30c-4403-aefd-f16619be850d",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1229,7 +1267,7 @@ export const snowman: Node[] = [
       },
       {
         id: "ab97d5a8-e75b-4d52-ab62-6170c4723b42",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1270,10 +1308,12 @@ export const snowman: Node[] = [
     id: "d91001f1-cd45-44b6-be1e-97e85ecf0215",
     name: "snowflake",
     type: "cuboid",
+    collapsed: true,
+
     children: [
       {
         id: "fce48bb8-6813-46dd-85b7-f30db7b67a6c",
-        name: "New cuboid",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1294,7 +1334,7 @@ export const snowman: Node[] = [
       },
       {
         id: "d15781d9-7b05-4ec9-a099-c9d8aedb81b4",
-        name: "New cuboid clone",
+        name: "crystal",
         type: "cuboid",
         children: [],
         opacity: 1,
@@ -1340,7 +1380,7 @@ export const snowman: Node[] = [
     opacity: 1,
     translateX: 500,
     translateY: 500,
-    translateZ: 0,
+    translateZ: -25,
     scaleX: 1,
     scaleY: 1,
     scaleZ: 1,
@@ -1349,7 +1389,7 @@ export const snowman: Node[] = [
     rotateZ: 0,
     width: 1000,
     height: 1000,
-    depth: 5,
+    depth: 50,
     radius: 200,
     baseSides: 3,
   },

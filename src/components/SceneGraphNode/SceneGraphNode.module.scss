@@ -1,14 +1,14 @@
 .children {
-  margin-left: 17px;
+  margin-left: 35px;
   margin-top: 3px;
   border-left: 1px solid #555;
 }
 
 .parent {
-  padding: 4px 8px;
+  padding-left: 4px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   cursor: default;
   svg {
     flex-shrink: 0;
@@ -24,6 +24,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   user-select: none;
+  word-break: break-all;
+  font-size: 14px;
 }
 
 .node {
@@ -36,4 +38,15 @@
   > .parent {
     background-color: #555;
   }
+}
+
+.collapser {
+  background-color: transparent;
+  border: none;
+}
+
+.collapser,
+.collapser-placeholder {
+  width: 18px;
+  height: 24px;
 }

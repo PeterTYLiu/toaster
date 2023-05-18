@@ -39,6 +39,8 @@ export class Node {
   // Geometry
   baseSides: number;
 
+  collapsed?: boolean;
+
   constructor(input: Partial<Node>) {
     this.id = crypto.randomUUID();
     this.name = `New ${input.type ?? "cuboid"}`;

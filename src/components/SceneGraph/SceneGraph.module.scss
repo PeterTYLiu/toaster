@@ -1,5 +1,7 @@
 .panel {
   width: 230px;
+  resize: horizontal;
+  overflow: hidden;
   flex-grow: 0;
   flex-shrink: 0;
   display: flex;
