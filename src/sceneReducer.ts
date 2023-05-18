@@ -68,6 +68,24 @@ function renewIdsOfBranchNodes(node: Node) {
   node.children.forEach((child) => renewIdsOfBranchNodes(child));
 }
 
+function findAllAncestorsByNodeId(
+  nodes: Node[],
+  id: string,
+  ancestors: Node[] = []
+): Node[] | undefined {
+  for (const node of nodes) {
+    if (node.id === id) return ancestors;
+
+    const newAncestors = findAllAncestorsByNodeId(node.children, id, [
+      ...ancestors,
+      node,
+    ]);
+    if (newAncestors) return newAncestors;
+  }
+
+  return undefined;
+}
+
 interface BaseAction {
   type: string;
   payload: unknown;
@@ -132,11 +150,17 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       return { ...oldScene, nodes: payload };
     case "updateCamera":
       return { ...oldScene, camera: { ...oldScene.camera, ...payload } };
-    case "setActiveNodeId":
-      return { ...oldScene, activeNodeId: payload };
+    case "setActiveNodeId": {
+      if (!payload) return { ...oldScene, activeNodeId: payload };
+      // The active node's ancestors need to have collapsed = false
+      const nodesToReturn = structuredClone(oldNodes) as Node[];
+      const nodesToEdit = findAllAncestorsByNodeId(nodesToReturn, payload);
+      nodesToEdit?.forEach((n) => (n.collapsed = false));
+      return { ...oldScene, activeNodeId: payload, nodes: nodesToReturn };
+    }
     case "setHoverNodeId":
       return { ...oldScene, hoverNodeId: payload };
-    case "updateNodeById":
+    case "updateNodeById": {
       if (!payload.id) return oldScene;
       const nodesToReturn = editPropertiesOnNodeById(
         oldNodes,
@@ -144,6 +168,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         payload.properties
       );
       return { ...oldScene, nodes: nodesToReturn };
+    }
     case "newNode": {
       const newNode = new Node(payload.properties);
 
