@@ -81,7 +81,7 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: [snowman],
+    nodes: snowman,
     hoverNodeId: null,
   });
 
