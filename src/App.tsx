@@ -5,7 +5,7 @@ import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
-import { starDestroyer } from "./models/starDestroyer";
+import { snowman } from "./models/snowman";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
@@ -17,8 +17,8 @@ export class Node {
   // Children
   children: Node[];
   // Styling
-  color: string | undefined;
-  borderColor: string | undefined;
+  color?: string | undefined;
+  borderColor?: string | undefined;
   opacity: number;
   // Transforms
   translateX: number;
@@ -81,7 +81,7 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: [starDestroyer],
+    nodes: [snowman],
     hoverNodeId: null,
   });
 

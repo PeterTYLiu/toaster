@@ -19,7 +19,6 @@ export function Node({ node }: { node: NodeClass }) {
 
   // These variables are inherited from its parent and/or passed on to its children
   const inheitedVariables: Record<string, string> = {};
-  if (node.borderColor) inheitedVariables["--borderColor"] = node.borderColor;
   if (node.color) inheitedVariables["--bg"] = node.color;
 
   return (
