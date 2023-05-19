@@ -5,6 +5,8 @@ import {
   IconBrandLinkedin,
 } from "@tabler/icons-react";
 
+const iconSize = 20;
+
 function share() {
   if (navigator.share)
     return navigator.share({
@@ -23,16 +25,16 @@ export default function Links() {
   return (
     <div className={styles.links}>
       <a className="icon button" href="https://github.com/PeterTYLiu/toaster">
-        <IconBrandGithub size={18} />
+        <IconBrandGithub size={iconSize} />
       </a>
       <a
         className="icon button"
         href="https://www.linkedin.com/in/peter-ty-liu/"
       >
-        <IconBrandLinkedin size={18} />
+        <IconBrandLinkedin size={iconSize} />
       </a>
       <button className="icon" onClick={share}>
-        <IconShare size={18} />
+        <IconShare size={iconSize} />
       </button>
     </div>
   );

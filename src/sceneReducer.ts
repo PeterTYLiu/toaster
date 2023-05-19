@@ -86,6 +86,14 @@ function findAllAncestorsByNodeId(
   return undefined;
 }
 
+function scrollSceneGraphNodeIntoView(id: string) {
+  setTimeout(() => {
+    const sceneGraphNode = document.getElementById(id + "graph");
+    if (sceneGraphNode)
+      sceneGraphNode.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 50);
+}
+
 interface BaseAction {
   type: string;
   payload: unknown;
@@ -156,6 +164,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       const nodesToReturn = structuredClone(oldNodes) as Node[];
       const nodesToEdit = findAllAncestorsByNodeId(nodesToReturn, payload);
       nodesToEdit?.forEach((n) => (n.collapsed = false));
+      scrollSceneGraphNodeIntoView(payload);
       return { ...oldScene, activeNodeId: payload, nodes: nodesToReturn };
     }
     case "setHoverNodeId":
@@ -174,12 +183,15 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
 
       const parentNode = findNodeById(oldNodes, payload.parentId ?? null);
 
+      scrollSceneGraphNodeIntoView(newNode.id);
+
       if (!payload.parentId || !parentNode)
         return {
           ...oldScene,
           nodes: [...oldNodes, newNode],
           activeNodeId: newNode.id,
         };
+
       return {
         ...oldScene,
         nodes: editPropertiesOnNodeById(oldNodes, payload.parentId, {
@@ -201,6 +213,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       const clonedNode = structuredClone(nodeToClone) as Node;
       clonedNode.name += " clone";
       renewIdsOfBranchNodes(clonedNode);
+      scrollSceneGraphNodeIntoView(clonedNode.id);
 
       const topLevelIndex = oldNodes.indexOf(nodeToClone) + 1;
 
