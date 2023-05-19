@@ -41,7 +41,7 @@ export const optimus: Node = {
       depth: 200,
       radius: 200,
       baseSides: 3,
-      collapsed: true,
+      collapsed: false,
       children: [
         {
           id: "35786528-8e38-428a-81a3-c0574d622f53",
@@ -130,7 +130,7 @@ export const optimus: Node = {
         },
         {
           id: "297e00df-d5d2-476d-8821-43265658a3d1",
-          name: "New prism clone",
+          name: "New prism",
           type: "prism",
           color: "#39c6d0",
           opacity: 1,
@@ -172,7 +172,7 @@ export const optimus: Node = {
       depth: 200,
       radius: 200,
       baseSides: 3,
-      collapsed: true,
+      collapsed: false,
       children: [
         {
           id: "9ca35147-68d0-4661-a72f-ab7ef713491f",
@@ -302,7 +302,7 @@ export const optimus: Node = {
             },
             {
               id: "7d2ef226-e40b-4168-92e5-a98160386c17",
-              name: "New prism clone",
+              name: "New prism",
               type: "prism",
               color: "#dbdbdb",
               opacity: 1,
@@ -346,7 +346,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "62f8377b-5747-4616-9023-8d4f788ed6c4",
-                  name: "New cuboid clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -368,7 +368,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "98adfe6f-fb16-421b-9f03-d53eb6e620e2",
-                  name: "New cuboid clone clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -390,7 +390,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "d6b6de56-ddf9-4776-83e7-b5eaeaba1c67",
-                  name: "New cuboid clone clone clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -412,7 +412,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "e9b21529-b5c8-48ca-94a1-f4d9486e09cf",
-                  name: "New cuboid clone clone clone clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -434,7 +434,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "69f4acd2-3adf-44f0-b57e-9e52766f3345",
-                  name: "New cuboid clone clone clone clone clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -456,7 +456,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "f45890c7-a8c1-4ad6-ac86-84ec04d8fb3c",
-                  name: "New cuboid clone clone clone clone clone clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -478,7 +478,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "fd1962c0-c692-44a6-83d8-ed6370a04fc7",
-                  name: "New cuboid clone clone clone clone clone clone clone",
+                  name: "New cuboid",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -567,7 +567,7 @@ export const optimus: Node = {
             },
             {
               id: "45c84006-d165-4f9b-bde3-95e923235056",
-              name: "New cuboid clone",
+              name: "New cuboid",
               type: "cuboid",
               color: "#bdad00",
               opacity: 1,
@@ -610,7 +610,7 @@ export const optimus: Node = {
             },
             {
               id: "c18d1a86-1170-4101-a5c1-ce0db925e6b8",
-              name: "New prism clone",
+              name: "New prism",
               type: "prism",
               color: "#dbdbdb",
               opacity: 1,
@@ -632,7 +632,7 @@ export const optimus: Node = {
             },
             {
               id: "e8d2aaeb-1f67-4b33-9f6a-f914d492a413",
-              name: "New prism clone clone",
+              name: "New prism",
               type: "prism",
               color: "#808080",
               opacity: 1,
@@ -740,7 +740,7 @@ export const optimus: Node = {
             },
             {
               id: "c44023db-a6ca-41a1-9cbc-bc59af1e4a54",
-              name: "New cuboid clone",
+              name: "New cuboid",
               type: "cuboid",
               color: "#bdad00",
               opacity: 1,
@@ -783,7 +783,7 @@ export const optimus: Node = {
             },
             {
               id: "cd4bf709-5de6-4dbf-a2fd-bb3e253b57a6",
-              name: "New prism clone",
+              name: "New prism",
               type: "prism",
               color: "#dbdbdb",
               opacity: 1,
@@ -805,7 +805,7 @@ export const optimus: Node = {
             },
             {
               id: "e4f325fd-1edb-427f-802a-ca9c739f0866",
-              name: "New prism clone clone",
+              name: "New prism",
               type: "prism",
               color: "#808080",
               opacity: 1,
