@@ -20,7 +20,7 @@ $grid-color: rgb(255, 255, 255);
 }
 
 .main {
-  background-color: rgb(219, 219, 219);
+  background: radial-gradient(#99a, #556);
   overflow: hidden;
   position: relative;
   flex-grow: 1;
@@ -54,7 +54,7 @@ $grid-color: rgb(255, 255, 255);
   height: 1000px;
   left: calc(50% - 500px);
   top: calc(50% - 500px);
-
+  border: 1px solid $grid-color;
   background-image: repeating-linear-gradient(
       transparent,
       transparent 49px,
