@@ -108,7 +108,7 @@ export const optimus: Node = {
         },
         {
           id: "9cfcdfda-4d8c-4035-b2e6-28108b17450a",
-          name: "New prism",
+          name: "left eye",
           type: "prism",
           color: "#39c6d0",
           opacity: 1,
@@ -130,7 +130,7 @@ export const optimus: Node = {
         },
         {
           id: "297e00df-d5d2-476d-8821-43265658a3d1",
-          name: "New prism",
+          name: "right eye",
           type: "prism",
           color: "#39c6d0",
           opacity: 1,
@@ -281,7 +281,7 @@ export const optimus: Node = {
           children: [
             {
               id: "b997c8c5-8528-497c-8e75-05e9a6ea908d",
-              name: "New prism",
+              name: "grill exterior",
               type: "prism",
               opacity: 1,
               translateX: 0,
@@ -302,7 +302,7 @@ export const optimus: Node = {
             },
             {
               id: "7d2ef226-e40b-4168-92e5-a98160386c17",
-              name: "New prism",
+              name: "grill interior",
               type: "prism",
               color: "#dbdbdb",
               opacity: 1,
@@ -324,7 +324,7 @@ export const optimus: Node = {
               children: [
                 {
                   id: "dde7812c-d7c9-43c7-9e62-8ca7483f7356",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -346,7 +346,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "62f8377b-5747-4616-9023-8d4f788ed6c4",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -368,7 +368,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "98adfe6f-fb16-421b-9f03-d53eb6e620e2",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -390,7 +390,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "d6b6de56-ddf9-4776-83e7-b5eaeaba1c67",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -412,7 +412,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "e9b21529-b5c8-48ca-94a1-f4d9486e09cf",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -434,7 +434,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "69f4acd2-3adf-44f0-b57e-9e52766f3345",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -456,7 +456,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "f45890c7-a8c1-4ad6-ac86-84ec04d8fb3c",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,
@@ -478,7 +478,7 @@ export const optimus: Node = {
                 },
                 {
                   id: "fd1962c0-c692-44a6-83d8-ed6370a04fc7",
-                  name: "New cuboid",
+                  name: "line",
                   type: "cuboid",
                   color: "#4a4a4a",
                   opacity: 1,

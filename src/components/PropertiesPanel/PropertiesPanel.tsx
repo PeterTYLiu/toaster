@@ -6,6 +6,20 @@ import Links from "../Links/Links";
 import type { Node } from "../../App";
 import { findNodeById } from "../../sceneReducer";
 
+const transformsMap: Partial<
+  Record<keyof Node, { label: string; step?: number }>
+> = {
+  translateX: { label: "Translate X" },
+  translateY: { label: "Translate Y" },
+  translateZ: { label: "Translate Z" },
+  scaleX: { label: "Scale X", step: 0.01 },
+  scaleY: { label: "Scale Y", step: 0.01 },
+  scaleZ: { label: "Scale Z", step: 0.01 },
+  rotateX: { label: "Rotate X" },
+  rotateY: { label: "Rotate Y" },
+  rotateZ: { label: "Rotate Z" },
+};
+
 export default function PropertiesPanel() {
   const { nodes, dispatch, activeNodeId } = useSceneContext();
 
@@ -308,167 +322,27 @@ export default function PropertiesPanel() {
           <p className={styles.hint}>
             Transforms apply to the node and its children
           </p>
-          <label>
-            <span>Translate X</span>
-            <input
-              type="number"
-              value={activeNode.translateX}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { translateX: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Translate Y</span>
-            <input
-              type="number"
-              value={activeNode.translateY}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { translateY: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Translate Z</span>
-            <input
-              type="number"
-              value={activeNode.translateZ}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { translateZ: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Scale X</span>
-            <input
-              type="number"
-              step="0.01"
-              value={activeNode.scaleX}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { scaleX: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Scale Y</span>
-            <input
-              type="number"
-              step="0.01"
-              value={activeNode.scaleY}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { scaleY: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Scale Z</span>
-            <input
-              type="number"
-              step="0.01"
-              value={activeNode.scaleZ}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { scaleZ: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Rotate X</span>
-            <input
-              type="number"
-              min="-360"
-              max="360"
-              value={activeNode.rotateX}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { rotateX: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Rotate Y</span>
-            <input
-              type="number"
-              min="-360"
-              max="360"
-              value={activeNode.rotateY}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { rotateY: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
-
-          <label>
-            <span>Rotate Z</span>
-            <input
-              type="number"
-              min="-360"
-              max="360"
-              value={activeNode.rotateZ}
-              onChange={(e) =>
-                dispatch({
-                  type: "updateNodeById",
-                  payload: {
-                    id: activeNodeId,
-                    properties: { rotateZ: e.target.valueAsNumber },
-                  },
-                })
-              }
-            />
-          </label>
+          {Object.entries(transformsMap).map(([key, value]) => {
+            return (
+              <label key={key}>
+                <span>{value.label}</span>
+                <input
+                  type="number"
+                  step={value.step}
+                  value={activeNode[key as keyof Node] as number}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { [key]: e.target.valueAsNumber },
+                      },
+                    })
+                  }
+                />
+              </label>
+            );
+          })}
         </section>
       </details>
     </div>
