@@ -35,7 +35,10 @@ function deleteNodeById(nodes: Node[], id: string): Node[] {
   return nodesToReturn;
 }
 
-function findNodeById(nodes: Node[], id: string | null): Node | undefined {
+export function findNodeById(
+  nodes: Node[],
+  id: string | null
+): Node | undefined {
   // Loop through nodes
   const thisNode = nodes.find((node) => node.id === id);
   if (thisNode) return thisNode;

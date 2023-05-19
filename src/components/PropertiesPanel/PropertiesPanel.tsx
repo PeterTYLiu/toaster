@@ -1,38 +1,10 @@
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./PropertiesPanel.module.scss";
-import type { Node } from "../../App";
-import {
-  IconBox,
-  IconInnerShadowTopRight,
-  IconPyramid,
-  IconTrash,
-  IconCopy,
-  IconCylinder,
-  IconFolder,
-} from "@tabler/icons-react";
+import { nodeTypesMap } from "../../nodeProperties";
+import { IconTrash, IconCopy } from "@tabler/icons-react";
 import Links from "../Links/Links";
-
-const propertiesMap: Record<
-  Node["type"],
-  Partial<Record<keyof Node, boolean>>
-> = {
-  group: {},
-  cuboid: { width: true, height: true, depth: true },
-  pyramid: { radius: true, baseSides: true, height: true },
-  prism: { radius: true, baseSides: true, height: true },
-  sphere: { radius: true },
-};
-
-function findNodeById(nodes: Node[], id: string | null): Node | undefined {
-  // Loop through nodes
-  const thisNode = nodes.find((node) => node.id === id);
-  if (thisNode) return thisNode;
-  // Loop through nested nodes
-  for (const node of nodes) {
-    const foundChildNode = findNodeById(node.children, id);
-    if (foundChildNode) return foundChildNode;
-  }
-}
+import type { Node } from "../../App";
+import { findNodeById } from "../../sceneReducer";
 
 export default function PropertiesPanel() {
   const { nodes, dispatch, activeNodeId } = useSceneContext();
@@ -157,81 +129,29 @@ export default function PropertiesPanel() {
         </summary>
         <section>
           <div className={styles.inline}>
-            <button
-              className="icon"
-              onClick={() => {
-                if (!activeNodeId) return;
-                dispatch({
-                  type: "newNode",
-                  payload: {
-                    parentId: activeNodeId,
-                    properties: { type: "sphere", translateX: 100 },
-                  },
-                });
-              }}
-            >
-              <IconInnerShadowTopRight size={20} />
-            </button>
-            <button
-              className="icon"
-              onClick={() => {
-                if (!activeNodeId) return;
-                dispatch({
-                  type: "newNode",
-                  payload: {
-                    parentId: activeNodeId,
-                    properties: { type: "cuboid", translateX: 100 },
-                  },
-                });
-              }}
-            >
-              <IconBox size={20} />
-            </button>
-            <button
-              className="icon"
-              onClick={() => {
-                if (!activeNodeId) return;
-                dispatch({
-                  type: "newNode",
-                  payload: {
-                    parentId: activeNodeId,
-                    properties: { type: "pyramid", translateX: 100 },
-                  },
-                });
-              }}
-            >
-              <IconPyramid size={20} />
-            </button>
-            <button
-              className="icon"
-              onClick={() => {
-                if (!activeNodeId) return;
-                dispatch({
-                  type: "newNode",
-                  payload: {
-                    parentId: activeNodeId,
-                    properties: { type: "prism", translateX: 100 },
-                  },
-                });
-              }}
-            >
-              <IconCylinder size={20} />
-            </button>
-            <button
-              className="icon"
-              onClick={() => {
-                if (!activeNodeId) return;
-                dispatch({
-                  type: "newNode",
-                  payload: {
-                    parentId: activeNodeId,
-                    properties: { type: "group", translateX: 100 },
-                  },
-                });
-              }}
-            >
-              <IconFolder size={20} />
-            </button>
+            {Object.entries(nodeTypesMap).map(([key, value]) => {
+              return (
+                <button
+                  key={key}
+                  title={`Add child ${key}`}
+                  onClick={() => {
+                    if (!activeNodeId) return;
+                    dispatch({
+                      type: "newNode",
+                      payload: {
+                        parentId: activeNodeId,
+                        properties: {
+                          type: key as Node["type"],
+                          translateX: 100,
+                        },
+                      },
+                    });
+                  }}
+                >
+                  {value.icon}
+                </button>
+              );
+            })}
           </div>
         </section>
       </details>
@@ -241,7 +161,7 @@ export default function PropertiesPanel() {
             <h2>Dimensions</h2>
           </summary>
           <section>
-            {propertiesMap[activeNode.type].radius && (
+            {nodeTypesMap[activeNode.type].dimensions.radius && (
               <label>
                 <span>Radius</span>
                 <input
@@ -260,7 +180,7 @@ export default function PropertiesPanel() {
                 />
               </label>
             )}
-            {propertiesMap[activeNode.type].baseSides && (
+            {nodeTypesMap[activeNode.type].dimensions.baseSides && (
               <label>
                 <span>Sides</span>
                 <input
@@ -280,7 +200,7 @@ export default function PropertiesPanel() {
                 />
               </label>
             )}
-            {propertiesMap[activeNode.type].width && (
+            {nodeTypesMap[activeNode.type].dimensions.width && (
               <label>
                 <span>Width</span>
                 <input
@@ -299,7 +219,7 @@ export default function PropertiesPanel() {
                 />
               </label>
             )}
-            {propertiesMap[activeNode.type].height && (
+            {nodeTypesMap[activeNode.type].dimensions.height && (
               <label>
                 <span>Height</span>
                 <input
@@ -318,7 +238,7 @@ export default function PropertiesPanel() {
                 />
               </label>
             )}
-            {propertiesMap[activeNode.type].depth && (
+            {nodeTypesMap[activeNode.type].dimensions.depth && (
               <label>
                 <span>Depth</span>
                 <input

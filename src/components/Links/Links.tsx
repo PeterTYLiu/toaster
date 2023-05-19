@@ -33,7 +33,7 @@ export default function Links() {
       >
         <IconBrandLinkedin size={iconSize} />
       </a>
-      <button className="icon" onClick={share}>
+      <button className="icon" onClick={share} title="share">
         <IconShare size={iconSize} />
       </button>
     </div>
