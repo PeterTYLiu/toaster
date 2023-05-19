@@ -5,7 +5,7 @@ import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
-import { snowman } from "./models/snowman";
+import { optimus } from "./models/optimus";
 import Links from "./components/Links/Links";
 import { IconX } from "@tabler/icons-react";
 
@@ -85,7 +85,7 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: snowman,
+    nodes: [optimus],
     hoverNodeId: null,
   });
 
