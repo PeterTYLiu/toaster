@@ -5,6 +5,7 @@ import { IconTrash, IconCopy } from "@tabler/icons-react";
 import Links from "../Links/Links";
 import type { Node } from "../../App";
 import { findNodeById } from "../../sceneReducer";
+import { Fragment } from "react";
 
 const transformsMap: Partial<
   Record<keyof Node, { label: string; step?: number }>
@@ -18,6 +19,16 @@ const transformsMap: Partial<
   rotateX: { label: "Rotate X" },
   rotateY: { label: "Rotate Y" },
   rotateZ: { label: "Rotate Z" },
+};
+
+const dimensionsMap: Partial<
+  Record<keyof Node, { label: string; min?: number; max?: number }>
+> = {
+  radius: { label: "Radius", min: 0 },
+  baseSides: { label: "Sides", min: 3, max: 16 },
+  depth: { label: "Depth", min: 0 },
+  width: { label: "Width", min: 0 },
+  height: { label: "Height", min: 0 },
 };
 
 export default function PropertiesPanel() {
@@ -175,102 +186,31 @@ export default function PropertiesPanel() {
             <h2>Dimensions</h2>
           </summary>
           <section>
-            {nodeTypesMap[activeNode.type].dimensions.radius && (
-              <label>
-                <span>Radius</span>
-                <input
-                  type="number"
-                  min="0"
-                  value={activeNode.radius}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { radius: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-            )}
-            {nodeTypesMap[activeNode.type].dimensions.baseSides && (
-              <label>
-                <span>Sides</span>
-                <input
-                  min="3"
-                  max="16"
-                  type="number"
-                  value={activeNode.baseSides}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { baseSides: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-            )}
-            {nodeTypesMap[activeNode.type].dimensions.width && (
-              <label>
-                <span>Width</span>
-                <input
-                  type="number"
-                  min="0"
-                  value={activeNode.width}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { width: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-            )}
-            {nodeTypesMap[activeNode.type].dimensions.height && (
-              <label>
-                <span>Height</span>
-                <input
-                  type="number"
-                  min="0"
-                  value={activeNode.height}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { height: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-            )}
-            {nodeTypesMap[activeNode.type].dimensions.depth && (
-              <label>
-                <span>Depth</span>
-                <input
-                  type="number"
-                  min="0"
-                  value={activeNode.depth}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { depth: e.target.valueAsNumber },
-                      },
-                    })
-                  }
-                />
-              </label>
-            )}
+            {Object.entries(dimensionsMap).map(([key, value]) => {
+              if (!nodeTypesMap[activeNode.type].dimensions[key as keyof Node])
+                return <Fragment key={key} />;
+
+              return (
+                <label key={key}>
+                  <span>{value.label}</span>
+                  <input
+                    type="number"
+                    min={value.min}
+                    max={value.max}
+                    value={activeNode[key as keyof Node] as number}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "updateNodeById",
+                        payload: {
+                          id: activeNodeId,
+                          properties: { [key]: e.target.valueAsNumber },
+                        },
+                      })
+                    }
+                  />
+                </label>
+              );
+            })}
           </section>
         </details>
       )}
