@@ -48,9 +48,14 @@ export default function PropertiesPanel() {
             by Peter Liu
           </h2>
           <br />
+          <p>
+            Every part of the model is HTML elements with CSS transforms. No
+            canvas, no WebGL.
+          </p>
+          <br />
           <Links />
         </div>
-        <details open>
+        <details>
           <summary>
             <h2>Instructions and tips</h2>
           </summary>
