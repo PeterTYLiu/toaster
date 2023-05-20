@@ -44,7 +44,7 @@ export default function PropertiesPanel() {
           <h2>
             Pure CSS 3D Editor
             <br />
-            (work in progress!)
+            by Peter Liu
           </h2>
           <br />
           <Links />
@@ -64,9 +64,31 @@ export default function PropertiesPanel() {
             <li>X/Y/Z scaling for all nodes/solids</li>
           </ul>
         </div>
+        <details>
+          <summary>
+            <h2>Instructions and tips</h2>
+          </summary>
+          <section>
+            <ul>
+              <li>Scroll to zoom, click & drag to rotate</li>
+              <li>
+                To reflect a node about an axis, you can scale that axis to -1
+              </li>
+
+              <li>
+                <strong>Use spheres sparingly!</strong> They have hundreds of
+                elements and can cause significant perfromance degredation
+              </li>
+              <li>
+                Use <strong>groups</strong> to share properties between solids
+                without a parent solid
+              </li>
+            </ul>
+          </section>
+        </details>
         <div>
           <button
-            style={{ display: "block" }}
+            style={{ width: "100%" }}
             onClick={() => {
               const type = "text/plain";
               const blob = new Blob([JSON.stringify(nodes)], { type });
@@ -84,11 +106,12 @@ export default function PropertiesPanel() {
             Save model as JSON
           </button>
           <br />
-          <label>To load a model, paste your JSON here:</label>
+          <p>To load a model, paste your JSON here:</p>
           <textarea
             autoCorrect="off"
             spellCheck="false"
             rows={8}
+            style={{ width: "100%", margin: "12px 0" }}
             value={JSON.stringify(nodes)}
             onChange={(e) =>
               dispatch({
@@ -97,6 +120,14 @@ export default function PropertiesPanel() {
               })
             }
           />
+          <p>
+            If you make something really cool, feel free to make an issue in the{" "}
+            <a href="https://github.com/PeterTYLiu/toaster" target="_blank">
+              github repo
+            </a>{" "}
+            to include it in the gallery (with full credit to you). Don't forget
+            to include the JSON
+          </p>
         </div>
       </div>
     );

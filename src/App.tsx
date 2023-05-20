@@ -5,9 +5,10 @@ import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
-import { optimus } from "./models/optimus";
 import Links from "./components/Links/Links";
 import { IconX } from "@tabler/icons-react";
+import { optimus } from "./models/optimus";
+import Gallery from "./components/Gallery/Gallery";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
@@ -153,6 +154,7 @@ function App() {
             ))}
           </div>
         </main>
+        <Gallery />
         <PropertiesPanel />
       </div>
     </SceneContext.Provider>

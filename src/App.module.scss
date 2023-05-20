@@ -70,8 +70,6 @@ $grid-color: rgb(255, 255, 255);
     );
 
   position: absolute;
-  text-align: center;
-  color: black;
   background-color: #00000057;
   transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z))
     scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ(-150px);

@@ -104,7 +104,7 @@ interface BaseAction {
 
 interface setNodesAction extends BaseAction {
   type: "setNodes";
-  payload: Node[];
+  payload: Node[] | Node;
 }
 
 interface UpdateNodeByIdAction extends BaseAction {
@@ -142,6 +142,11 @@ interface CloneNodeAction extends BaseAction {
   payload: string; // The ID of the node you're cloning
 }
 
+interface InsertNodeAction extends BaseAction {
+  type: "insertNode";
+  payload: { nodes: Node | Node[]; parentId?: string };
+}
+
 export type Action =
   | setNodesAction
   | UpdateNodeByIdAction
@@ -150,15 +155,26 @@ export type Action =
   | NewNodeAction
   | DeleteNodeByIdAction
   | SetHoverNodeIdAction
-  | CloneNodeAction;
+  | CloneNodeAction
+  | InsertNodeAction;
 
 export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { type, payload } = action;
   const { activeNodeId: oldActiveNodeId, nodes: oldNodes } = oldScene;
 
   switch (type) {
-    case "setNodes":
-      return { ...oldScene, nodes: payload };
+    case "setNodes": {
+      const nodesToSet = structuredClone(payload) as Node | Node[];
+      if (Array.isArray(nodesToSet))
+        nodesToSet.forEach((n) => renewIdsOfBranchNodes(n));
+      else renewIdsOfBranchNodes(nodesToSet);
+
+      return {
+        ...oldScene,
+        nodes: Array.isArray(nodesToSet) ? nodesToSet : [nodesToSet],
+        activeNodeId: null,
+      };
+    }
     case "updateCamera":
       return { ...oldScene, camera: { ...oldScene.camera, ...payload } };
     case "setActiveNodeId": {
@@ -252,5 +268,46 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         activeNodeId: clonedNode.id,
       };
     }
+    case "insertNode":
+      const nodesToInsert = structuredClone(payload.nodes) as Node | Node[];
+
+      if (Array.isArray(nodesToInsert)) {
+        nodesToInsert.forEach((n) => renewIdsOfBranchNodes(n));
+
+        if (payload.parentId) {
+          const parentNode = findNodeById(oldNodes, payload.parentId);
+          if (!parentNode) return oldScene;
+          return {
+            ...oldScene,
+            nodes: editPropertiesOnNodeById(oldNodes, payload.parentId, {
+              children: [...parentNode.children, ...nodesToInsert],
+            }),
+          };
+        }
+
+        return { ...oldScene, nodes: [...oldNodes, ...nodesToInsert] };
+      }
+
+      renewIdsOfBranchNodes(nodesToInsert);
+
+      scrollSceneGraphNodeIntoView(nodesToInsert.id);
+
+      if (payload.parentId) {
+        const parentNode = findNodeById(oldNodes, payload.parentId);
+        if (!parentNode) return oldScene;
+        return {
+          ...oldScene,
+          nodes: editPropertiesOnNodeById(oldNodes, payload.parentId, {
+            children: [...parentNode.children, nodesToInsert],
+          }),
+          activeNodeId: nodesToInsert.id,
+        };
+      }
+
+      return {
+        ...oldScene,
+        nodes: [...oldNodes, nodesToInsert],
+        activeNodeId: nodesToInsert.id,
+      };
   }
 }
