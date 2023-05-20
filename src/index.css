@@ -21,6 +21,10 @@
 html,
 body {
   margin: 0;
+  overflow: hidden;
+  color: white;
+  background-color: #111;
+  font-size: 14px;
 }
 
 * {
