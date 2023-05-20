@@ -1,4 +1,4 @@
-# Toaster: Pure CSS 3D Modelling Suite
+# Toaster: Pure CSS 3D Modelling Suite ([view site](https://petertyliu.github.io/toaster/))
 
 Toaster is a 3D editor for modelling in pure HTML + CSS. No WebGL, no canvas.
 
@@ -9,6 +9,10 @@ Special thanks to [Paweł Kuna](https://github.com/codecalm) for adding my reque
 ### ❓ Are there any practical applications for this app?
 
 Nope!
+
+### ❓ It's really hard to use!
+
+Yup!
 
 ### ❓ Can I export/embed the model I made?
 
