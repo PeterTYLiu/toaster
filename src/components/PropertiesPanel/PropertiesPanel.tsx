@@ -49,23 +49,8 @@ export default function PropertiesPanel() {
           </h2>
           <br />
           <Links />
-          <br />
-          <p>
-            A 3D editor entirely using CSS 3D functions. Inspired by{" "}
-            <a href="http://tridiv.com/" target="_blank">
-              tridiv.com
-            </a>{" "}
-            with some important improvements:
-          </p>
-          <ul>
-            <li>
-              A node tree with parenting, grouping, and property inheritence
-            </li>
-            <li>Spheres and n-sided pyramids</li>
-            <li>X/Y/Z scaling for all nodes/solids</li>
-          </ul>
         </div>
-        <details>
+        <details open>
           <summary>
             <h2>Instructions and tips</h2>
           </summary>
@@ -78,12 +63,14 @@ export default function PropertiesPanel() {
 
               <li>
                 <strong>Use spheres sparingly!</strong> They have hundreds of
-                elements and can cause significant perfromance degredation
+                elements and can cause significant perfromance degradation
               </li>
               <li>
                 Use <strong>groups</strong> to share properties between solids
                 without a parent solid
               </li>
+              <li>A prism with many sides approximates a cylinder</li>
+              <li>A pyramid with many sides approximates a cone</li>
             </ul>
           </section>
         </details>
@@ -205,7 +192,7 @@ export default function PropertiesPanel() {
                     });
                   }}
                 >
-                  {value.icon}
+                  {value.addIcon}
                 </button>
               );
             })}

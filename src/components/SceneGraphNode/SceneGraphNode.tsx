@@ -1,37 +1,11 @@
 import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./SceneGraphNode.module.scss";
-import {
-  IconFolder,
-  IconBox,
-  IconInnerShadowTopRight,
-  IconPyramid,
-  IconCylinder,
-  IconChevronDown,
-  IconChevronRight,
-} from "@tabler/icons-react";
-
-const iconSize = 18;
+import { nodeTypesMap } from "../../nodeProperties";
+import { IconChevronDown, IconChevronRight } from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
-
-  let icon = <IconFolder size={iconSize} />;
-
-  switch (node.type) {
-    case "cuboid":
-      icon = <IconBox size={iconSize} />;
-      break;
-    case "sphere":
-      icon = <IconInnerShadowTopRight size={iconSize} />;
-      break;
-    case "pyramid":
-      icon = <IconPyramid size={iconSize} />;
-      break;
-    case "prism":
-      icon = <IconCylinder size={iconSize} />;
-      break;
-  }
 
   return (
     <div
@@ -85,7 +59,7 @@ export default function SceneGraphNode({ node }: { node: Node }) {
         ) : (
           <div className={styles["collapser-placeholder"]} />
         )}
-        {icon}
+        {nodeTypesMap[node.type].icon}
         <span className={styles.name}>
           {node.name || `unnamed ${node.type}`}
         </span>

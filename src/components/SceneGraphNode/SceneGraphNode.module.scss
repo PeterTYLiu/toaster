@@ -12,6 +12,7 @@
   cursor: default;
   svg {
     flex-shrink: 0;
+    opacity: 0.5;
   }
   &:hover {
     background-color: #444;
@@ -25,6 +26,7 @@
   overflow: hidden;
   user-select: none;
   word-break: break-all;
+  margin-left: 4px;
 }
 
 .node {

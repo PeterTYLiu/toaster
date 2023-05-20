@@ -30,7 +30,7 @@ export default function SceneGraph() {
                 })
               }
             >
-              {value.icon}
+              {value.addIcon}
             </button>
           );
         })}

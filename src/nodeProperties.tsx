@@ -1,27 +1,43 @@
 import {
-  IconBox,
-  IconInnerShadowTopRight,
+  IconCubePlus,
+  IconCube,
+  IconSpherePlus,
+  IconSphere,
+  IconPyramidPlus,
   IconPyramid,
-  IconCylinder,
+  IconPrismPlus,
+  IconPrism,
+  IconFolderPlus,
   IconFolder,
 } from "@tabler/icons-react";
 import type { Node } from "./App";
 import type { ReactNode } from "react";
 
 const iconSize = 20;
+const smallIconSize = 18;
 
 export const nodeTypesMap: Record<
   Node["type"],
-  { dimensions: Partial<Record<keyof Node, boolean>>; icon: ReactNode }
+  {
+    dimensions: Partial<Record<keyof Node, boolean>>;
+    addIcon: ReactNode;
+    icon: ReactNode;
+  }
 > = {
-  group: { dimensions: {}, icon: <IconFolder size={iconSize} /> },
+  group: {
+    dimensions: {},
+    addIcon: <IconFolderPlus size={iconSize} />,
+    icon: <IconFolder size={smallIconSize} />,
+  },
   cuboid: {
     dimensions: { width: true, height: true, depth: true },
-    icon: <IconBox size={iconSize} />,
+    addIcon: <IconCubePlus size={iconSize} />,
+    icon: <IconCube size={smallIconSize} />,
   },
   pyramid: {
     dimensions: { radius: true, baseSides: true, height: true },
-    icon: <IconPyramid size={iconSize} />,
+    addIcon: <IconPyramidPlus size={iconSize} />,
+    icon: <IconPyramid size={smallIconSize} />,
   },
   prism: {
     dimensions: {
@@ -30,10 +46,12 @@ export const nodeTypesMap: Record<
       height: true,
       holeRadius: true,
     },
-    icon: <IconCylinder size={iconSize} />,
+    addIcon: <IconPrismPlus size={iconSize} />,
+    icon: <IconPrism size={smallIconSize} />,
   },
   sphere: {
     dimensions: { radius: true },
-    icon: <IconInnerShadowTopRight size={iconSize} />,
+    addIcon: <IconSpherePlus size={iconSize} />,
+    icon: <IconSphere size={smallIconSize} />,
   },
 };
