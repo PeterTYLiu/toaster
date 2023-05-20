@@ -30,7 +30,7 @@ export default function Gallery() {
               width="150"
               height="150"
               loading="lazy"
-              src={`/images/${item.imageUrl}`}
+              src={`images/${item.imageUrl}`}
             />
             <div className={styles.buttons}>
               <button

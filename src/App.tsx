@@ -94,7 +94,7 @@ function App() {
     <SceneContext.Provider value={{ ...scene, dispatch }}>
       <nav className={styles.nav}>
         <div>
-          <h1>Toaster</h1>
+          <h1>🍞 Toaster</h1>
           <h2>Pure CSS 3D editor by Peter Liu</h2>
         </div>
         <Links />
