@@ -33,9 +33,11 @@ export default function Prism({
     const y = radius * Math.sin(angle) + radius;
     basePoints.push(`${x},${y}`);
 
-    const holeX = holeRadius * Math.cos(angle) + radius;
-    const holeY = holeRadius * Math.sin(angle) + radius;
-    baseHolePoints.push(`${holeX},${holeY}`);
+    if (holeRadius) {
+      const holeX = holeRadius * Math.cos(angle) + radius;
+      const holeY = holeRadius * Math.sin(angle) + radius;
+      baseHolePoints.push(`${holeX},${holeY}`);
+    }
 
     // Add a side of the prism
     let spokeRotationDegrees = (i * 360) / baseSides;
