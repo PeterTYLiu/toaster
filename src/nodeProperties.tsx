@@ -24,7 +24,12 @@ export const nodeTypesMap: Record<
     icon: <IconPyramid size={iconSize} />,
   },
   prism: {
-    dimensions: { radius: true, baseSides: true, height: true },
+    dimensions: {
+      radius: true,
+      baseSides: true,
+      height: true,
+      holeRadius: true,
+    },
     icon: <IconCylinder size={iconSize} />,
   },
   sphere: {

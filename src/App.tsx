@@ -36,6 +36,7 @@ export class Node {
   height: number;
   depth: number;
   radius: number;
+  holeRadius?: number;
   // Geometry
   baseSides: number;
   // Collapsed node in scene tree
@@ -60,6 +61,7 @@ export class Node {
     this.width = input.width ?? 200;
     this.height = input.height ?? 200;
     this.radius = input.radius ?? 200;
+    this.holeRadius = input.holeRadius ?? 0;
     this.opacity = input.opacity ?? 1;
     this.color = input.color ?? undefined;
     this.borderColor = input.borderColor ?? undefined;
