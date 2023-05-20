@@ -25,6 +25,7 @@ const dimensionsMap: Partial<
   Record<keyof Node, { label: string; min?: number; max?: number }>
 > = {
   radius: { label: "Radius", min: 0 },
+  holeRadius: { label: "Hole radius", min: 0 },
   baseSides: { label: "Sides", min: 3, max: 16 },
   depth: { label: "Depth", min: 0 },
   width: { label: "Width", min: 0 },
@@ -228,13 +229,16 @@ export default function PropertiesPanel() {
                     type="number"
                     min={value.min}
                     max={value.max}
-                    value={activeNode[key as keyof Node] as number}
+                    value={
+                      (activeNode[key as keyof Node] as number | undefined) ??
+                      value.min
+                    }
                     onChange={(e) =>
                       dispatch({
                         type: "updateNodeById",
                         payload: {
                           id: activeNodeId,
-                          properties: { [key]: e.target.valueAsNumber },
+                          properties: { [key]: e.target.valueAsNumber ?? 0 },
                         },
                       })
                     }
@@ -306,7 +310,7 @@ export default function PropertiesPanel() {
                       type: "updateNodeById",
                       payload: {
                         id: activeNodeId,
-                        properties: { [key]: e.target.valueAsNumber },
+                        properties: { [key]: e.target.valueAsNumber ?? 0 },
                       },
                     })
                   }

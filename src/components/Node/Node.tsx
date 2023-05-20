@@ -56,6 +56,7 @@ export function Node({ node }: { node: NodeClass }) {
               radius={node.radius}
               height={node.height}
               id={node.id}
+              holeRadius={node.holeRadius ?? 0}
             />
           )}
         </div>
