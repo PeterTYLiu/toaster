@@ -16,7 +16,7 @@ Yup!
 
 ### ❓ Can I export/embed the model I made?
 
-You can save the model as JSON and re-import it for viewing in the app. As for exporting HTML/CSS, not at the momemnt, but if you want such a feature, you are free to make a pull request!
+You can save the model as JSON and re-import it for viewing in the app. As for exporting HTML/CSS, not at the moment, but if you want such a feature, you are free to make a pull request!
 
 ### ❓ Didn't [Tridiv](http://tridiv.com/) do this like a decade ago?
 

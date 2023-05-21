@@ -45,7 +45,7 @@ export default function PropertiesPanel() {
     return (
       <div className={styles.properties}>
         <div>
-          <h1 title="v1.0.2">🍞 Toaster</h1>
+          <h1 title="v1.0.3">🍞 Toaster</h1>
           <h2>
             Pure CSS 3D Editor
             <br />
