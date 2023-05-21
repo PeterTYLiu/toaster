@@ -13,8 +13,8 @@ import {
 import type { Node } from "./App";
 import type { ReactNode } from "react";
 
-const iconSize = 20;
-const smallIconSize = 18;
+export const iconSize = 20;
+export const smallIconSize = 18;
 
 export const nodeTypesMap: Record<
   Node["type"],

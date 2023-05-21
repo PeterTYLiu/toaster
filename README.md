@@ -1,4 +1,4 @@
-# Toaster: Pure CSS 3D Modelling Suite ([view site](https://petertyliu.github.io/toaster/))
+# 🍞 Toaster: Pure CSS 3D Modelling Suite ([view site](https://petertyliu.github.io/toaster/))
 
 Toaster is a 3D editor for modelling in pure HTML + CSS. No WebGL, no canvas.
 
@@ -23,6 +23,7 @@ You can save the model as JSON and re-import it for viewing in the app. As for e
 Indeed - they were a great inspiration (their UX is still way better than mine!) Toaster has some key improvements over Tridiv:
 
 - A node-based scene graph with parenting and property inheritence
+- Node instancing, as well as nested instancing
 - Complex solids like spheres, n-sided pyramids, etc. for more complex models
 - A complete set of scale/rotate/translate transforms for each node
 - Toaster is open source!

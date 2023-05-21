@@ -20,19 +20,18 @@ function editPropertiesOnNodeById(
   return nodesToReturn;
 }
 
-function deleteNodeById(nodes: Node[], id: string): Node[] {
+function deleteNodeById(nodes: Node[], id: string) {
   // Loop through nodes
   const nodeToDelete = nodes.find((node) => node.id === id);
-  const nodesToReturn = [...nodes];
   if (nodeToDelete) {
     const index = nodes.indexOf(nodeToDelete);
-    nodesToReturn.splice(index, 1);
+    nodes.splice(index, 1);
   } else {
-    nodesToReturn.forEach((node) => {
+    nodes.forEach((node) => {
       node.children = deleteNodeById(node.children, id);
     });
   }
-  return nodesToReturn;
+  return nodes;
 }
 
 export function findNodeById(
@@ -45,6 +44,17 @@ export function findNodeById(
   // Loop through nested nodes
   for (const node of nodes) {
     const foundChildNode = findNodeById(node.children, id);
+    if (foundChildNode) return foundChildNode;
+  }
+}
+
+function findFirstInstanceOf(nodes: Node[], id: string): Node | undefined {
+  // Loop through nodes
+  const thisNode = nodes.find((node) => node.instanceOf === id);
+  if (thisNode) return thisNode;
+  // Loop through nested nodes
+  for (const node of nodes) {
+    const foundChildNode = findFirstInstanceOf(node.children, id);
     if (foundChildNode) return foundChildNode;
   }
 }
@@ -147,6 +157,16 @@ interface InsertNodeAction extends BaseAction {
   payload: { nodes: Node | Node[]; parentId?: string };
 }
 
+interface NewInstanceAction extends BaseAction {
+  type: "newInstance";
+  payload: string; // The ID of the node being instanced
+}
+
+interface DetachInstanceAction extends BaseAction {
+  type: "detachInstance";
+  payload: string; // The ID of the instance being detached
+}
+
 export type Action =
   | setNodesAction
   | UpdateNodeByIdAction
@@ -156,7 +176,9 @@ export type Action =
   | DeleteNodeByIdAction
   | SetHoverNodeIdAction
   | CloneNodeAction
-  | InsertNodeAction;
+  | InsertNodeAction
+  | NewInstanceAction
+  | DetachInstanceAction;
 
 export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { type, payload } = action;
@@ -165,9 +187,6 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   switch (type) {
     case "setNodes": {
       const nodesToSet = structuredClone(payload) as Node | Node[];
-      if (Array.isArray(nodesToSet))
-        nodesToSet.forEach((n) => renewIdsOfBranchNodes(n));
-      else renewIdsOfBranchNodes(nodesToSet);
 
       return {
         ...oldScene,
@@ -220,9 +239,28 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       };
     }
     case "deleteNodeById":
+      const instance = findFirstInstanceOf(oldNodes, payload);
+
+      if (instance) {
+        if (!confirm("This will delete all instances of this node. Continue?"))
+          return oldScene;
+      }
+
+      const nodesToReturn = [...oldNodes];
+
+      // Delete all instances
+      while (findFirstInstanceOf(nodesToReturn, payload)) {
+        deleteNodeById(
+          nodesToReturn,
+          findFirstInstanceOf(nodesToReturn, payload)?.id ?? "arbitraryString"
+        );
+      }
+
+      deleteNodeById(nodesToReturn, payload);
+
       return {
         ...oldScene,
-        nodes: deleteNodeById(oldNodes, payload),
+        nodes: nodesToReturn,
         activeNodeId: oldActiveNodeId === payload ? null : oldActiveNodeId,
       };
     case "cloneNode": {
@@ -231,6 +269,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
 
       const clonedNode = structuredClone(nodeToClone) as Node;
       clonedNode.name += " clone";
+      clonedNode.translateX += 100;
       renewIdsOfBranchNodes(clonedNode);
       scrollSceneGraphNodeIntoView(clonedNode.id);
 
@@ -268,7 +307,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         activeNodeId: clonedNode.id,
       };
     }
-    case "insertNode":
+    case "insertNode": {
       const nodesToInsert = structuredClone(payload.nodes) as Node | Node[];
 
       if (Array.isArray(nodesToInsert)) {
@@ -309,5 +348,81 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         nodes: [...oldNodes, nodesToInsert],
         activeNodeId: nodesToInsert.id,
       };
+    }
+    case "newInstance": {
+      const nodeToInstance = findNodeById(oldNodes, payload);
+      if (!nodeToInstance) return oldScene;
+
+      const newInstance = structuredClone(nodeToInstance) as Node;
+
+      newInstance.id = crypto.randomUUID();
+      newInstance.name += " instance";
+      newInstance.children = [];
+      newInstance.instanceOf = nodeToInstance.id;
+      newInstance.translateX += 100;
+
+      scrollSceneGraphNodeIntoView(newInstance.id);
+
+      const topLevelIndex = oldNodes.indexOf(nodeToInstance) + 1;
+
+      // If it is a top level node
+      if (topLevelIndex > 0) {
+        const newNodes = [...oldNodes];
+        newNodes.splice(topLevelIndex, 0, newInstance);
+        return {
+          ...oldScene,
+          nodes: newNodes,
+          activeNodeId: newInstance.id,
+        };
+      }
+
+      let parentNode: Node | undefined = undefined;
+      let index: number | undefined = undefined;
+      for (const topLevelNode of oldNodes) {
+        [parentNode, index] = findParentNodeAndIndexByChildId(
+          topLevelNode,
+          payload
+        ) ?? [parentNode, index];
+      }
+
+      if (!parentNode || typeof index !== "number") return oldScene;
+
+      const newChildNodes = [...parentNode.children];
+      newChildNodes.splice(index + 1, 0, newInstance);
+      return {
+        ...oldScene,
+        nodes: editPropertiesOnNodeById(oldNodes, parentNode.id, {
+          children: newChildNodes,
+        }),
+        activeNodeId: newInstance.id,
+      };
+    }
+    case "detachInstance": {
+      const instanceToDetach = findNodeById(oldNodes, payload);
+      if (!instanceToDetach || !instanceToDetach.instanceOf) return oldScene;
+
+      const motherNode = findNodeById(oldNodes, instanceToDetach.instanceOf);
+      if (!motherNode) return oldScene;
+
+      const newChildren = structuredClone(motherNode.children) as Node[];
+      newChildren.forEach((n) => renewIdsOfBranchNodes(n));
+
+      return {
+        ...oldScene,
+        nodes: editPropertiesOnNodeById(oldNodes, instanceToDetach.id, {
+          name: "Detached " + instanceToDetach.name,
+          children: newChildren,
+          instanceOf: undefined,
+          color: motherNode.color,
+          borderColor: motherNode.borderColor,
+          width: motherNode.width,
+          height: motherNode.height,
+          depth: motherNode.depth,
+          baseSides: motherNode.baseSides,
+          radius: motherNode.radius,
+          holeRadius: motherNode.holeRadius,
+        }),
+      };
+    }
   }
 }
