@@ -14,6 +14,7 @@ export default function SceneGraph() {
           return (
             <button
               key={key}
+              className="icon"
               title={`Add top-level ${key}`}
               onClick={() =>
                 dispatch({

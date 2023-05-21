@@ -185,6 +185,7 @@ export default function PropertiesPanel() {
             {Object.entries(nodeTypesMap).map(([key, value]) => {
               return (
                 <button
+                  className="icon"
                   key={key}
                   title={`Add child ${key}`}
                   onClick={() => {
