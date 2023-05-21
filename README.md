@@ -16,7 +16,7 @@ Yup!
 
 ### ❓ Can I export/embed the model I made?
 
-Nope! Although if you want such a feature, you are free to make a pull request!
+You can save the model as JSON and re-import it for viewing in the app. As for exporting HTML/CSS, not at the momemnt, but if you want such a feature, you are free to make a pull request!
 
 ### ❓ Didn't [Tridiv](http://tridiv.com/) do this like a decade ago?
 
@@ -25,6 +25,7 @@ Indeed - they were a great inspiration (their UX is still way better than mine!)
 - A node-based scene graph with parenting and property inheritence
 - Complex solids like spheres, n-sided pyramids, etc. for more complex models
 - A complete set of scale/rotate/translate transforms for each node
+- Toaster is open source!
 
 ### ❓ The performance is terrible!
 

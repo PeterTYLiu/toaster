@@ -31,20 +31,27 @@ body {
   box-sizing: border-box;
 }
 
+textarea,
 a.button,
 button,
 input {
-  height: 28px;
   border-radius: 2px;
   border: 1px solid #777;
   background-color: #555;
   color: white;
 }
 
+a.button,
+button,
+input {
+  height: 28px;
+}
+
 a.button:visited {
   color: white;
 }
 
+textarea:hover,
 a.button:hover,
 button:hover,
 input:hover {

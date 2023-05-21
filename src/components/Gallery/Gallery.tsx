@@ -20,7 +20,7 @@ export default function Gallery() {
   return (
     <div className={`${styles.gallery} ${isActive ? styles.active : ""}`}>
       <header onClick={() => setisActive(!isActive)}>
-        <span>🖼️ Gallery</span>
+        <h2>🖼️ Gallery</h2>
         <IconChevronUp className={styles.chevron} />
       </header>
       <div className={styles.inner}>
