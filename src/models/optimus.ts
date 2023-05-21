@@ -130,7 +130,7 @@ export const optimus: Node = {
         },
         {
           id: "297e00df-d5d2-476d-8821-43265658a3d1",
-          name: "right eye frame",
+          name: "right eye",
           type: "prism",
           color: "#ABABAB",
           opacity: 1,
@@ -177,7 +177,7 @@ export const optimus: Node = {
         },
         {
           id: "9cfcdfda-4d8c-4035-b2e6-28108b17450a",
-          name: "left eye frame",
+          name: "left eye",
           instanceOf: "297e00df-d5d2-476d-8821-43265658a3d1",
           type: "prism",
           color: "#39c6d0",
