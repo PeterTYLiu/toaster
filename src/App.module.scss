@@ -26,7 +26,7 @@ $grid-color: rgb(255, 255, 255);
   flex-grow: 1;
   flex-shrink: 1;
   perspective: 800px;
-  touch-action: pan-x pan-y;
+  touch-action: none;
   * {
     transform-style: preserve-3d;
     position: absolute;
