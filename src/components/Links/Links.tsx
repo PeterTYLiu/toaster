@@ -4,8 +4,7 @@ import {
   IconShare,
   IconBrandLinkedin,
 } from "@tabler/icons-react";
-
-const iconSize = 20;
+import { iconSize } from "../../nodeProperties";
 
 function share() {
   if (navigator.share)
