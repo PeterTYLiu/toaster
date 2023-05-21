@@ -117,10 +117,10 @@ function App() {
           onClick={() => dispatch({ type: "setActiveNodeId", payload: null })}
           onWheel={(e) => {
             e.stopPropagation();
-            const newZoom = scene.camera.zoom + e.deltaY / 100;
+            const newZoom = scene.camera.zoom + e.deltaY / 180;
             dispatch({
               type: "updateCamera",
-              payload: { zoom: Math.max(Math.min(newZoom, 30), 0.05) },
+              payload: { zoom: Math.max(Math.min(newZoom, 10), 0.2) },
             });
           }}
           onPointerDown={() => setIsDragging(true)}
