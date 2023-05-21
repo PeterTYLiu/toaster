@@ -76,9 +76,20 @@ function findParentNodeAndIndexByChildId(
   }
 }
 
-function renewIdsOfBranchNodes(node: Node) {
-  node.id = crypto.randomUUID();
-  node.children.forEach((child) => renewIdsOfBranchNodes(child));
+function renewIdsOfBranchNodes(nodes: Node[]) {
+  nodes.forEach((node) => {
+    const newNodeId = crypto.randomUUID();
+
+    while (findFirstInstanceOf(nodes, node.id)) {
+      const instance = findFirstInstanceOf(nodes, node.id);
+      if (!instance) continue;
+      instance.instanceOf = newNodeId;
+    }
+
+    node.id = newNodeId;
+
+    renewIdsOfBranchNodes(node.children);
+  });
 }
 
 function findAllAncestorsByNodeId(
@@ -270,7 +281,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       const clonedNode = structuredClone(nodeToClone) as Node;
       clonedNode.name += " clone";
       clonedNode.translateX += 100;
-      renewIdsOfBranchNodes(clonedNode);
+      renewIdsOfBranchNodes([clonedNode]);
       scrollSceneGraphNodeIntoView(clonedNode.id);
 
       const topLevelIndex = oldNodes.indexOf(nodeToClone) + 1;
@@ -311,7 +322,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       const nodesToInsert = structuredClone(payload.nodes) as Node | Node[];
 
       if (Array.isArray(nodesToInsert)) {
-        nodesToInsert.forEach((n) => renewIdsOfBranchNodes(n));
+        renewIdsOfBranchNodes(nodesToInsert);
 
         if (payload.parentId) {
           const parentNode = findNodeById(oldNodes, payload.parentId);
@@ -327,7 +338,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         return { ...oldScene, nodes: [...oldNodes, ...nodesToInsert] };
       }
 
-      renewIdsOfBranchNodes(nodesToInsert);
+      renewIdsOfBranchNodes([nodesToInsert]);
 
       scrollSceneGraphNodeIntoView(nodesToInsert.id);
 
@@ -405,7 +416,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       if (!motherNode) return oldScene;
 
       const newChildren = structuredClone(motherNode.children) as Node[];
-      newChildren.forEach((n) => renewIdsOfBranchNodes(n));
+      renewIdsOfBranchNodes(newChildren);
 
       return {
         ...oldScene,
