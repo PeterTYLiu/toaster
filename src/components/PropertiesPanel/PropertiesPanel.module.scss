@@ -2,15 +2,21 @@ $summary-text: 14px;
 
 .color-picker {
   display: flex;
-  > *:first-child {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    height: 28px;
-  }
-  > *:last-child {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    height: 28px;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+    > *:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      height: 28px;
+    }
+    > *:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: 28px;
+    }
   }
   .active {
     border-color: white;
@@ -67,13 +73,5 @@ $summary-text: 14px;
   > * {
     padding: 12px 16px;
     border-bottom: 1px solid gray;
-  }
-  label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    > input {
-      width: 33.3%;
-    }
   }
 }

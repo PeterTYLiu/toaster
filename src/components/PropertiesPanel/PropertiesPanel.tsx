@@ -6,30 +6,34 @@ import Links from "../Links/Links";
 import type { Node } from "../../App";
 import { findNodeById } from "../../sceneReducer";
 import { Fragment } from "react";
+import PropertyInput from "../PropertyInput/PropertyInput";
 
 const transformsMap: Partial<
-  Record<keyof Node, { label: string; step?: number }>
+  Record<keyof Node, { label: string; step?: number; unit?: string }>
 > = {
-  translateX: { label: "Translate X" },
-  translateY: { label: "Translate Y" },
-  translateZ: { label: "Translate Z" },
-  scaleX: { label: "Scale X", step: 0.01 },
-  scaleY: { label: "Scale Y", step: 0.01 },
-  scaleZ: { label: "Scale Z", step: 0.01 },
-  rotateX: { label: "Rotate X" },
-  rotateY: { label: "Rotate Y" },
-  rotateZ: { label: "Rotate Z" },
+  translateX: { label: "Translate X", unit: "px" },
+  translateY: { label: "Translate Y", unit: "px" },
+  translateZ: { label: "Translate Z", unit: "px" },
+  scaleX: { label: "Scale X", step: 0.01, unit: "×" },
+  scaleY: { label: "Scale Y", step: 0.01, unit: "×" },
+  scaleZ: { label: "Scale Z", step: 0.01, unit: "×" },
+  rotateX: { label: "Rotate X", unit: "°" },
+  rotateY: { label: "Rotate Y", unit: "°" },
+  rotateZ: { label: "Rotate Z", unit: "°" },
 };
 
 const dimensionsMap: Partial<
-  Record<keyof Node, { label: string; min?: number; max?: number }>
+  Record<
+    keyof Node,
+    { label: string; min?: number; max?: number; unit?: string }
+  >
 > = {
-  radius: { label: "Radius", min: 0 },
-  holeRadius: { label: "Hole radius", min: 0 },
+  radius: { label: "Radius", min: 0, unit: "px" },
+  holeRadius: { label: "Hole radius", min: 0, unit: "px" },
   baseSides: { label: "Sides", min: 3, max: 16 },
-  depth: { label: "Depth", min: 0 },
-  width: { label: "Width", min: 0 },
-  height: { label: "Height", min: 0 },
+  depth: { label: "Depth", min: 0, unit: "px" },
+  width: { label: "Width", min: 0, unit: "px" },
+  height: { label: "Height", min: 0, unit: "px" },
 };
 
 export default function PropertiesPanel() {
@@ -215,27 +219,26 @@ export default function PropertiesPanel() {
                 return <Fragment key={key} />;
 
               return (
-                <label key={key}>
-                  <span>{value.label}</span>
-                  <input
-                    type="number"
-                    min={value.min}
-                    max={value.max}
-                    value={
-                      (activeNode[key as keyof Node] as number | undefined) ??
-                      value.min
-                    }
-                    onChange={(e) =>
-                      dispatch({
-                        type: "updateNodeById",
-                        payload: {
-                          id: activeNodeId,
-                          properties: { [key]: e.target.valueAsNumber ?? 0 },
-                        },
-                      })
-                    }
-                  />
-                </label>
+                <PropertyInput
+                  key={key}
+                  label={value.label}
+                  min={value.min}
+                  max={value.max}
+                  unit={value.unit}
+                  value={
+                    (activeNode[key as keyof Node] as number | undefined) ??
+                    value.min
+                  }
+                  handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { [key]: e.target.valueAsNumber ?? 0 },
+                      },
+                    })
+                  }
+                />
               );
             })}
           </section>
@@ -246,9 +249,9 @@ export default function PropertiesPanel() {
           <h2>Styling</h2>
         </summary>
         <section>
-          <label>
+          <label className={styles["color-picker"]}>
             <span>Color</span>
-            <div className={styles["color-picker"]}>
+            <div>
               <input
                 type="color"
                 className={!!activeNode.color ? styles.active : ""}
@@ -291,23 +294,22 @@ export default function PropertiesPanel() {
           </p>
           {Object.entries(transformsMap).map(([key, value]) => {
             return (
-              <label key={key}>
-                <span>{value.label}</span>
-                <input
-                  type="number"
-                  step={value.step}
-                  value={activeNode[key as keyof Node] as number}
-                  onChange={(e) =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { [key]: e.target.valueAsNumber ?? 0 },
-                      },
-                    })
-                  }
-                />
-              </label>
+              <PropertyInput
+                key={key}
+                label={value.label}
+                step={value.step}
+                unit={value.unit}
+                value={activeNode[key as keyof Node] as number}
+                handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  dispatch({
+                    type: "updateNodeById",
+                    payload: {
+                      id: activeNodeId,
+                      properties: { [key]: e.target.valueAsNumber ?? 0 },
+                    },
+                  })
+                }
+              />
             );
           })}
         </section>
