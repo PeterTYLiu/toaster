@@ -23,6 +23,12 @@ $summary-text: 14px;
   }
 }
 
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .hint {
   font-size: 12px;
 }

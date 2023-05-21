@@ -1,12 +1,19 @@
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./PropertiesPanel.module.scss";
 import { nodeTypesMap } from "../../nodeProperties";
-import { IconTrash, IconCopy } from "@tabler/icons-react";
+import {
+  IconTrash,
+  IconCopy,
+  IconLink,
+  IconUnlink,
+  IconArrowUpRight,
+} from "@tabler/icons-react";
 import Links from "../Links/Links";
 import type { Node } from "../../App";
 import { findNodeById } from "../../sceneReducer";
 import { Fragment } from "react";
 import PropertyInput from "../PropertyInput/PropertyInput";
+import { smallIconSize } from "../../nodeProperties";
 
 const transformsMap: Partial<
   Record<keyof Node, { label: string; step?: number; unit?: string }>
@@ -45,7 +52,7 @@ export default function PropertiesPanel() {
     return (
       <div className={styles.properties}>
         <div>
-          <h1 title="v1.0.5">🍞 Toaster</h1>
+          <h1 title="v1.1.0">🍞 Toaster</h1>
           <h2>
             Pure CSS 3D Editor
             <br />
@@ -69,7 +76,10 @@ export default function PropertiesPanel() {
               <li>
                 To reflect a node about an axis, you can scale that axis to -1
               </li>
-
+              <li>
+                Use <strong>instancing</strong> to create nodes with linked
+                properties and geometry
+              </li>
               <li>
                 <strong>Use spheres sparingly!</strong> They have hundreds of
                 elements and can cause significant perfromance degradation
@@ -149,21 +159,79 @@ export default function PropertiesPanel() {
               })
             }
           />
-          <p className={styles.hint}>Node type: {activeNode.type}</p>
+          <p className={styles.hint}>
+            Node type: {activeNode.type}
+            {!!activeNode.instanceOf ? " (instance)" : ""}
+          </p>
         </section>
       </details>
-      <div className={styles.inline}>
-        <button
-          onClick={() => {
-            dispatch({
-              type: "cloneNode",
-              payload: activeNode.id,
-            });
-          }}
-        >
-          <IconCopy size={20} />
-          Clone
-        </button>
+      <div className={styles.controls}>
+        {!!activeNode.instanceOf && (
+          <>
+            <p className={styles.hint}>
+              Instances inherit dimensions and styles from their mother node
+            </p>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "setActiveNodeId",
+                  payload: activeNode.instanceOf ?? null,
+                });
+              }}
+            >
+              <IconArrowUpRight size={smallIconSize} />
+              Go to mother node
+            </button>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "detachInstance",
+                  payload: activeNode.id,
+                });
+              }}
+            >
+              <IconUnlink size={smallIconSize} />
+              Detach instance
+            </button>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "cloneNode",
+                  payload: activeNode.id,
+                });
+              }}
+            >
+              <IconCopy size={smallIconSize} />
+              Duplicate instance
+            </button>
+          </>
+        )}
+        {!activeNode.instanceOf && (
+          <>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "newInstance",
+                  payload: activeNode.id,
+                });
+              }}
+            >
+              <IconLink size={smallIconSize} />
+              Create new instance
+            </button>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "cloneNode",
+                  payload: activeNode.id,
+                });
+              }}
+            >
+              <IconCopy size={smallIconSize} />
+              Clone
+            </button>
+          </>
+        )}
         <button
           onClick={() => {
             dispatch({
@@ -172,44 +240,46 @@ export default function PropertiesPanel() {
             });
           }}
         >
-          <IconTrash size={20} />
+          <IconTrash size={smallIconSize} />
           Delete
         </button>
       </div>
-      <details open>
-        <summary>
-          <h2>Add child nodes</h2>
-        </summary>
-        <section>
-          <div className={styles.inline}>
-            {Object.entries(nodeTypesMap).map(([key, value]) => {
-              return (
-                <button
-                  className="icon"
-                  key={key}
-                  title={`Add child ${key}`}
-                  onClick={() => {
-                    if (!activeNodeId) return;
-                    dispatch({
-                      type: "newNode",
-                      payload: {
-                        parentId: activeNodeId,
-                        properties: {
-                          type: key as Node["type"],
-                          translateX: 100,
+      {!activeNode.instanceOf && (
+        <details open>
+          <summary>
+            <h2>Add child nodes</h2>
+          </summary>
+          <section>
+            <div className={styles.inline}>
+              {Object.entries(nodeTypesMap).map(([key, value]) => {
+                return (
+                  <button
+                    className="icon"
+                    key={key}
+                    title={`Add child ${key}`}
+                    onClick={() => {
+                      if (!activeNodeId) return;
+                      dispatch({
+                        type: "newNode",
+                        payload: {
+                          parentId: activeNodeId,
+                          properties: {
+                            type: key as Node["type"],
+                            translateX: 100,
+                          },
                         },
-                      },
-                    });
-                  }}
-                >
-                  {value.addIcon}
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      </details>
-      {activeNode.type !== "group" && (
+                      });
+                    }}
+                  >
+                    {value.addIcon}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        </details>
+      )}
+      {activeNode.type !== "group" && !activeNode.instanceOf && (
         <details open>
           <summary>
             <h2>Dimensions</h2>
@@ -245,46 +315,48 @@ export default function PropertiesPanel() {
           </section>
         </details>
       )}
-      <details open>
-        <summary>
-          <h2>Styling</h2>
-        </summary>
-        <section>
-          <label className={styles["color-picker"]}>
-            <span>Color</span>
-            <div>
-              <input
-                type="color"
-                className={!!activeNode.color ? styles.active : ""}
-                value={activeNode.color}
-                onChange={(e) =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { color: e.target.value },
-                    },
-                  })
-                }
-              />
-              <button
-                className={!activeNode.color ? styles.active : ""}
-                onClick={() =>
-                  dispatch({
-                    type: "updateNodeById",
-                    payload: {
-                      id: activeNodeId,
-                      properties: { color: undefined },
-                    },
-                  })
-                }
-              >
-                inherit
-              </button>
-            </div>
-          </label>
-        </section>
-      </details>
+      {!activeNode.instanceOf && (
+        <details open>
+          <summary>
+            <h2>Styling</h2>
+          </summary>
+          <section>
+            <label className={styles["color-picker"]}>
+              <span>Color</span>
+              <div>
+                <input
+                  type="color"
+                  className={!!activeNode.color ? styles.active : ""}
+                  value={activeNode.color}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { color: e.target.value },
+                      },
+                    })
+                  }
+                />
+                <button
+                  className={!activeNode.color ? styles.active : ""}
+                  onClick={() =>
+                    dispatch({
+                      type: "updateNodeById",
+                      payload: {
+                        id: activeNodeId,
+                        properties: { color: undefined },
+                      },
+                    })
+                  }
+                >
+                  inherit
+                </button>
+              </div>
+            </label>
+          </section>
+        </details>
+      )}
       <details open>
         <summary>
           <h2>Transforms</h2>

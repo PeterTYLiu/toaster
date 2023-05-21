@@ -1,8 +1,12 @@
 import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./SceneGraphNode.module.scss";
-import { nodeTypesMap } from "../../nodeProperties";
-import { IconChevronDown, IconChevronRight } from "@tabler/icons-react";
+import { nodeTypesMap, smallIconSize } from "../../nodeProperties";
+import {
+  IconChevronDown,
+  IconChevronRight,
+  IconLink,
+} from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
@@ -59,7 +63,11 @@ export default function SceneGraphNode({ node }: { node: Node }) {
         ) : (
           <div className={styles["collapser-placeholder"]} />
         )}
-        {nodeTypesMap[node.type].icon}
+        {node.instanceOf ? (
+          <IconLink size={smallIconSize} color="#5ff" />
+        ) : (
+          nodeTypesMap[node.type].icon
+        )}
         <span className={styles.name}>
           {node.name || `unnamed ${node.type}`}
         </span>

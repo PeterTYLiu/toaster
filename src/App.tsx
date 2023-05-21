@@ -17,6 +17,7 @@ export class Node {
   id: string;
   name: string;
   type: NodeType;
+  instanceOf?: string; // This references another node's ID
   // Styling
   color?: string | undefined;
   borderColor?: string | undefined;
@@ -48,6 +49,7 @@ export class Node {
     this.id = crypto.randomUUID();
     this.name = `New ${input.type ?? "cuboid"}`;
     this.type = input.type ?? "cuboid";
+    this.instanceOf = input.instanceOf ?? undefined;
     this.translateX = input.translateX ?? 0;
     this.translateY = input.translateY ?? 0;
     this.translateZ = input.translateZ ?? 0;

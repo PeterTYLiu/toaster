@@ -6,20 +6,42 @@ import Pyramid from "../Pryamid/Pyramid";
 import Prism from "../Prism/Prism";
 import Null from "../Null/Null";
 import useSceneContext from "../../hooks/UseSceneContext";
+import { findNodeById } from "../../sceneReducer";
+
+function findFurthestAncestor(
+  element: Element,
+  selector: string
+): Element | undefined {
+  if (!element.parentElement) {
+    return undefined; // Reached the topmost ancestor without a match
+  }
+
+  const closestAncestor = element.parentElement.closest(selector);
+
+  if (!closestAncestor) {
+    return element.matches(selector) ? element : undefined; // No match, return the current element if it matches
+  }
+
+  return findFurthestAncestor(closestAncestor, selector); // Continue recursively searching
+}
 
 export function Node({ node }: { node: NodeClass }) {
-  const { dispatch, activeNodeId, hoverNodeId } = useSceneContext();
+  const { dispatch, activeNodeId, hoverNodeId, nodes } = useSceneContext();
+
+  const targetNode = node.instanceOf
+    ? findNodeById(nodes, node.instanceOf) ?? node
+    : node;
 
   const solidVariables: Record<string, string> = {
-    "--width": node.width + "px",
-    "--height": node.height + "px",
-    "--depth": node.depth + "px",
-    "--radius": node.radius + "px",
+    "--width": targetNode.width + "px",
+    "--height": targetNode.height + "px",
+    "--depth": targetNode.depth + "px",
+    "--radius": targetNode.radius + "px",
   };
 
   // These variables are inherited from its parent and/or passed on to its children
   const inheitedVariables: Record<string, string> = {};
-  if (node.color) inheitedVariables["--bg"] = node.color;
+  if (targetNode.color) inheitedVariables["--bg"] = targetNode.color;
 
   return (
     <div
@@ -27,10 +49,32 @@ export function Node({ node }: { node: NodeClass }) {
         e.stopPropagation();
         if (activeNodeId === node.id)
           dispatch({ type: "setActiveNodeId", payload: null });
-        else dispatch({ type: "setActiveNodeId", payload: node.id });
+
+        // Check to see if the clicked element is a child of an instance;
+        // if so, set the entire instance as selected
+        const ancestorInstance = findFurthestAncestor(
+          e.target as Element,
+          "[data-instance-of]"
+        );
+
+        if (!ancestorInstance) {
+          return dispatch({ type: "setActiveNodeId", payload: node.id });
+        }
+
+        if (activeNodeId === ancestorInstance.getAttribute("data-node-id"))
+          dispatch({ type: "setActiveNodeId", payload: null });
+        else
+          dispatch({
+            type: "setActiveNodeId",
+            payload: ancestorInstance.getAttribute("data-node-id"),
+          });
       }}
+      data-instance-of={node.instanceOf}
+      data-node-id={node.id}
       className={`${styles.node} ${
-        activeNodeId === node.id ? styles.active : ""
+        activeNodeId === node.id || activeNodeId === node.instanceOf
+          ? styles.active
+          : ""
       } ${hoverNodeId === node.id ? styles.hovered : ""}`}
       style={{
         ...inheitedVariables,
@@ -44,19 +88,19 @@ export function Node({ node }: { node: NodeClass }) {
           {node.type === "sphere" && <Sphere id={node.id} />}
           {node.type === "pyramid" && (
             <Pyramid
-              baseSides={node.baseSides}
-              radius={node.radius}
-              height={node.height}
+              baseSides={targetNode.baseSides}
+              radius={targetNode.radius}
+              height={targetNode.height}
               id={node.id}
             />
           )}
           {node.type === "prism" && (
             <Prism
-              baseSides={node.baseSides}
-              radius={node.radius}
-              height={node.height}
+              baseSides={targetNode.baseSides}
+              radius={targetNode.radius}
+              height={targetNode.height}
               id={node.id}
-              holeRadius={node.holeRadius ?? 0}
+              holeRadius={targetNode.holeRadius ?? 0}
             />
           )}
         </div>
@@ -64,8 +108,8 @@ export function Node({ node }: { node: NodeClass }) {
 
       {activeNodeId === node.id && node.type === "group" && <Null />}
 
-      {node.children.map((child) => (
-        <Node node={child} key={child.id} />
+      {targetNode.children.map((child) => (
+        <Node node={child} key={child.id + node.id} />
       ))}
     </div>
   );
