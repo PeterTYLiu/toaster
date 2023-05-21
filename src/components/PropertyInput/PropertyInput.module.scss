@@ -1,0 +1,28 @@
+$unit-width: 28px;
+$input-width: 95px;
+
+.property-input {
+  display: flex;
+  align-items: center;
+  > span {
+    flex-grow: 1;
+  }
+  > input {
+    width: $input-width;
+    &:not(:last-child) {
+      width: calc($input-width - $unit-width);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  > div {
+    width: $unit-width;
+    height: $unit-width;
+    background-color: rgb(62, 62, 62);
+    line-height: $unit-width;
+    text-align: center;
+    font-size: 12px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+}

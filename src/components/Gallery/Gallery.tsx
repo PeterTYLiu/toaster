@@ -34,17 +34,6 @@ export default function Gallery() {
             />
             <div className={styles.buttons}>
               <button
-                className={styles.insert}
-                onClick={() =>
-                  dispatch({
-                    type: "insertNode",
-                    payload: { nodes: item.model },
-                  })
-                }
-              >
-                Insert
-              </button>
-              <button
                 onClick={() => {
                   if (
                     !confirm(
@@ -59,6 +48,17 @@ export default function Gallery() {
                 }}
               >
                 Launch
+              </button>
+              <button
+                className={styles.insert}
+                onClick={() =>
+                  dispatch({
+                    type: "insertNode",
+                    payload: { nodes: item.model },
+                  })
+                }
+              >
+                Insert
               </button>
             </div>
           </div>
