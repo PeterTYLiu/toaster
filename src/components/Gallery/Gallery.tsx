@@ -6,11 +6,13 @@ import { IconChevronUp } from "@tabler/icons-react";
 import { snowman } from "../../models/snowman";
 import { starDestroyer } from "../../models/starDestroyer";
 import { optimus } from "../../models/optimus";
+import { toaster } from "../../models/toaster";
 
 const galleryItems: { model: Node | Node[]; imageUrl: string }[] = [
   { model: snowman, imageUrl: "snowman.png" },
   { model: starDestroyer, imageUrl: "starDestroyer.png" },
   { model: optimus, imageUrl: "optimus.png" },
+  { model: toaster, imageUrl: "toaster.png" },
 ];
 
 export default function Gallery() {
