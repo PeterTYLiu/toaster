@@ -52,7 +52,7 @@ export default function PropertiesPanel() {
     return (
       <div className={styles.properties}>
         <div>
-          <h1 title="v1.1.4">🍞 Toaster</h1>
+          <h1 title="v1.1.5">🍞 Toaster</h1>
           <h2>
             Pure CSS 3D Editor
             <br />
@@ -133,7 +133,7 @@ export default function PropertiesPanel() {
               github repo
             </a>{" "}
             to include it in the gallery (with full credit to you). Don't forget
-            to include the JSON
+            to include the JSON.
           </p>
         </div>
       </div>
