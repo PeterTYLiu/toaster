@@ -82,7 +82,7 @@ export default function PropertiesPanel() {
               </li>
               <li>
                 <strong>Use spheres sparingly!</strong> They have hundreds of
-                elements and can cause significant perfromance degradation
+                elements and can cause significant performance degradation
               </li>
               <li>
                 Use <strong>groups</strong> to share properties between solids
