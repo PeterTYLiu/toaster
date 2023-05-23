@@ -1,28 +1,51 @@
-$unit-width: 28px;
-$input-width: 95px;
+$unit-width: 20px;
+$input-width: 80px;
+
+.name {
+  flex-grow: 1;
+}
 
 .property-input {
-  display: flex;
-  align-items: center;
-  > span {
-    flex-grow: 1;
+  background: #272727;
+  border-radius: 4px;
+  padding: 8px 10px;
+  position: relative;
+  padding-bottom: 0;
+
+  &:hover {
+    background: #333;
   }
-  > input {
-    width: $input-width;
-    &:not(:last-child) {
-      width: calc($input-width - $unit-width);
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+
+  > label {
+    display: flex;
+    align-items: center;
+    > input {
+      width: $input-width;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
     }
   }
-  > div {
-    width: $unit-width;
-    height: $unit-width;
-    background-color: rgb(62, 62, 62);
-    line-height: $unit-width;
-    text-align: center;
-    font-size: 12px;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-  }
+}
+
+.unit {
+  width: $unit-width;
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  height: $unit-width;
+  line-height: $unit-width;
+  text-align: center;
+  font-size: 12px;
+  right: 12px;
+  top: 12px;
+  color: lightgrey;
+}
+
+.slider {
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }

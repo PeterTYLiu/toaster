@@ -1,46 +1,33 @@
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./PropertiesPanel.module.scss";
 import { nodeTypesMap } from "../../nodeProperties";
-import {
-  IconTrash,
-  IconCopy,
-  IconLink,
-  IconUnlink,
-  IconArrowUpRight,
-} from "@tabler/icons-react";
+import { IconTrash, IconCopy, IconLink, IconUnlink, IconArrowUpRight } from "@tabler/icons-react";
 import Links from "../Links/Links";
 import type { Node } from "../../App";
 import { findNodeById } from "../../sceneReducer";
 import { Fragment } from "react";
-import PropertyInput from "../PropertyInput/PropertyInput";
+import PropertyInput, { type PropertyInputStaticProps } from "../PropertyInput/PropertyInput";
 import { smallIconSize } from "../../nodeProperties";
 
-const transformsMap: Partial<
-  Record<keyof Node, { label: string; step?: number; unit?: string }>
-> = {
-  translateX: { label: "Translate X", unit: "px" },
-  translateY: { label: "Translate Y", unit: "px" },
-  translateZ: { label: "Translate Z", unit: "px" },
-  scaleX: { label: "Scale X", step: 0.01, unit: "×" },
-  scaleY: { label: "Scale Y", step: 0.01, unit: "×" },
-  scaleZ: { label: "Scale Z", step: 0.01, unit: "×" },
-  rotateX: { label: "Rotate X", unit: "°" },
-  rotateY: { label: "Rotate Y", unit: "°" },
-  rotateZ: { label: "Rotate Z", unit: "°" },
+const transformsMap: Partial<Record<keyof Node, PropertyInputStaticProps>> = {
+  translateX: { label: "Translate X", unit: "px", sliderMin: -500, sliderMax: 500 },
+  translateY: { label: "Translate Y", unit: "px", sliderMin: -500, sliderMax: 500 },
+  translateZ: { label: "Translate Z", unit: "px", sliderMin: -500, sliderMax: 500 },
+  scaleX: { label: "Scale X", step: 0.01, unit: "×", sliderMin: -3, sliderMax: 3 },
+  scaleY: { label: "Scale Y", step: 0.01, unit: "×", sliderMin: -3, sliderMax: 3 },
+  scaleZ: { label: "Scale Z", step: 0.01, unit: "×", sliderMin: -3, sliderMax: 3 },
+  rotateX: { label: "Rotate X", unit: "°", sliderMin: -180, sliderMax: 180 },
+  rotateY: { label: "Rotate Y", unit: "°", sliderMin: -180, sliderMax: 180 },
+  rotateZ: { label: "Rotate Z", unit: "°", sliderMin: -180, sliderMax: 180 },
 };
 
-const dimensionsMap: Partial<
-  Record<
-    keyof Node,
-    { label: string; min?: number; max?: number; unit?: string }
-  >
-> = {
-  radius: { label: "Radius", min: 0, unit: "px" },
-  holeRadius: { label: "Hole radius", min: 0, unit: "px" },
-  baseSides: { label: "Sides", min: 3, max: 16 },
-  depth: { label: "Depth", min: 0, unit: "px" },
-  width: { label: "Width", min: 0, unit: "px" },
-  height: { label: "Height", min: 0, unit: "px" },
+const dimensionsMap: Partial<Record<keyof Node, PropertyInputStaticProps>> = {
+  radius: { label: "Radius", min: 0, unit: "px", sliderMin: 0, sliderMax: 200 },
+  holeRadius: { label: "Hole radius", min: 0, unit: "px", sliderMin: 0, sliderMax: 200 },
+  baseSides: { label: "Sides", min: 3, max: 16, sliderMin: 3, sliderMax: 16 },
+  depth: { label: "Depth", min: 0, unit: "px", sliderMin: 0, sliderMax: 400 },
+  width: { label: "Width", min: 0, unit: "px", sliderMin: 0, sliderMax: 400 },
+  height: { label: "Height", min: 0, unit: "px", sliderMin: 0, sliderMax: 400 },
 };
 
 export default function PropertiesPanel() {
@@ -59,10 +46,7 @@ export default function PropertiesPanel() {
             by Peter Liu
           </h2>
           <br />
-          <p>
-            Every part of the model is HTML elements with CSS transforms. No
-            canvas, no WebGL.
-          </p>
+          <p>Every part of the model is HTML elements with CSS transforms. No canvas, no WebGL.</p>
           <br />
           <Links />
         </div>
@@ -73,20 +57,15 @@ export default function PropertiesPanel() {
           <section>
             <ul>
               <li>Scroll to zoom, click & drag to rotate</li>
+              <li>To reflect a node about an axis, you can scale that axis to -1</li>
               <li>
-                To reflect a node about an axis, you can scale that axis to -1
+                Use <strong>instancing</strong> to create nodes with linked properties and geometry
               </li>
               <li>
-                Use <strong>instancing</strong> to create nodes with linked
-                properties and geometry
+                <strong>Use spheres sparingly!</strong> They have hundreds of elements and can cause significant performance degradation
               </li>
               <li>
-                <strong>Use spheres sparingly!</strong> They have hundreds of
-                elements and can cause significant performance degradation
-              </li>
-              <li>
-                Use <strong>groups</strong> to share properties between solids
-                without a parent solid
+                Use <strong>groups</strong> to share properties between solids without a parent solid
               </li>
               <li>A prism with many sides approximates a cylinder</li>
               <li>A pyramid with many sides approximates a cone</li>
@@ -102,10 +81,7 @@ export default function PropertiesPanel() {
               const data = [new ClipboardItem({ [type]: blob })];
 
               navigator.clipboard.write(data).then(
-                () =>
-                  alert(
-                    "Model copied to clipboard as JSON! Paste it somewhere for safekeeping or share with someone"
-                  ),
+                () => alert("Model copied to clipboard as JSON! Paste it somewhere for safekeeping or share with someone"),
                 () => alert("Copy failed")
               );
             }}
@@ -132,8 +108,7 @@ export default function PropertiesPanel() {
             <a href="https://github.com/PeterTYLiu/toaster" target="_blank">
               github repo
             </a>{" "}
-            to include it in the gallery (with full credit to you). Don't forget
-            to include the JSON.
+            to include it in the gallery (with full credit to you). Don't forget to include the JSON.
           </p>
         </div>
       </div>
@@ -168,9 +143,7 @@ export default function PropertiesPanel() {
       <div className={styles.controls}>
         {!!activeNode.instanceOf && (
           <>
-            <p className={styles.hint}>
-              Instances inherit dimensions and styles from their mother node
-            </p>
+            <p className={styles.hint}>Instances inherit dimensions and styles from their mother node</p>
             <button
               onClick={() => {
                 dispatch({
@@ -286,20 +259,13 @@ export default function PropertiesPanel() {
           </summary>
           <section>
             {Object.entries(dimensionsMap).map(([key, value]) => {
-              if (!nodeTypesMap[activeNode.type].dimensions[key as keyof Node])
-                return <Fragment key={key} />;
+              if (!nodeTypesMap[activeNode.type].dimensions[key as keyof Node]) return <Fragment key={key} />;
 
               return (
                 <PropertyInput
                   key={key}
-                  label={value.label}
-                  min={value.min}
-                  max={value.max}
-                  unit={value.unit}
-                  value={
-                    (activeNode[key as keyof Node] as number | undefined) ??
-                    value.min
-                  }
+                  {...value}
+                  value={(activeNode[key as keyof Node] as number | undefined) ?? value.min}
                   handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     dispatch({
                       type: "updateNodeById",
@@ -362,16 +328,12 @@ export default function PropertiesPanel() {
           <h2>Transforms</h2>
         </summary>
         <section>
-          <p className={styles.hint}>
-            Transforms apply to the node and its children
-          </p>
+          <p className={styles.hint}>Transforms apply to the node and its children</p>
           {Object.entries(transformsMap).map(([key, value]) => {
             return (
               <PropertyInput
+                {...value}
                 key={key}
-                label={value.label}
-                step={value.step}
-                unit={value.unit}
                 value={activeNode[key as keyof Node] as number}
                 handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch({

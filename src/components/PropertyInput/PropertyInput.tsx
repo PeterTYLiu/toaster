@@ -1,37 +1,38 @@
 import styles from "./PropertyInput.module.scss";
 
-interface PropertyInputProps {
+export interface PropertyInputStaticProps {
   label: string;
-  value: number | undefined;
   min?: number;
   max?: number;
   step?: number;
   unit?: string;
+  sliderMin: number;
+  sliderMax: number;
+}
+
+interface PropertyInputProps extends PropertyInputStaticProps {
+  value: number | undefined;
   handleChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export default function PropertyInput({
-  label,
-  value,
-  min,
-  max,
-  step,
-  unit,
-  handleChange,
-}: PropertyInputProps) {
+export default function PropertyInput({ label, value, min, max, step, unit, sliderMin, sliderMax, handleChange }: PropertyInputProps) {
   return (
-    <label className={styles["property-input"]}>
-      <span>{label}</span>
+    <div className={styles["property-input"]}>
+      <label>
+        <span className={styles.name}>{label}</span>
+        <input type="number" name={label} min={min} max={max} step={step} value={value} onChange={handleChange} />
+        {!!unit && <div className={styles.unit}>{unit}</div>}
+      </label>
       <input
-        type="number"
+        className={styles.slider}
+        type="range"
+        min={sliderMin}
+        max={sliderMax}
         name={label}
-        min={min}
-        max={max}
         step={step}
         value={value}
         onChange={handleChange}
       />
-      {!!unit && <div className={styles.unit}>{unit}</div>}
-    </label>
+    </div>
   );
 }
