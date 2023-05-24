@@ -1,4 +1,4 @@
-$grid-color: rgb(180, 180, 180);
+$grid-color: rgb(146, 146, 146);
 
 .banner {
   display: none;
@@ -61,6 +61,6 @@ $grid-color: rgb(180, 180, 180);
     repeating-linear-gradient(90deg, transparent, transparent 49px, $grid-color 49px, $grid-color 50px);
 
   position: absolute;
-  background-color: #00000057;
+  background-color: #00000035;
   transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ(-150px);
 }
