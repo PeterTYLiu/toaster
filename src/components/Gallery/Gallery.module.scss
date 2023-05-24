@@ -11,12 +11,11 @@ $inner-height: $gallery-height - $header-height;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: #111;
-  height: 300px;
+  height: $header-height;
   left: 270px;
   right: 270px;
   bottom: 0;
-  translate: 0 $inner-height 0;
-  transition: translate 0.3s;
+  transition: height 0.3s;
   overflow: hidden;
   @media screen and (max-width: 900px) {
     left: 20px;
@@ -28,7 +27,7 @@ $inner-height: $gallery-height - $header-height;
   }
 
   &.active {
-    translate: 0 0 0;
+    height: $gallery-height;
     .chevron {
       transform: rotate(180deg);
     }
