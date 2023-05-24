@@ -2,22 +2,13 @@ import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
 import styles from "./SceneGraphNode.module.scss";
 import { nodeTypesMap, smallIconSize } from "../../nodeProperties";
-import {
-  IconChevronDown,
-  IconChevronRight,
-  IconLink,
-} from "@tabler/icons-react";
+import { IconChevronDown, IconChevronRight, IconLink } from "@tabler/icons-react";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
 
   return (
-    <div
-      id={node.id + "graph"}
-      className={`${styles.node} ${
-        activeNodeId === node.id ? styles.active : ""
-      }`}
-    >
+    <div id={node.id + "graph"} className={`${styles.node} ${activeNodeId === node.id ? styles.active : ""}`}>
       <div
         className={styles.parent}
         title={node.name}
@@ -54,23 +45,13 @@ export default function SceneGraphNode({ node }: { node: Node }) {
               });
             }}
           >
-            {node.collapsed ? (
-              <IconChevronRight size={14} />
-            ) : (
-              <IconChevronDown size={14} />
-            )}
+            {node.collapsed ? <IconChevronRight size={14} /> : <IconChevronDown size={14} />}
           </button>
         ) : (
           <div className={styles["collapser-placeholder"]} />
         )}
-        {node.instanceOf ? (
-          <IconLink size={smallIconSize} color="#5ff" />
-        ) : (
-          nodeTypesMap[node.type].icon
-        )}
-        <span className={styles.name}>
-          {node.name || `unnamed ${node.type}`}
-        </span>
+        {node.instanceOf ? <IconLink size={smallIconSize} color="#5ff" /> : nodeTypesMap[node.type].icon}
+        <span className={styles.name}>{node.name || `unnamed ${node.type}`}</span>
       </div>
       {!!node.children.length && !node.collapsed && (
         <div className={styles.children}>

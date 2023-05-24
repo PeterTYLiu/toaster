@@ -57,10 +57,10 @@ $summary-text: 14px;
   }
   summary {
     line-height: $summary-text;
+    padding: 12px 16px;
     user-select: none;
-    border-radius: 4px;
     &:hover {
-      background-color: #ffffff22;
+      background-color: var(--hover-bg);
     }
     h2 {
       display: inline;
@@ -71,13 +71,15 @@ $summary-text: 14px;
     font-size: $summary-text;
   }
   section {
-    padding-top: 12px;
+    padding: 4px 16px 12px;
     flex-direction: column;
     gap: 8px;
     display: flex;
   }
   > * {
-    padding: 12px 16px;
     border-bottom: 1px solid gray;
+  }
+  > *:not(details) {
+    padding: 12px 16px;
   }
 }
