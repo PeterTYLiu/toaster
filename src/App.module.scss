@@ -1,4 +1,4 @@
-$grid-color: rgb(255, 255, 255);
+$grid-color: rgb(180, 180, 180);
 
 .banner {
   display: none;
@@ -55,22 +55,12 @@ $grid-color: rgb(255, 255, 255);
   left: calc(50% - 500px);
   top: calc(50% - 500px);
   border: 1px solid $grid-color;
-  background-image: repeating-linear-gradient(
-      transparent,
-      transparent 49px,
-      $grid-color 49px,
-      $grid-color 50px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 49px,
-      $grid-color 49px,
-      $grid-color 50px
-    );
+  background-image: linear-gradient(transparent, transparent 49.9%, red 49.9%, red 50.1%, transparent 50.1%),
+    linear-gradient(90deg, transparent, transparent 49.9%, blue 49.9%, blue 50.1%, transparent 50.1%),
+    repeating-linear-gradient(transparent, transparent 49px, $grid-color 49px, $grid-color 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 49px, $grid-color 49px, $grid-color 50px);
 
   position: absolute;
   background-color: #00000057;
-  transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z))
-    scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ(-150px);
+  transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ(-150px);
 }
