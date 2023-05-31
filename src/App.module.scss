@@ -1,4 +1,15 @@
 $grid-color: rgb(146, 146, 146);
+$world-width: 1000px;
+$z-offset: -150px;
+
+@keyframes opening-animation {
+  from {
+    transform: rotateX(30deg) rotateZ(75deg) scale3d(0.2, 0.2, 0.2) translateZ($z-offset);
+  }
+  to {
+    transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ($z-offset);
+  }
+}
 
 .banner {
   display: none;
@@ -50,10 +61,10 @@ $grid-color: rgb(146, 146, 146);
 }
 
 .world {
-  width: 1000px;
-  height: 1000px;
-  left: calc(50% - 500px);
-  top: calc(50% - 500px);
+  width: $world-width;
+  height: $world-width;
+  left: calc(50% - calc($world-width/2));
+  top: calc(50% - calc($world-width/2));
   border: 1px solid $grid-color;
   background-image: linear-gradient(transparent, transparent 49.9%, red 49.9%, red 50.1%, transparent 50.1%),
     linear-gradient(90deg, transparent, transparent 49.9%, blue 49.9%, blue 50.1%, transparent 50.1%),
@@ -62,5 +73,6 @@ $grid-color: rgb(146, 146, 146);
 
   position: absolute;
   background-color: #00000035;
-  transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ(-150px);
+  animation: opening-animation 1.5s ease-out;
+  transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ($z-offset);
 }

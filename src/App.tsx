@@ -135,10 +135,7 @@ function App() {
               payload: {
                 rotateZ: scene.camera.rotateZ - e.movementX,
 
-                rotateX: Math.min(
-                  Math.max(scene.camera.rotateX - e.movementY, 0),
-                  87
-                ),
+                rotateX: Math.min(Math.max(scene.camera.rotateX - e.movementY, 0), 87),
               },
             });
           }}
