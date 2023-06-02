@@ -56,7 +56,9 @@ export default function PropertiesPanel() {
           </summary>
           <section>
             <ul>
-              <li>Scroll to zoom, click & drag to rotate</li>
+              <li>
+                Scroll to zoom, drag to rotate, <kbd>CTRL</kbd> + drag to change elevation
+              </li>
               <li>To reflect a node about an axis, you can scale that axis to -1</li>
               <li>
                 Use <strong>instancing</strong> to create nodes with linked properties and geometry

@@ -76,17 +76,18 @@ export interface Camera {
   zoom: number;
   rotateX: number;
   rotateZ: number;
+  translateZ: number;
 }
 
 const defaultCamera: Camera = {
   zoom: 0.5,
   rotateX: 80,
   rotateZ: 10,
+  translateZ: -150,
 };
 
 function App() {
   const [bannerVisible, setBannerVisible] = useState(true);
-  const [isDragging, setIsDragging] = useState(false);
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
@@ -125,19 +126,29 @@ function App() {
               payload: { zoom: Math.max(Math.min(newZoom, 10), 0.2) },
             });
           }}
-          onPointerDown={() => setIsDragging(true)}
-          onPointerUp={() => setIsDragging(false)}
+          onContextMenu={(e) => {
+            if (e.ctrlKey) e.preventDefault();
+          }}
           onPointerMove={(e) => {
-            if (!isDragging) return;
-
-            dispatch({
-              type: "updateCamera",
-              payload: {
-                rotateZ: scene.camera.rotateZ - e.movementX,
-
-                rotateX: Math.min(Math.max(scene.camera.rotateX - e.movementY, 0), 87),
-              },
-            });
+            // Pan on ctrl + left click + drag
+            if (e.buttons === 1 && e.ctrlKey) {
+              return dispatch({
+                type: "updateCamera",
+                payload: {
+                  translateZ: scene.camera.translateZ - e.movementY,
+                },
+              });
+            }
+            // Rotate on left click + drag
+            if (e.buttons === 1) {
+              return dispatch({
+                type: "updateCamera",
+                payload: {
+                  rotateZ: scene.camera.rotateZ - e.movementX,
+                  rotateX: Math.min(Math.max(scene.camera.rotateX - e.movementY, 0), 87),
+                },
+              });
+            }
           }}
         >
           <div
@@ -146,6 +157,7 @@ function App() {
               {
                 "--rotate-x": `${scene.camera.rotateX}deg`,
                 "--rotate-z": `${scene.camera.rotateZ}deg`,
+                "--translate-z": `${scene.camera.translateZ}px`,
                 "--zoom": scene.camera.zoom,
               } as CSSProperties
             }
