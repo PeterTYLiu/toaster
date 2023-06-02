@@ -5,7 +5,7 @@ export const optimus: Node = {
   name: "Optimus",
   type: "group",
   opacity: 1,
-  translateX: 600,
+  translateX: 586,
   translateY: 512,
   translateZ: 144,
   scaleX: 0.88,
