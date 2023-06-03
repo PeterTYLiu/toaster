@@ -9,10 +9,10 @@ import { optimus } from "../../models/optimus";
 import { toaster } from "../../models/toaster";
 
 const galleryItems: { model: Node | Node[]; imageUrl: string }[] = [
-  { model: snowman, imageUrl: "snowman.png" },
-  { model: starDestroyer, imageUrl: "starDestroyer.png" },
-  { model: optimus, imageUrl: "optimus.png" },
-  { model: toaster, imageUrl: "toaster.png" },
+  { model: snowman, imageUrl: "snowman.jpg" },
+  { model: starDestroyer, imageUrl: "starDestroyer.jpg" },
+  { model: optimus, imageUrl: "optimus.jpg" },
+  { model: toaster, imageUrl: "toaster.jpg" },
 ];
 
 export default function Gallery() {
@@ -28,21 +28,11 @@ export default function Gallery() {
       <div className={styles.inner}>
         {galleryItems.map((item) => (
           <div key={item.imageUrl} className={styles.item}>
-            <img
-              width="150"
-              height="150"
-              loading="lazy"
-              src={`images/${item.imageUrl}`}
-            />
+            <img width="150" height="150" loading="lazy" src={`images/${item.imageUrl}`} />
             <div className={styles.buttons}>
               <button
                 onClick={() => {
-                  if (
-                    !confirm(
-                      "Launch new model? You will lose your current model and progress"
-                    )
-                  )
-                    return;
+                  if (!confirm("Launch new model? You will lose your current model and progress")) return;
                   dispatch({
                     type: "setNodes",
                     payload: item.model,
