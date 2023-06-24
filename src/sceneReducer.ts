@@ -1,11 +1,7 @@
 import type { SceneType } from "./hooks/UseSceneContext";
 import { Node, type Camera } from "./App";
 
-function editPropertiesOnNodeById(
-  nodes: Node[],
-  id: string,
-  properties: Partial<Node>
-): Node[] {
+function editPropertiesOnNodeById(nodes: Node[], id: string, properties: Partial<Node>): Node[] {
   // Loop through nodes
   const thisNode = nodes.find((node) => node.id === id);
   const nodesToReturn = structuredClone(nodes) as Node[];
@@ -34,10 +30,7 @@ function deleteNodeById(nodes: Node[], id: string) {
   return nodes;
 }
 
-export function findNodeById(
-  nodes: Node[],
-  id: string | null
-): Node | undefined {
+export function findNodeById(nodes: Node[], id: string | null): Node | undefined {
   // Loop through nodes
   const thisNode = nodes.find((node) => node.id === id);
   if (thisNode) return thisNode;
@@ -59,10 +52,7 @@ function findFirstInstanceOf(nodes: Node[], id: string): Node | undefined {
   }
 }
 
-function findParentNodeAndIndexByChildId(
-  node: Node,
-  id: string | null
-): [Node, number] | undefined {
+function findParentNodeAndIndexByChildId(node: Node, id: string | null): [Node, number] | undefined {
   // Loop through children
   const foundChild = node.children.find((child) => child.id === id);
   if (foundChild) {
@@ -92,18 +82,11 @@ function renewIdsOfBranchNodes(nodes: Node[]) {
   });
 }
 
-function findAllAncestorsByNodeId(
-  nodes: Node[],
-  id: string,
-  ancestors: Node[] = []
-): Node[] | undefined {
+function findAllAncestorsByNodeId(nodes: Node[], id: string, ancestors: Node[] = []): Node[] | undefined {
   for (const node of nodes) {
     if (node.id === id) return ancestors;
 
-    const newAncestors = findAllAncestorsByNodeId(node.children, id, [
-      ...ancestors,
-      node,
-    ]);
+    const newAncestors = findAllAncestorsByNodeId(node.children, id, [...ancestors, node]);
     if (newAncestors) return newAncestors;
   }
 
@@ -113,8 +96,7 @@ function findAllAncestorsByNodeId(
 function scrollSceneGraphNodeIntoView(id: string) {
   setTimeout(() => {
     const sceneGraphNode = document.getElementById(id + "graph");
-    if (sceneGraphNode)
-      sceneGraphNode.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (sceneGraphNode) sceneGraphNode.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, 50);
 }
 
@@ -123,7 +105,7 @@ interface BaseAction {
   payload: unknown;
 }
 
-interface setNodesAction extends BaseAction {
+interface SetNodesAction extends BaseAction {
   type: "setNodes";
   payload: Node[] | Node;
 }
@@ -179,7 +161,7 @@ interface DetachInstanceAction extends BaseAction {
 }
 
 export type Action =
-  | setNodesAction
+  | SetNodesAction
   | UpdateNodeByIdAction
   | SetActiveNodeIdAction
   | UpdateCameraAction
@@ -220,11 +202,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       return { ...oldScene, hoverNodeId: payload };
     case "updateNodeById": {
       if (!payload.id) return oldScene;
-      const nodesToReturn = editPropertiesOnNodeById(
-        oldNodes,
-        payload.id,
-        payload.properties
-      );
+      const nodesToReturn = editPropertiesOnNodeById(oldNodes, payload.id, payload.properties);
       return { ...oldScene, nodes: nodesToReturn };
     }
     case "newNode": {
@@ -253,18 +231,14 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       const instance = findFirstInstanceOf(oldNodes, payload);
 
       if (instance) {
-        if (!confirm("This will delete all instances of this node. Continue?"))
-          return oldScene;
+        if (!confirm("This will delete all instances of this node. Continue?")) return oldScene;
       }
 
       const nodesToReturn = [...oldNodes];
 
       // Delete all instances
       while (findFirstInstanceOf(nodesToReturn, payload)) {
-        deleteNodeById(
-          nodesToReturn,
-          findFirstInstanceOf(nodesToReturn, payload)?.id ?? "arbitraryString"
-        );
+        deleteNodeById(nodesToReturn, findFirstInstanceOf(nodesToReturn, payload)?.id ?? "arbitraryString");
       }
 
       deleteNodeById(nodesToReturn, payload);
@@ -300,10 +274,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       let parentNode: Node | undefined = undefined;
       let index: number | undefined = undefined;
       for (const topLevelNode of oldNodes) {
-        [parentNode, index] = findParentNodeAndIndexByChildId(
-          topLevelNode,
-          payload
-        ) ?? [parentNode, index];
+        [parentNode, index] = findParentNodeAndIndexByChildId(topLevelNode, payload) ?? [parentNode, index];
       }
 
       if (!parentNode || typeof index !== "number") return oldScene;
@@ -390,10 +361,7 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
       let parentNode: Node | undefined = undefined;
       let index: number | undefined = undefined;
       for (const topLevelNode of oldNodes) {
-        [parentNode, index] = findParentNodeAndIndexByChildId(
-          topLevelNode,
-          payload
-        ) ?? [parentNode, index];
+        [parentNode, index] = findParentNodeAndIndexByChildId(topLevelNode, payload) ?? [parentNode, index];
       }
 
       if (!parentNode || typeof index !== "number") return oldScene;
