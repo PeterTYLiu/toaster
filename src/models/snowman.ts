@@ -143,7 +143,7 @@ export const snowman: Node[] = [
       {
         id: "8ab8ce0f-23fe-423a-9bf4-b3e66b3c74f6",
         name: "head",
-        collapsed: true,
+        collapsed: false,
         type: "group",
         children: [
           {

@@ -7,7 +7,7 @@ import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import Links from "./components/Links/Links";
 import { IconX } from "@tabler/icons-react";
-import { optimus } from "./models/optimus";
+import { snowman } from "./models/snowman";
 import Gallery from "./components/Gallery/Gallery";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
@@ -91,7 +91,7 @@ function App() {
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
-    nodes: [optimus],
+    nodes: snowman,
     hoverNodeId: null,
   });
 
