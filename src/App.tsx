@@ -1,4 +1,4 @@
-import { type CSSProperties, useReducer, useState } from "react";
+import { type CSSProperties, useReducer } from "react";
 import styles from "./App.module.scss";
 import SceneGraph from "./components/SceneGraph/SceneGraph";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
@@ -6,9 +6,10 @@ import { Node as NodeComponent } from "./components/Node/Node";
 import { SceneContext } from "./hooks/UseSceneContext";
 import { sceneReducer } from "./sceneReducer";
 import Links from "./components/Links/Links";
-import { IconX } from "@tabler/icons-react";
 import { snowman } from "./models/snowman";
 import Gallery from "./components/Gallery/Gallery";
+import ModeSwitcher from "./components/ModeSwitcher/ModeSwitcher";
+import Banner from "./components/Banner/Banner";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
@@ -87,12 +88,12 @@ const defaultCamera: Camera = {
 };
 
 function App() {
-  const [bannerVisible, setBannerVisible] = useState(true);
   const [scene, dispatch] = useReducer(sceneReducer, {
     camera: defaultCamera,
     activeNodeId: null,
     nodes: snowman,
     hoverNodeId: null,
+    wireframe: false,
   });
 
   return (
@@ -104,15 +105,7 @@ function App() {
         </div>
         <Links />
       </nav>
-      {bannerVisible && (
-        <div className={styles.banner}>
-          <span>🛠️ View on a larger screen for editing tools!</span>
-          <button className="icon" onClick={() => setBannerVisible(false)}>
-            <IconX size={18} />
-          </button>
-        </div>
-      )}
-
+      <Banner />
       <div className={styles.lower}>
         <SceneGraph />
         <main
@@ -167,6 +160,7 @@ function App() {
             ))}
           </div>
         </main>
+        <ModeSwitcher />
         <Gallery />
         <PropertiesPanel />
       </div>

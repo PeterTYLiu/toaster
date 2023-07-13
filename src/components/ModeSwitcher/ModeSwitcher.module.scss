@@ -1,0 +1,23 @@
+.mode-switcher {
+  position: absolute;
+  left: calc(50vw - 130px);
+  top: 16px;
+  > button {
+    width: 130px;
+    display: inline-flex;
+    &:first-child {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+    &:last-child {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+    &.active {
+      border-color: lightgray;
+    }
+  }
+  @media screen and (max-width: 900px) {
+    top: 65px;
+  }
+}

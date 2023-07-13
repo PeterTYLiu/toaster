@@ -1,18 +1,29 @@
+$highlight: lawngreen;
+$wireframe: blue;
+
 .node {
   transform-style: preserve-3d;
   position: absolute;
   &.active {
     * {
-      border-color: lawngreen !important;
+      border-color: $highlight !important;
       border-width: 3px;
-      stroke: lawngreen !important;
+      stroke: $highlight !important;
       stroke-width: 3;
     }
   }
   &.hovered {
     * {
-      border-color: lawngreen;
-      stroke: lawngreen !important;
+      border-color: $highlight !important;
+      stroke: $highlight !important;
+    }
+  }
+  &.wireframe {
+    * {
+      border-color: $wireframe;
+      stroke: $wireframe;
+      fill: none !important;
+      background-color: transparent !important;
     }
   }
 }

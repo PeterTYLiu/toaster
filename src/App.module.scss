@@ -11,17 +11,6 @@ $world-width: 1000px;
   }
 }
 
-.banner {
-  display: none;
-  padding: 8px;
-  border-top: 1px solid gray;
-  justify-content: space-between;
-  align-items: center;
-  @media screen and (max-width: 900px) {
-    display: flex;
-  }
-}
-
 .lower {
   display: flex;
   width: 100%;
