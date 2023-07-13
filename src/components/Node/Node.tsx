@@ -8,10 +8,7 @@ import Null from "../Null/Null";
 import useSceneContext from "../../hooks/UseSceneContext";
 import { findNodeById } from "../../sceneReducer";
 
-function findFurthestAncestor(
-  element: Element,
-  selector: string
-): Element | undefined {
+function findFurthestAncestor(element: Element, selector: string): Element | undefined {
   if (!element.parentElement) {
     return undefined; // Reached the topmost ancestor without a match
   }
@@ -26,11 +23,9 @@ function findFurthestAncestor(
 }
 
 export function Node({ node }: { node: NodeClass }) {
-  const { dispatch, activeNodeId, hoverNodeId, nodes } = useSceneContext();
+  const { dispatch, activeNodeId, hoverNodeId, nodes, wireframe } = useSceneContext();
 
-  const targetNode = node.instanceOf
-    ? findNodeById(nodes, node.instanceOf) ?? node
-    : node;
+  const targetNode = node.instanceOf ? findNodeById(nodes, node.instanceOf) ?? node : node;
 
   const solidVariables: Record<string, string> = {
     "--width": targetNode.width + "px",
@@ -47,22 +42,17 @@ export function Node({ node }: { node: NodeClass }) {
     <div
       onClick={(e) => {
         e.stopPropagation();
-        if (activeNodeId === node.id)
-          dispatch({ type: "setActiveNodeId", payload: null });
+        if (activeNodeId === node.id) dispatch({ type: "setActiveNodeId", payload: null });
 
         // Check to see if the clicked element is a child of an instance;
         // if so, set the entire instance as selected
-        const ancestorInstance = findFurthestAncestor(
-          e.target as Element,
-          "[data-instance-of]"
-        );
+        const ancestorInstance = findFurthestAncestor(e.target as Element, "[data-instance-of]");
 
         if (!ancestorInstance) {
           return dispatch({ type: "setActiveNodeId", payload: node.id });
         }
 
-        if (activeNodeId === ancestorInstance.getAttribute("data-node-id"))
-          dispatch({ type: "setActiveNodeId", payload: null });
+        if (activeNodeId === ancestorInstance.getAttribute("data-node-id")) dispatch({ type: "setActiveNodeId", payload: null });
         else
           dispatch({
             type: "setActiveNodeId",
@@ -71,11 +61,9 @@ export function Node({ node }: { node: NodeClass }) {
       }}
       data-instance-of={node.instanceOf}
       data-node-id={node.id}
-      className={`${styles.node} ${
-        activeNodeId === node.id || activeNodeId === node.instanceOf
-          ? styles.active
-          : ""
-      } ${hoverNodeId === node.id ? styles.hovered : ""}`}
+      className={`${styles.node} ${activeNodeId === node.id || activeNodeId === node.instanceOf ? styles.active : ""} ${
+        hoverNodeId === node.id ? styles.hovered : ""
+      } ${wireframe ? styles.wireframe : ""}`}
       style={{
         ...inheitedVariables,
         translate: `${node.translateX}px ${node.translateY}px ${node.translateZ}px`,
@@ -87,12 +75,7 @@ export function Node({ node }: { node: NodeClass }) {
           {node.type === "cuboid" && <Cuboid />}
           {node.type === "sphere" && <Sphere id={node.id} />}
           {node.type === "pyramid" && (
-            <Pyramid
-              baseSides={targetNode.baseSides}
-              radius={targetNode.radius}
-              height={targetNode.height}
-              id={node.id}
-            />
+            <Pyramid baseSides={targetNode.baseSides} radius={targetNode.radius} height={targetNode.height} id={node.id} />
           )}
           {node.type === "prism" && (
             <Prism

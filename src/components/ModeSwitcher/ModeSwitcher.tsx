@@ -1,0 +1,17 @@
+import useSceneContext from "../../hooks/UseSceneContext";
+import styles from "./ModeSwitcher.module.scss";
+
+export default function ModeSwitcher() {
+  const { dispatch, wireframe } = useSceneContext();
+
+  return (
+    <div className={styles["mode-switcher"]}>
+      <button className={wireframe ? "" : styles.active} onClick={() => dispatch({ type: "setWireframeMode", payload: false })}>
+        Solid
+      </button>
+      <button className={wireframe ? styles.active : ""} onClick={() => dispatch({ type: "setWireframeMode", payload: true })}>
+        Wireframe
+      </button>
+    </div>
+  );
+}

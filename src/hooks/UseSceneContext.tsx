@@ -7,6 +7,7 @@ export interface SceneType {
   nodes: Node[];
   activeNodeId: string | null;
   hoverNodeId: string | null;
+  wireframe: boolean;
 }
 
 export interface SceneContextType extends SceneType {
@@ -18,6 +19,7 @@ const defaultSceneContext: SceneContextType = {
   nodes: [],
   activeNodeId: null,
   hoverNodeId: null,
+  wireframe: false,
   dispatch: () => {},
 };
 

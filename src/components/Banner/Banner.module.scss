@@ -1,0 +1,16 @@
+.banner {
+  padding: 8px;
+  margin: 58px auto 0px;
+  width: min(500px, 90%);
+  z-index: 999;
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+  }
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
+}

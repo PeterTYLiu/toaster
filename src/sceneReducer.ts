@@ -160,6 +160,11 @@ interface DetachInstanceAction extends BaseAction {
   payload: string; // The ID of the instance being detached
 }
 
+interface SetWireframeModeAction extends BaseAction {
+  type: "setWireframeMode";
+  payload: boolean;
+}
+
 export type Action =
   | SetNodesAction
   | UpdateNodeByIdAction
@@ -171,7 +176,8 @@ export type Action =
   | CloneNodeAction
   | InsertNodeAction
   | NewInstanceAction
-  | DetachInstanceAction;
+  | DetachInstanceAction
+  | SetWireframeModeAction;
 
 export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { type, payload } = action;
@@ -401,6 +407,12 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
           radius: motherNode.radius,
           holeRadius: motherNode.holeRadius,
         }),
+      };
+    }
+    case "setWireframeMode": {
+      return {
+        ...oldScene,
+        wireframe: payload,
       };
     }
   }
