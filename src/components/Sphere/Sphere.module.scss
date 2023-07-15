@@ -6,8 +6,8 @@
   border-radius: 50%;
   width: var(--diameter);
   height: var(--diameter);
-  transform: translateX(var(--neg-radius)) translateY(var(--neg-radius))
-    rotateY(90deg) rotateX(calc(var(--plane) * (180deg / var(--planes))));
+  transform: translateX(var(--neg-radius)) translateY(var(--neg-radius)) rotateY(90deg)
+    rotateX(calc(var(--plane) * (180deg / var(--planes))));
 }
 
 .spoke {

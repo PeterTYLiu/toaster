@@ -1,4 +1,4 @@
-import { type CSSProperties, useReducer } from "react";
+import { type CSSProperties, useReducer, useRef } from "react";
 import styles from "./App.module.scss";
 import SceneGraph from "./components/SceneGraph/SceneGraph";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
@@ -95,6 +95,7 @@ function App() {
     hoverNodeId: null,
     wireframe: false,
   });
+  const pointerDownCoords = useRef<[number, number]>([0, 0]);
 
   return (
     <SceneContext.Provider value={{ ...scene, dispatch }}>
@@ -110,7 +111,11 @@ function App() {
         <SceneGraph />
         <main
           className={styles.main}
-          onClick={() => dispatch({ type: "setActiveNodeId", payload: null })}
+          onPointerDown={(event) => (pointerDownCoords.current = [event.clientX, event.clientY])}
+          onPointerUp={(event) => {
+            if (event.clientX !== pointerDownCoords.current[0] || event.clientY !== pointerDownCoords.current[1]) return;
+            dispatch({ type: "setActiveNodeId", payload: null });
+          }}
           onWheel={(e) => {
             e.stopPropagation();
             const newZoom = scene.camera.zoom + e.deltaY / 180;

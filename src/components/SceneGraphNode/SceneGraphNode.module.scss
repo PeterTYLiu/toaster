@@ -9,13 +9,14 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  border: 1px solid transparent;
   cursor: default;
   svg {
     flex-shrink: 0;
     opacity: 0.6;
   }
   &:hover {
-    background-color: var(--hover-bg);
+    border-color: limegreen;
   }
 }
 
