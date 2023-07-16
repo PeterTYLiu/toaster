@@ -1,4 +1,3 @@
-$highlight: lawngreen;
 $wireframe: blue;
 
 .node {
@@ -6,16 +5,16 @@ $wireframe: blue;
   position: absolute;
   &.active {
     * {
-      border-color: $highlight !important;
+      border-color: var(--highlight) !important;
       border-width: 3px;
-      stroke: $highlight !important;
+      stroke: var(--highlight) !important;
       stroke-width: 3;
     }
   }
   &.hovered {
     * {
-      border-color: $highlight !important;
-      stroke: $highlight !important;
+      border-color: var(--highlight) !important;
+      stroke: var(--highlight) !important;
     }
   }
   &.wireframe {
@@ -33,12 +32,12 @@ $wireframe: blue;
   position: absolute;
   &:hover {
     * {
-      border-color: lawngreen;
-      stroke: lawngreen !important;
+      border-color: var(--highlight);
+      stroke: var(--highlight) !important;
     }
     ~ * * {
-      border-color: lawngreen !important;
-      stroke: lawngreen !important;
+      border-color: var(--highlight) !important;
+      stroke: var(--highlight) !important;
     }
   }
 }
