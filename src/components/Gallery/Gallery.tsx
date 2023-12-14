@@ -16,15 +16,19 @@ const galleryItems: { model: Node | Node[]; imageUrl: string }[] = [
 ];
 
 export default function Gallery() {
-  const [isActive, setisActive] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const { dispatch } = useSceneContext();
 
   return (
-    <div className={`${styles.gallery} ${isActive ? styles.active : ""}`}>
-      <header onClick={() => setisActive(!isActive)}>
+    <div className={`${styles.gallery} ${isGalleryOpen ? styles.active : ""}`}>
+      <button
+        className={styles.header}
+        onClick={() => setIsGalleryOpen(!isGalleryOpen)}
+        aria-label={isGalleryOpen ? "Close gallery" : "Open gallery"}
+      >
         <h2>🖼️ Gallery</h2>
         <IconChevronUp className={styles.chevron} />
-      </header>
+      </button>
       <div className={styles.inner}>
         {galleryItems.map((item) => (
           <div key={item.imageUrl} className={styles.item}>

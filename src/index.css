@@ -9,6 +9,9 @@
   --bg: #eeeeee;
   --hover-bg: #222;
   --highlight: lawngreen;
+
+  --workspace-offset: 16px;
+  --workspace-button-size: 32px;
 }
 
 #root {
@@ -58,6 +61,17 @@ input:hover {
   background-color: #666;
 }
 
+a.button:active,
+button:active {
+  border-color: #aaa;
+  background-color: #777;
+}
+
+button[aria-selected="true"] {
+  pointer-events: none;
+  border-color: lightgray;
+}
+
 input {
   padding: 0 7px;
 }
@@ -78,6 +92,11 @@ button.icon {
   display: grid;
   place-items: center;
   aspect-ratio: 1;
+}
+
+*:disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 ul,

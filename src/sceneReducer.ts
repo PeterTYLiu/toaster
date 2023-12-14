@@ -1,5 +1,6 @@
 import type { SceneType } from "./hooks/UseSceneContext";
 import { Node, type Camera } from "./App";
+import { MAX_ZOOM, MIN_ZOOM } from "./constants";
 
 function editPropertiesOnNodeById(nodes: Node[], id: string, properties: Partial<Node>): Node[] {
   // Loop through nodes
@@ -181,7 +182,7 @@ export type Action =
 
 export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
   const { type, payload } = action;
-  const { activeNodeId: oldActiveNodeId, nodes: oldNodes } = oldScene;
+  const { activeNodeId: oldActiveNodeId, nodes: oldNodes, camera: oldCamera } = oldScene;
 
   switch (type) {
     case "setNodes": {
@@ -193,8 +194,11 @@ export function sceneReducer(oldScene: SceneType, action: Action): SceneType {
         activeNodeId: null,
       };
     }
-    case "updateCamera":
-      return { ...oldScene, camera: { ...oldScene.camera, ...payload } };
+    case "updateCamera": {
+      const newZoom = payload.zoom ?? oldCamera.zoom;
+      const clampedNewZoom = Math.max(Math.min(newZoom, MAX_ZOOM), MIN_ZOOM);
+      return { ...oldScene, camera: { ...oldCamera, ...payload, zoom: clampedNewZoom } };
+    }
     case "setActiveNodeId": {
       if (!payload) return { ...oldScene, activeNodeId: payload };
       // The active node's ancestors need to have collapsed = false

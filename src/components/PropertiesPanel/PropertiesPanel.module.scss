@@ -1,28 +1,5 @@
 $summary-text: 14px;
 
-.color-picker {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  div {
-    display: flex;
-    align-items: center;
-    > *:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      height: 28px;
-    }
-    > *:last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      height: 28px;
-    }
-  }
-  .active {
-    border-color: lightgray;
-  }
-}
-
 .controls {
   display: flex;
   flex-direction: column;
@@ -75,6 +52,25 @@ $summary-text: 14px;
     flex-direction: column;
     gap: 8px;
     display: flex;
+  }
+  section.color-picker-section {
+    align-items: center;
+    flex-direction: row;
+    gap: 0;
+    button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    label {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: space-between;
+      input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
   }
   > * {
     border-bottom: 1px solid gray;
