@@ -113,9 +113,13 @@ function App() {
         <div className={styles.workspace}>
           <main
             className={styles.main}
-            onPointerDown={(event) => (pointerDownCoords.current = [event.clientX, event.clientY])}
-            onPointerUp={(event) => {
-              if (event.clientX !== pointerDownCoords.current[0] || event.clientY !== pointerDownCoords.current[1]) return;
+            onPointerDown={(e) => {
+              e.preventDefault();
+              pointerDownCoords.current = [e.clientX, e.clientY];
+            }}
+            onPointerUp={(e) => {
+              e.preventDefault();
+              if (e.clientX !== pointerDownCoords.current[0] || e.clientY !== pointerDownCoords.current[1]) return;
               dispatch({ type: "setActiveNodeId", payload: null });
             }}
             onWheel={(e) => {
@@ -130,6 +134,7 @@ function App() {
               if (e.ctrlKey) e.preventDefault();
             }}
             onPointerMove={(e) => {
+              e.preventDefault();
               // Pan on ctrl + left click + drag
               if (e.buttons === 1 && e.ctrlKey) {
                 return dispatch({
