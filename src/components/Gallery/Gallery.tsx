@@ -37,6 +37,7 @@ export default function Gallery() {
               <button
                 onClick={() => {
                   if (!confirm("Launch new model? You will lose your current model and progress")) return;
+                  setIsGalleryOpen(false);
                   dispatch({
                     type: "setNodes",
                     payload: item.model,
@@ -47,12 +48,13 @@ export default function Gallery() {
               </button>
               <button
                 className={styles.insert}
-                onClick={() =>
+                onClick={() => {
+                  setIsGalleryOpen(false);
                   dispatch({
                     type: "insertNode",
                     payload: { nodes: item.model },
-                  })
-                }
+                  });
+                }}
               >
                 Insert
               </button>

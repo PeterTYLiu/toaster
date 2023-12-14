@@ -11,7 +11,6 @@ import Gallery from "./components/Gallery/Gallery";
 import ModeSwitcher from "./components/ModeSwitcher/ModeSwitcher";
 import Zoom from "./components/Zoom/Zoom";
 import Banner from "./components/Banner/Banner";
-import { MIN_ZOOM, MAX_ZOOM } from "./constants";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
