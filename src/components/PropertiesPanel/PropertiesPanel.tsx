@@ -288,9 +288,9 @@ export default function PropertiesPanel() {
           <summary>
             <h2>Styling</h2>
           </summary>
-          <section>
-            <label className={styles["color-picker"]}>
-              <span>Color</span>
+          <section className={styles["color-picker-section"]}>
+            <label>
+              Color
               <div>
                 <input
                   type="color"
@@ -306,22 +306,23 @@ export default function PropertiesPanel() {
                     })
                   }
                 />
-                <button
-                  className={!activeNode.color ? styles.active : ""}
-                  onClick={() =>
-                    dispatch({
-                      type: "updateNodeById",
-                      payload: {
-                        id: activeNodeId,
-                        properties: { color: undefined },
-                      },
-                    })
-                  }
-                >
-                  inherit
-                </button>
               </div>
             </label>
+            <button
+              aria-selected={!activeNode.color}
+              aria-label="Inherit colour from parent node"
+              onClick={() =>
+                dispatch({
+                  type: "updateNodeById",
+                  payload: {
+                    id: activeNodeId,
+                    properties: { color: undefined },
+                  },
+                })
+              }
+            >
+              inherit
+            </button>
           </section>
         </details>
       )}

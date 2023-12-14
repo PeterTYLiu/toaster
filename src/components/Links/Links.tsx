@@ -1,9 +1,5 @@
 import styles from "./Links.module.scss";
-import {
-  IconBrandGithub,
-  IconShare,
-  IconBrandLinkedin,
-} from "@tabler/icons-react";
+import { IconBrandGithub, IconShare, IconBrandLinkedin } from "@tabler/icons-react";
 import { iconSize } from "../../nodeProperties";
 
 function share() {
@@ -23,13 +19,10 @@ function share() {
 export default function Links() {
   return (
     <div className={styles.links}>
-      <a className="icon button" href="https://github.com/PeterTYLiu/toaster">
+      <a className="icon button" href="https://github.com/PeterTYLiu/toaster" title="Github">
         <IconBrandGithub size={iconSize} />
       </a>
-      <a
-        className="icon button"
-        href="https://www.linkedin.com/in/peter-ty-liu/"
-      >
+      <a title="LinkedIn" className="icon button" href="https://www.linkedin.com/in/peter-ty-liu/">
         <IconBrandLinkedin size={iconSize} />
       </a>
       <button className="icon" onClick={share} title="share">

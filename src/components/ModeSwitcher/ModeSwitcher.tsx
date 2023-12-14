@@ -6,10 +6,10 @@ export default function ModeSwitcher() {
 
   return (
     <div className={styles["mode-switcher"]}>
-      <button className={wireframe ? "" : styles.active} onClick={() => dispatch({ type: "setWireframeMode", payload: false })}>
+      <button aria-selected={!wireframe} onClick={() => dispatch({ type: "setWireframeMode", payload: false })}>
         Solid
       </button>
-      <button className={wireframe ? styles.active : ""} onClick={() => dispatch({ type: "setWireframeMode", payload: true })}>
+      <button aria-selected={wireframe} onClick={() => dispatch({ type: "setWireframeMode", payload: true })}>
         Wireframe
       </button>
     </div>

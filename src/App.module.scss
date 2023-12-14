@@ -49,6 +49,15 @@ $world-width: 1000px;
   }
 }
 
+.workspace {
+  flex-grow: 1;
+  display: flex;
+  position: relative;
+  button {
+    height: var(--workspace-button-size);
+  }
+}
+
 .world {
   width: $world-width;
   height: $world-width;

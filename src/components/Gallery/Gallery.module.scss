@@ -12,15 +12,11 @@ $inner-height: $gallery-height - $header-height;
   border-top-right-radius: 4px;
   background-color: #111;
   height: $header-height;
-  left: 270px;
-  right: 270px;
+  left: var(--workspace-offset);
+  right: var(--workspace-offset);
   bottom: 0;
   transition: height 0.3s;
   overflow: hidden;
-  @media screen and (max-width: 900px) {
-    left: 20px;
-    right: 20px;
-  }
 
   * {
     position: relative;
@@ -33,13 +29,16 @@ $inner-height: $gallery-height - $header-height;
     }
   }
 
-  header {
+  button.header {
     height: $header-height;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0 12px;
     user-select: none;
     align-items: center;
+    background-color: transparent;
+    border: none;
     &:hover {
       background-color: #222;
     }
