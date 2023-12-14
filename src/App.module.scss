@@ -26,7 +26,7 @@ $world-width: 1000px;
   flex-grow: 1;
   flex-shrink: 1;
   perspective: 800px;
-  touch-action: none;
+  touch-action: pan-x pan-y;
   * {
     transform-style: preserve-3d;
     position: absolute;
