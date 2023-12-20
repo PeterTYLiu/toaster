@@ -113,3 +113,17 @@ p {
 li:not(:last-child) {
   padding-bottom: 0.5rem;
 }
+
+.animated {
+  animation: opening-animation 1.5s ease-out;
+}
+
+@keyframes opening-animation {
+  from {
+    transform: rotateX(30deg) rotateZ(75deg) scale3d(0.2, 0.2, 0.2) translateZ(var(--translate-z));
+  }
+  to {
+    transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom))
+      translateZ(var(--translate-z));
+  }
+}

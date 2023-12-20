@@ -157,7 +157,8 @@ function App() {
             }}
           >
             <div
-              className={styles.world}
+              className={`${styles.world} animated`}
+              id="world"
               style={
                 {
                   "--rotate-x": `${scene.camera.rotateX}deg`,

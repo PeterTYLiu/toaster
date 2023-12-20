@@ -8,11 +8,11 @@ import { starDestroyer } from "../../models/starDestroyer";
 import { optimus } from "../../models/optimus";
 import { toaster } from "../../models/toaster";
 
-const galleryItems: { model: Node | Node[]; imageUrl: string }[] = [
-  { model: snowman, imageUrl: "snowman.jpg" },
-  { model: starDestroyer, imageUrl: "starDestroyer.jpg" },
-  { model: optimus, imageUrl: "optimus.jpg" },
-  { model: toaster, imageUrl: "toaster.jpg" },
+const galleryItems: { model: Node | Node[]; imageUrl: string; name: string }[] = [
+  { model: snowman, imageUrl: "snowman.jpg", name: "snowman" },
+  { model: starDestroyer, imageUrl: "starDestroyer.jpg", name: "Star Destroyer" },
+  { model: optimus, imageUrl: "optimus.jpg", name: "Optimus Prime" },
+  { model: toaster, imageUrl: "toaster.jpg", name: "toaster" },
 ];
 
 export default function Gallery() {
@@ -30,29 +30,37 @@ export default function Gallery() {
         <IconChevronUp className={styles.chevron} />
       </button>
       <div className={styles.inner}>
-        {galleryItems.map((item) => (
-          <div key={item.imageUrl} className={styles.item}>
-            <img width="150" height="150" loading="lazy" src={`images/${item.imageUrl}`} />
+        {galleryItems.map(({ model, imageUrl, name }) => (
+          <div key={imageUrl} className={styles.item}>
+            <img width="150" height="150" loading="lazy" src={`images/${imageUrl}`} alt={name} />
             <div className={styles.buttons}>
               <button
+                aria-label={`Launch ${name}`}
                 onClick={() => {
-                  if (!confirm("Launch new model? You will lose your current model and progress")) return;
+                  if (!confirm("Launch model? You will lose your current model and progress")) return;
+                  // Re-trigger the animation on the world space
+                  const world = document.getElementById("world");
+                  world?.classList.remove("animated");
+                  setTimeout(() => {
+                    world?.classList.add("animated");
+                    dispatch({
+                      type: "setNodes",
+                      payload: model,
+                    });
+                  }, 20);
                   setIsGalleryOpen(false);
-                  dispatch({
-                    type: "setNodes",
-                    payload: item.model,
-                  });
                 }}
               >
                 Launch
               </button>
               <button
+                aria-label={`Insert ${name}`}
                 className={styles.insert}
                 onClick={() => {
                   setIsGalleryOpen(false);
                   dispatch({
                     type: "insertNode",
-                    payload: { nodes: item.model },
+                    payload: { nodes: model },
                   });
                 }}
               >
