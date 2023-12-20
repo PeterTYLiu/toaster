@@ -1,16 +1,6 @@
 $grid-color: rgb(146, 146, 146);
 $world-width: 1000px;
 
-@keyframes opening-animation {
-  from {
-    transform: rotateX(30deg) rotateZ(75deg) scale3d(0.2, 0.2, 0.2) translateZ(var(--translate-z));
-  }
-  to {
-    transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom))
-      translateZ(var(--translate-z));
-  }
-}
-
 .lower {
   display: flex;
   width: 100%;
@@ -71,6 +61,5 @@ $world-width: 1000px;
 
   position: absolute;
   background-color: #00000035;
-  animation: opening-animation 1.5s ease-out;
   transform: rotateX(var(--rotate-x)) rotateZ(var(--rotate-z)) scale3d(var(--zoom), var(--zoom), var(--zoom)) translateZ(var(--translate-z));
 }

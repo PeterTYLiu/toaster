@@ -34,6 +34,8 @@ export default function SceneGraphNode({ node }: { node: Node }) {
         {node.children.length ? (
           <button
             className={styles.collapser}
+            aria-label={`Collpase ${node.name}`}
+            aria-pressed={node.collapsed}
             onClick={(e) => {
               e.stopPropagation();
               dispatch({

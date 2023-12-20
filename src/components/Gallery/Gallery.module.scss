@@ -68,7 +68,7 @@ $inner-height: $gallery-height - $header-height;
     display: flex;
     gap: 4px;
     > * {
-      flex-grow: 1;
+      flex: 1 1 50%;
     }
   }
 }

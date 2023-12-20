@@ -30,18 +30,24 @@ export default function Gallery() {
         <IconChevronUp className={styles.chevron} />
       </button>
       <div className={styles.inner}>
-        {galleryItems.map((item) => (
-          <div key={item.imageUrl} className={styles.item}>
-            <img width="150" height="150" loading="lazy" src={`images/${item.imageUrl}`} />
+        {galleryItems.map(({ model, imageUrl }) => (
+          <div key={imageUrl} className={styles.item}>
+            <img width="150" height="150" loading="lazy" src={`images/${imageUrl}`} />
             <div className={styles.buttons}>
               <button
                 onClick={() => {
                   if (!confirm("Launch new model? You will lose your current model and progress")) return;
+                  // Re-trigger the animation on the world space
+                  const world = document.getElementById("world");
+                  world?.classList.remove("animated");
+                  setTimeout(() => {
+                    world?.classList.add("animated");
+                    dispatch({
+                      type: "setNodes",
+                      payload: model,
+                    });
+                  }, 20);
                   setIsGalleryOpen(false);
-                  dispatch({
-                    type: "setNodes",
-                    payload: item.model,
-                  });
                 }}
               >
                 Launch
@@ -52,7 +58,7 @@ export default function Gallery() {
                   setIsGalleryOpen(false);
                   dispatch({
                     type: "insertNode",
-                    payload: { nodes: item.model },
+                    payload: { nodes: model },
                   });
                 }}
               >
