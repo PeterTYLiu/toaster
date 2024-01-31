@@ -1,5 +1,5 @@
 import { Node as NodeClass } from "../../App";
-import styles from "./Node.module.scss";
+import styles from "./Node.module.css";
 import Sphere from "../Sphere/Sphere";
 import Cuboid from "../Cuboid/Cuboid";
 import Pyramid from "../Pryamid/Pyramid";

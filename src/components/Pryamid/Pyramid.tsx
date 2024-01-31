@@ -1,17 +1,7 @@
 import type { ReactNode } from "react";
-import styles from "./Pyramid.module.scss";
+import styles from "./Pyramid.module.css";
 
-export default function Pyramid({
-  baseSides,
-  height,
-  radius,
-  id,
-}: {
-  baseSides: number;
-  height: number;
-  radius: number;
-  id: string;
-}) {
+export default function Pyramid({ baseSides, height, radius, id }: { baseSides: number; height: number; radius: number; id: string }) {
   const theta = (Math.PI * 2) / baseSides;
   const baseSideLength = radius * 2 * Math.sin(Math.PI / baseSides);
   const apothem = radius * Math.cos(Math.PI / baseSides);
@@ -54,16 +44,10 @@ export default function Pyramid({
             style={{
               width: baseSideLength + "px",
               height: sideHeight + "px",
-              transform: `translateY(-${sideHeight / 2}px) translateX(${
-                (sideHeight - baseSideLength) / 2
-              }px) rotateZ(90deg)`,
+              transform: `translateY(-${sideHeight / 2}px) translateX(${(sideHeight - baseSideLength) / 2}px) rotateZ(90deg)`,
             }}
           >
-            <polygon
-              points={`0,${sideHeight} ${
-                baseSideLength / 2
-              },0 ${baseSideLength},${sideHeight}`}
-            />
+            <polygon points={`0,${sideHeight} ${baseSideLength / 2},0 ${baseSideLength},${sideHeight}`} />
           </svg>
         </div>
       </div>

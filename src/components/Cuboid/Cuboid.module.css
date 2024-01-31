@@ -17,16 +17,14 @@
 
   &.back {
     transform: rotateY(180deg);
-    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h))
-      calc(var(--depth) / -2);
+    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h)) calc(var(--depth) / -2);
     width: var(--width);
     height: var(--height);
   }
 
   &.right {
     transform: rotateY(-90deg);
-    translate: calc(-1 * var(--half-w) - var(--half-d)) calc(-1 * var(--half-h))
-      0;
+    translate: calc(-1 * var(--half-w) - var(--half-d)) calc(-1 * var(--half-h)) 0;
     width: var(--depth);
     height: var(--height);
   }
@@ -47,8 +45,7 @@
 
   &.bottom {
     transform: rotateX(-90deg);
-    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h) - var(--half-d))
-      0;
+    translate: calc(-1 * var(--half-w)) calc(-1 * var(--half-h) - var(--half-d)) 0;
     width: var(--width);
     height: var(--depth);
   }
