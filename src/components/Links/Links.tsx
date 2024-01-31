@@ -28,6 +28,9 @@ export default function Links() {
       <button className="icon" onClick={share} title="share">
         <IconShare size={iconSize} />
       </button>
+      <a className="icon button" href="https://u24.gov.ua" title="Donate to Ukraine" style={{ textDecoration: "none", fontSize: "1.3rem" }}>
+        🇺🇦
+      </a>
     </div>
   );
 }
