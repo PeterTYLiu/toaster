@@ -1,4 +1,4 @@
-import styles from "./Cuboid.module.scss";
+import styles from "./Cuboid.module.css";
 
 export default function Cuboid() {
   return (

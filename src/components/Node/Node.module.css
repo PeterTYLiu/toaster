@@ -1,5 +1,3 @@
-$wireframe: blue;
-
 .node {
   transform-style: preserve-3d;
   position: absolute;
@@ -19,8 +17,8 @@ $wireframe: blue;
   }
   &.wireframe {
     * {
-      border-color: $wireframe;
-      stroke: $wireframe;
+      border-color: var(--wireframe);
+      stroke: var(--wireframe);
       fill: none !important;
       background-color: transparent !important;
     }
