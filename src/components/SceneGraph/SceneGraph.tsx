@@ -2,7 +2,7 @@ import useSceneContext from "../../hooks/UseSceneContext";
 import SceneGraphNode from "../SceneGraphNode/SceneGraphNode";
 import { nodeTypesMap } from "../../nodeProperties";
 import type { Node } from "../../App";
-import styles from "./SceneGraph.module.scss";
+import styles from "./SceneGraph.module.css";
 
 export default function SceneGraph() {
   const { nodes, dispatch } = useSceneContext();

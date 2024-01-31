@@ -112,6 +112,7 @@ function App() {
         <SceneGraph />
         <div className={styles.workspace}>
           <main
+            dir="ltr"
             className={styles.main}
             onPointerDown={(e) => {
               e.preventDefault();

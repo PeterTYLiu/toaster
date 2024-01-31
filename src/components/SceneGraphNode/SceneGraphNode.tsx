@@ -1,6 +1,6 @@
 import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
-import styles from "./SceneGraphNode.module.scss";
+import styles from "./SceneGraphNode.module.css";
 import { nodeTypesMap, smallIconSize } from "../../nodeProperties";
 import { IconChevronDown, IconChevronRight, IconLink } from "@tabler/icons-react";
 

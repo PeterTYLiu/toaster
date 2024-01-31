@@ -1,11 +1,11 @@
 .children {
-  margin-left: 13px;
+  margin-inline-start: 13px;
   margin-top: 3px;
-  border-left: 1px solid #555;
+  border-inline-start: 1px solid #555;
 }
 
 .parent {
-  padding-left: 4px;
+  padding-inline-start: 4px;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -27,7 +27,7 @@
   overflow: hidden;
   user-select: none;
   word-break: break-all;
-  margin-left: 4px;
+  margin-inline-start: 4px;
 }
 
 .node {
