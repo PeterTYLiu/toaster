@@ -1,5 +1,7 @@
-$grid-color: rgb(146, 146, 146);
-$world-width: 1000px;
+html {
+  --grid-color: rgb(146, 146, 146);
+  --world-width: 1000px;
+}
 
 .lower {
   display: flex;
@@ -49,15 +51,16 @@ $world-width: 1000px;
 }
 
 .world {
-  width: $world-width;
-  height: $world-width;
-  left: calc(50% - calc($world-width/2));
-  top: calc(50% - calc($world-width/2));
-  border: 1px solid $grid-color;
-  background-image: linear-gradient(transparent, transparent 49.9%, red 49.9%, red 50.1%, transparent 50.1%),
+  width: var(--world-width);
+  height: var(--world-width);
+  left: calc(50% - calc(var(--world-width) / 2));
+  top: calc(50% - calc(var(--world-width) / 2));
+  border: 1px solid var(--grid-color);
+  background-image:
+    linear-gradient(transparent, transparent 49.9%, red 49.9%, red 50.1%, transparent 50.1%),
     linear-gradient(90deg, transparent, transparent 49.9%, blue 49.9%, blue 50.1%, transparent 50.1%),
-    repeating-linear-gradient(transparent, transparent 49px, $grid-color 49px, $grid-color 50px),
-    repeating-linear-gradient(90deg, transparent, transparent 49px, $grid-color 49px, $grid-color 50px);
+    repeating-linear-gradient(transparent, transparent 49px, var(--grid-color) 49px, var(--grid-color) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 49px, var(--grid-color) 49px, var(--grid-color) 50px);
 
   position: absolute;
   background-color: #00000035;

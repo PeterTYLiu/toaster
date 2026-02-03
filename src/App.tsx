@@ -1,16 +1,16 @@
 import { type CSSProperties, useReducer, useRef } from "react";
-import styles from "./App.module.scss";
-import SceneGraph from "./components/SceneGraph/SceneGraph";
-import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
-import { Node as NodeComponent } from "./components/Node/Node";
-import { SceneContext } from "./hooks/UseSceneContext";
-import { sceneReducer } from "./sceneReducer";
-import Links from "./components/Links/Links";
-import { snowman } from "./models/snowman";
-import Gallery from "./components/Gallery/Gallery";
-import ModeSwitcher from "./components/ModeSwitcher/ModeSwitcher";
-import Zoom from "./components/Zoom/Zoom";
+import styles from "./App.module.css";
 import Banner from "./components/Banner/Banner";
+import Gallery from "./components/Gallery/Gallery";
+import Links from "./components/Links/Links";
+import ModeSwitcher from "./components/ModeSwitcher/ModeSwitcher";
+import { Node as NodeComponent } from "./components/Node/Node";
+import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
+import SceneGraph from "./components/SceneGraph/SceneGraph";
+import Zoom from "./components/Zoom/Zoom";
+import { SceneContext } from "./hooks/UseSceneContext";
+import { snowman } from "./models/snowman";
+import { sceneReducer } from "./sceneReducer";
 
 type NodeType = "group" | "cuboid" | "prism" | "sphere" | "pyramid";
 
