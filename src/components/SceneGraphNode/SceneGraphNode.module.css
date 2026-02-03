@@ -6,6 +6,7 @@
 
 .parent {
   padding-inline-start: 4px;
+  anchor-name: var(--anchor-name);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -25,6 +26,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   user-select: none;
   word-break: break-all;
   margin-inline-start: 4px;
@@ -53,4 +55,27 @@
   height: 24px;
   flex-shrink: 0;
   flex-grow: 0;
+}
+
+.context-menu {
+  top: anchor(var(--anchor-name) center);
+  inset-inline-start: anchor(var(--anchor-name) center);
+  margin: 0;
+  border-color: white;
+  background-color: var(--bg);
+  padding: 4px;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    > button {
+      justify-content: flex-start;
+      border-width: 0px;
+      background-color: transparent;
+      &:hover,
+      &:focus {
+        background-color: #333;
+      }
+    }
+  }
 }
