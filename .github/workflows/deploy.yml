@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@latest
+        uses: actions/checkout@v6
       - name: Set up Node
-        uses: actions/setup-node@latest
+        uses: actions/setup-node@v6
         with:
           node-version: "latest"
           cache: "npm"
@@ -42,12 +42,12 @@ jobs:
       - name: Build
         run: npm run build
       - name: Setup Pages
-        uses: actions/configure-pages@latest
+        uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@latest
+        uses: actions/upload-pages-artifact@v4
         with:
           # Upload dist repository
           path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@latest
+        uses: actions/deploy-pages@v4
