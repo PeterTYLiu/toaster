@@ -1,7 +1,7 @@
 import { IconZoomIn, IconZoomOut } from "@tabler/icons-react";
+import { MAX_ZOOM, MIN_ZOOM } from "../../constants";
 import useSceneContext from "../../hooks/UseSceneContext";
-import styles from "./Zoom.module.scss";
-import { MIN_ZOOM, MAX_ZOOM } from "../../constants";
+import styles from "./Zoom.module.css";
 
 export default function Zoom() {
   const { dispatch, camera } = useSceneContext();

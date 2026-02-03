@@ -1,5 +1,5 @@
 import useSceneContext from "../../hooks/UseSceneContext";
-import styles from "./ModeSwitcher.module.scss";
+import styles from "./ModeSwitcher.module.css";
 
 export default function ModeSwitcher() {
   const { dispatch, wireframe } = useSceneContext();

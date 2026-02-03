@@ -1,12 +1,12 @@
-import styles from "./Gallery.module.scss";
-import type { Node } from "../../App";
-import { useState } from "react";
-import useSceneContext from "../../hooks/UseSceneContext";
 import { IconChevronUp } from "@tabler/icons-react";
+import { useState } from "react";
+import type { Node } from "../../App";
+import useSceneContext from "../../hooks/UseSceneContext";
+import { optimus } from "../../models/optimus";
 import { snowman } from "../../models/snowman";
 import { starDestroyer } from "../../models/starDestroyer";
-import { optimus } from "../../models/optimus";
 import { toaster } from "../../models/toaster";
+import styles from "./Gallery.module.css";
 
 const galleryItems: { model: Node | Node[]; imageUrl: string; name: string }[] = [
   { model: snowman, imageUrl: "snowman.jpg", name: "snowman" },
