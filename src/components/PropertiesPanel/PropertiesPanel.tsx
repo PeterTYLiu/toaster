@@ -1,13 +1,12 @@
-import useSceneContext from "../../hooks/UseSceneContext";
-import styles from "./PropertiesPanel.module.scss";
-import { nodeTypesMap } from "../../nodeProperties";
-import { IconTrash, IconCopy, IconLink, IconUnlink, IconArrowUpRight } from "@tabler/icons-react";
-import Links from "../Links/Links";
-import type { Node } from "../../App";
-import { findNodeById } from "../../sceneReducer";
+import { IconArrowUpRight, IconCopy, IconLink, IconTrash, IconUnlink } from "@tabler/icons-react";
 import { Fragment } from "react";
+import type { Node } from "../../App";
+import useSceneContext from "../../hooks/UseSceneContext";
+import { nodeTypesMap, smallIconSize } from "../../nodeProperties";
+import { findNodeById } from "../../sceneReducer";
+import Links from "../Links/Links";
 import PropertyInput, { type PropertyInputStaticProps } from "../PropertyInput/PropertyInput";
-import { smallIconSize } from "../../nodeProperties";
+import styles from "./PropertiesPanel.module.css";
 
 const transformsMap: Partial<Record<keyof Node, PropertyInputStaticProps>> = {
   translateX: { label: "Translate X", unit: "px", sliderMin: -500, sliderMax: 500 },
@@ -84,7 +83,7 @@ export default function PropertiesPanel() {
 
               navigator.clipboard.write(data).then(
                 () => alert("Model copied to clipboard as JSON! Paste it somewhere for safekeeping or share with someone"),
-                () => alert("Copy failed")
+                () => alert("Copy failed"),
               );
             }}
           >

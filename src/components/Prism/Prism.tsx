@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "./Prism.module.scss";
+import styles from "./Prism.module.css";
 
 export default function Prism({
   baseSides,
@@ -76,7 +76,7 @@ export default function Prism({
             }}
           />
         )}
-      </div>
+      </div>,
     );
   }
 
