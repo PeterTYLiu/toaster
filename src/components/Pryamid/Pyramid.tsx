@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactElement } from "react";
 import styles from "./Pyramid.module.css";
 
 export default function Pyramid({ baseSides, height, radius, id }: { baseSides: number; height: number; radius: number; id: string }) {
@@ -9,7 +9,7 @@ export default function Pyramid({ baseSides, height, radius, id }: { baseSides: 
   const sideInclination = (Math.atan(height / apothem) * 180) / Math.PI;
 
   const basePoints: string[] = [];
-  const sides: ReactNode[] = [];
+  const sides: ReactElement[] = [];
 
   for (let i = 0; i < baseSides; i++) {
     // Add a point on the base
@@ -40,7 +40,7 @@ export default function Pyramid({ baseSides, height, radius, id }: { baseSides: 
           }}
         >
           <svg
-            className={`${styles.face} ${styles.side}`}
+            className={styles.face}
             style={{
               width: baseSideLength + "px",
               height: sideHeight + "px",
@@ -50,7 +50,7 @@ export default function Pyramid({ baseSides, height, radius, id }: { baseSides: 
             <polygon points={`0,${sideHeight} ${baseSideLength / 2},0 ${baseSideLength},${sideHeight}`} />
           </svg>
         </div>
-      </div>
+      </div>,
     );
   }
 

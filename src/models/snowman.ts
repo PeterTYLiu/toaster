@@ -31,7 +31,7 @@ export const snowman: Node[] = [
             width: 23,
             height: 21,
             depth: 24,
-            radius: 200,
+            radius: 178,
             baseSides: 3,
           },
           {
@@ -70,7 +70,7 @@ export const snowman: Node[] = [
         width: 200,
         height: 200,
         depth: 200,
-        radius: 200,
+        radius: 178,
         baseSides: 3,
       },
       {
@@ -98,7 +98,7 @@ export const snowman: Node[] = [
             width: 22,
             height: 21,
             depth: 32,
-            radius: 200,
+            radius: 143,
             baseSides: 3,
           },
           {
@@ -137,7 +137,7 @@ export const snowman: Node[] = [
         width: 200,
         height: 200,
         depth: 200,
-        radius: 157,
+        radius: 143,
         baseSides: 3,
       },
       {
@@ -341,7 +341,7 @@ export const snowman: Node[] = [
             width: 200,
             height: 200,
             depth: 200,
-            radius: 105,
+            radius: 92,
             baseSides: 3,
           },
           {
