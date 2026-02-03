@@ -1,0 +1,9 @@
+.face {
+  --neg-radius: calc(var(--radius) * -1);
+  transform-style: preserve-3d;
+  position: absolute;
+  border: 1px solid black;
+  background-color: var(--bg);
+  transform-origin: center center calc(var(--radius) * cos(pi / (var(--layers) * 2)));
+  translate: 0px 0px var(--neg-radius);
+}
