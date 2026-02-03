@@ -6,4 +6,6 @@
   background-color: var(--bg);
   transform-origin: center center calc(var(--radius) * cos(pi / (var(--layers) * 2)));
   translate: 0px 0px var(--neg-radius);
+  height: calc(var(--radius) * var(--normalized-face-side-length));
+  width: calc(var(--radius) * var(--normalized-face-side-length));
 }
