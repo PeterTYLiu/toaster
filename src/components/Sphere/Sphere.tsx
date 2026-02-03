@@ -1,28 +1,16 @@
 import type { CSSProperties, ReactNode } from "react";
-import styles from "./Sphere.module.scss";
+import styles from "./Sphere.module.css";
 
-export default function Sphere({
-  numPlanes = 12,
-  numSpokes = 16,
-  id,
-}: {
-  id: string;
-  numPlanes?: number;
-  numSpokes?: number;
-}) {
+export default function Sphere({ numPlanes = 12, numSpokes = 16, id }: { id: string; numPlanes?: number; numSpokes?: number }) {
   const planes: ReactNode[] = [];
   for (let i = 0; i < numPlanes; i++) {
     const spokes: ReactNode[] = [];
 
     for (let j = 0; j < numSpokes; j++) {
       spokes.push(
-        <div
-          key={`${id}-${i}-${j}`}
-          className={styles.spoke}
-          style={{ "--spoke": j } as CSSProperties}
-        >
+        <div key={`${id}-${i}-${j}`} className={styles.spoke} style={{ "--spoke": j } as CSSProperties}>
           <div className={styles.face} />
-        </div>
+        </div>,
       );
     }
 
@@ -39,7 +27,7 @@ export default function Sphere({
         }
       >
         {spokes}
-      </div>
+      </div>,
     );
   }
 

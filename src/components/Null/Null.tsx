@@ -1,6 +1,6 @@
-import styles from "./Null.module.scss";
-import Cuboid from "../Cuboid/Cuboid";
 import type { CSSProperties } from "react";
+import Cuboid from "../Cuboid/Cuboid";
+import styles from "./Null.module.css";
 
 export default function Null() {
   return (

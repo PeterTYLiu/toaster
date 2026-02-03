@@ -1,6 +1,6 @@
-import styles from "./Links.module.scss";
-import { IconBrandGithub, IconShare, IconBrandLinkedin } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandLinkedin, IconShare } from "@tabler/icons-react";
 import { iconSize } from "../../nodeProperties";
+import styles from "./Links.module.css";
 
 function share() {
   if (navigator.share)
@@ -12,7 +12,7 @@ function share() {
 
   navigator.clipboard.writeText("https://petertyliu.github.io/toaster").then(
     () => alert("Copied link to clipboard!"),
-    () => alert("Could not share :(")
+    () => alert("Could not share :("),
   );
 }
 

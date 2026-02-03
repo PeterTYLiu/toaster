@@ -1,17 +1,17 @@
-$header-height: 40px;
-$gallery-height: 300px;
-$inner-height: $gallery-height - $header-height;
-
 .chevron {
   transition: transform 0.3s;
 }
 
 .gallery {
+  --header-height: 40px;
+  --gallery-height: 300px;
+  --inner-height: calc(var(--gallery-height) - var(--header-height));
+
   position: absolute;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: #111;
-  height: $header-height;
+  height: var(--header-height);
   left: var(--workspace-offset);
   right: var(--workspace-offset);
   bottom: 0;
@@ -23,14 +23,14 @@ $inner-height: $gallery-height - $header-height;
   }
 
   &.active {
-    height: $gallery-height;
+    height: var(--gallery-height);
     .chevron {
       transform: rotate(180deg);
     }
   }
 
   button.header {
-    height: $header-height;
+    height: var(--header-height);
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -46,7 +46,7 @@ $inner-height: $gallery-height - $header-height;
 }
 
 .inner {
-  height: $inner-height;
+  height: var(--inner-height);
   padding: 16px;
   display: flex;
   gap: 16px;

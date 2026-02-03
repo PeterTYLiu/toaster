@@ -1,4 +1,4 @@
-import styles from "./PropertyInput.module.scss";
+import styles from "./PropertyInput.module.css";
 
 export interface PropertyInputStaticProps {
   label: string;

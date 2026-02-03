@@ -1,6 +1,6 @@
 import { IconX } from "@tabler/icons-react";
-import styles from "./Banner.module.scss";
 import { useRef } from "react";
+import styles from "./Banner.module.css";
 
 export default function Banner() {
   const bannerRef = useRef<null | HTMLDialogElement>(null);
