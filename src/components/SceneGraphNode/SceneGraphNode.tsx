@@ -1,8 +1,8 @@
+import { IconChevronDown, IconChevronRight, IconLink } from "@tabler/icons-react";
 import { Node } from "../../App";
 import useSceneContext from "../../hooks/UseSceneContext";
-import styles from "./SceneGraphNode.module.css";
 import { nodeTypesMap, smallIconSize } from "../../nodeProperties";
-import { IconChevronDown, IconChevronRight, IconLink } from "@tabler/icons-react";
+import styles from "./SceneGraphNode.module.css";
 
 export default function SceneGraphNode({ node }: { node: Node }) {
   const { dispatch, activeNodeId } = useSceneContext();
@@ -55,6 +55,7 @@ export default function SceneGraphNode({ node }: { node: Node }) {
         {node.instanceOf ? <IconLink size={smallIconSize} color="#5ff" /> : nodeTypesMap[node.type].icon}
         <span className={styles.name}>{node.name || `unnamed ${node.type}`}</span>
       </div>
+      <div popover>Popover</div>
       {!!node.children.length && !node.collapsed && (
         <div className={styles.children}>
           {node.children.map((child) => (
